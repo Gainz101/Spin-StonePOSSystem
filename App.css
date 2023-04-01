@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap');
+*{
+    /* display:flex;
+    justify-content: center;
+    align-items: center; */
+    
+}
+
+
+h1{
+    font-family: 'Nunito', sans-serif;
+    background-image: linear-gradient(90deg, #4d78ef, #709df7, #7ea3ef);
+    background-clip: text;
+
+    -webkit-background-clip: text;
+
+    font-weight: 600;
+    font-size: 100px;
+    text-align: center;
+    color: transparent;
+}
+.background{
+    background-color: #000;
+  
+    min-height: 950px;
+  
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.topping-button {
+    font-family: 'Nunito', sans-serif;
+    background-color: rgb(67, 201, 231);
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 50px;
+    border-radius: 9px;
+    transition: background-color 0.4s ease;
+    width: 100%;
+}
+  
+.topping-button.selected {
+    background-color: #000;
+    color: #fff;
+}
+  
+.topping-button:hover {
+    background-color: #000;
+    color: #fff;
+}
+  
+.topping-button:active {
+    transform: scale(0.95);
+}
+
+
+.card {
+    width: 490px;
+    height: 40px;
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 50px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  }
+  
+  .card__content {
+    background: rgb(5, 6, 45);
+    border-radius: 17px;
+    width: 100%;
+    height: 100%;
+    color:#fff;
+  }
+
+  .rejectButton {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 15px;
+
+
+}
+  
+.rejectButton:hover {
+    background-color: black;
+}
+  
+.rejectButton:active {
+    background-color: black;
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+}
+
+footer{
+    background-color: lightgray;
+    padding: 7px;
+    text-align: center;
+}
