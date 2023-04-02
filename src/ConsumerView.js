@@ -14,12 +14,12 @@ const baseItems = [{item: 'Cheese Pizza', id: 1}, {item:'1 Topping Pizza', id: 2
     // function whenClicked(){
     //   changeCount(countNum+1);
     // }
-    const listItems = baseItems.map(baseItems => <button class="topping-button" key={baseItems.id}> {baseItems.item}</button>);
+    const listItems = baseItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
     return (
       //Parent Element
       <div>
         <div class="background">
-          <h1>Choose your Main</h1>
+          <h2>Choose your Main</h2>
           {listItems}
         </div>
         <footer class="footer">

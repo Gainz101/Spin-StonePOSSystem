@@ -1,34 +1,29 @@
-import {useState} from 'react'
+import {useState} from "react"
 import './Login.css'; // Tell webpack that Login.js uses these styles
-import SvgComponent from './assets/SvgComponent';
-
-// import './assets/google-logo.svg';
-// import './assets/hide-eye.svg';
-// import './assets/show-eye.svg';
-import './assets/btn_google_light_normal_ios.svg';
-// import './assets/btn_google_light_normal_ios.eps';
-// import './assets/btn_google_light_normal_ios.jpeg';
 
 
-export default function Login(props){
+
+export const SignUp = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const [name, setName] = useState("");
 
 
     const handleSubmit = (e) =>{
         e.preventDefault();
         console.log(username);
     }
-    
-    return(
+    return (
         <div id="background">
         <div class="box">
             
             <form onSubmit={handleSubmit}>
-                <h1>Log In</h1>
-                <div class="smallGreyText">Welcome to Spin and Stone. Please Sign in.</div>
-
+                <h1>Sign Up</h1>
+                <div class="smallGreyText">Sign up Here.</div>
+                <div class="input-field">
+                    <input type="text" id="name" placeholder=" " onChange={e => setName(e.target.value)}></input>
+                    <label htmlFor="name">Full Name</label>
+                </div>
                 <div class="input-field">
                     <input type="text" id="username" placeholder=" " onChange={e => setUserName(e.target.value)}></input>
                     <label htmlFor="username">Username</label>
@@ -38,19 +33,15 @@ export default function Login(props){
                     <label htmlFor="password">Password</label>
                 </div>
 
-                <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign in</button>
+                <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign Up</button>
                 {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
 
 
-                <span>or</span>
-                <button class="google-signin">
-                    <div><SvgComponent /></div>
-                    <div class="centerr">Log in with Google</div>
-                </button>           
+                          
                 <p class="smallGreyText">
                     Don't have an account?
-                    <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
-                </p> 
+                    <a onClick={() => props.onFormSwitch("login")}> Sign up here</a>
+                </p>  
             </form>
         </div>
         </div>
