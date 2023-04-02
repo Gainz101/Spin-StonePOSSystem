@@ -20,7 +20,6 @@ export default function Login(props){
         e.preventDefault();
         console.log(username);
     }
-    
     return(
         <div id="background">
         <div class="box">
@@ -30,7 +29,7 @@ export default function Login(props){
                 <div class="smallGreyText">Welcome to Spin and Stone. Please Sign in.</div>
 
                 <div class="input-field">
-                    <input type="text" id="username" placeholder=" " onChange={e => setUserName(e.target.value)}></input>
+                    <input type="text" id="username" placeholder=" " onChange={e => setUsername(e.target.value)}></input>
                     <label htmlFor="username">Username</label>
                 </div>
                 <div class="input-field">
@@ -38,7 +37,11 @@ export default function Login(props){
                     <label htmlFor="password">Password</label>
                 </div>
 
-                <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign in</button>
+                {(username === "yeezy"  & password === "yeezy77") ? (
+                    <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign Up</button>
+                ) : (
+                    <button type="submit" class="signinFalse">Sign in</button>
+                )}                
                 {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
 
 

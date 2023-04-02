@@ -115,6 +115,22 @@ body{
     border-radius: 25px;
 }
 
+.signinFalse{
+    background: var(--blueMain);
+    color: #fff;
+    padding: 15px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.signinFalse:active{
+    font-size: 10px;
+    font-size: .85rem;
+    top: 50px;
+    color:red;
+}
+
 
 
 /* .title h1{

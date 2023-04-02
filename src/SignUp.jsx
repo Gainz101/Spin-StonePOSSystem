@@ -8,6 +8,14 @@ export const SignUp = (props) => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
+    const accounts = new Map()
+    accounts.set("yeezy","yeezy");
+
+    function handlerAccount(){
+        accounts.set(username,password);
+    }
+
+
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -19,28 +27,28 @@ export const SignUp = (props) => {
             
             <form onSubmit={handleSubmit}>
                 <h1>Sign Up</h1>
-                <div class="smallGreyText">Sign up Here.</div>
+                <div class="smallGreyText">Enter Your Information and Sign Up!</div>
                 <div class="input-field">
                     <input type="text" id="name" placeholder=" " onChange={e => setName(e.target.value)}></input>
                     <label htmlFor="name">Full Name</label>
                 </div>
                 <div class="input-field">
-                    <input type="text" id="username" placeholder=" " onChange={e => setUserName(e.target.value)}></input>
+                    <input type="text" id="username" placeholder=" " onChange={e => setUsername(e.target.value)}></input>
                     <label htmlFor="username">Username</label>
                 </div>
                 <div class="input-field">
                     <input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}></input>
                     <label htmlFor="password">Password</label>
                 </div>
-
-                <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign Up</button>
+        
+                <button onClick={handlerAccount()} type="submit" class="signin">Sign Up</button>
                 {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
 
 
                           
                 <p class="smallGreyText">
-                    Don't have an account?
-                    <a onClick={() => props.onFormSwitch("login")}> Sign up here</a>
+                    Already have an account?
+                    <a onClick={() => props.onFormSwitch("login")}> Sign in here</a>
                 </p>  
             </form>
         </div>
