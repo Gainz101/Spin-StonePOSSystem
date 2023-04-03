@@ -131,6 +131,15 @@ body{
     color:red;
 }
 
+.loginFailedText { 
+    font-size: 15px;
+    color:rgb(250, 61, 61);
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+
 
 
 /* .title h1{

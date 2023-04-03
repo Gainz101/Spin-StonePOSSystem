@@ -13,6 +13,7 @@ import './assets/btn_google_light_normal_ios.svg';
 export default function Login(props){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loginState, setState] = useState(true);
 
 
 
@@ -20,6 +21,20 @@ export default function Login(props){
         e.preventDefault();
         console.log(username);
     }
+
+   
+   
+
+      function LoginFail(){
+        return(
+            <p class="loginFailedText">
+                This username and password combo is invalid. Please try again.
+            </p>
+        );
+      }
+      
+
+
     return(
         <div id="background">
         <div class="box">
@@ -42,7 +57,10 @@ export default function Login(props){
                 ) :(username === "cash"  & password === "cash123") ? (
                     <button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in</button>
                 ) : (
-                    <button type="submit" class="signinFalse">Sign in</button>
+                    <div>
+                        <button onClick={e => setState(false)} type="submit" class="signinFalse">Sign in</button>
+                        {(loginState===true) ? null : <LoginFail/>}
+                    </div>
                 )}                
                 {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
 
