@@ -16,7 +16,7 @@ export default function CashierView() {
   //   changeCount(countNum+1);
   // }
   /*
-const itemRow1 = baseItems.slice(0,2).map(baseItems => <button class = "cashButton"key={baseItems.id}> {baseItems.item}</button>);
+  const itemRow1 = baseItems.slice(0,2).map(baseItems => <button class = "cashButton"key={baseItems.id}> {baseItems.item}</button>);
   const itemRow2 = baseItems.slice(2).map(baseItems => <button class = "cashButton"key={baseItems.id}> {baseItems.item}</button>);*/
 
   const listItems = baseItems.map(baseItems => <div class="grid-item"><button class = "cashButton"key={baseItems.id}> {baseItems.item}</button></div>);
