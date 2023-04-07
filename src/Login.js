@@ -10,10 +10,32 @@ import './assets/btn_google_light_normal_ios.svg';
 // import './assets/btn_google_light_normal_ios.jpeg';
 
 
+/* Returns the URL parameters for this page
+
+e.g.
+
+*/
+function getURLParams() {
+    // source: https://www.sitepoint.com/get-url-parameters-with-javascript/
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    return urlParams
+}
+
+
 export default function Login(props){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginState, setState] = useState(true);
+
+
+    // Hack: skip login screen
+    // For example, http://localhost:3000/?form=consumer_view
+    const urlParams = getURLParams()
+    if(urlParams.get("form") !== null) {
+        props.onFormSwitch(urlParams.get("form"))
+    }
+    
 
 
 
