@@ -44,9 +44,9 @@ export default function MyApp() {
           <CashierView onFormSwitch={toggleForm} />
 
         /* Yezen, please uncomment this after you push the Toppings tab */
-        /* : 
+         : 
            currentForm === "toppings_tabs"
-           ? <ToppingTabs onFormSwitch={toggleForm} /> */
+           ? <ToppingTabs onFormSwitch={toggleForm} /> 
 
         : null // Didn't need an else so I put null and it worked I guess
         // The names are declared when the buttons are pressed and formswitch is assign with a string. The strings are then matched here.
