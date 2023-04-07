@@ -8,8 +8,8 @@ export const SignUp = (props) => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
-    const accounts = new Map()
-    accounts.set("yeezy","yeezy");
+    const accounts = new Map();
+    accounts.set("yeezy","yeezy77");
 
     function handlerAccount(){
         accounts.set(username,password);

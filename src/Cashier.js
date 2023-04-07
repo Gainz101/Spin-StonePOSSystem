@@ -10,8 +10,20 @@ const baseItems = [{ item: 'Cheese Pizza', id: 1 }, { item: '1 Topping Pizza', i
 
 
 export default function CashierView() {
+<<<<<<< HEAD
  
   // Arrange of items to 2x2 button format
+=======
+  // const [countNum, changeCount] = useState(0);
+
+  // function whenClicked(){
+  //   changeCount(countNum+1);
+  // }
+  /*
+  const itemRow1 = baseItems.slice(0,2).map(baseItems => <button class = "cashButton"key={baseItems.id}> {baseItems.item}</button>);
+  const itemRow2 = baseItems.slice(2).map(baseItems => <button class = "cashButton"key={baseItems.id}> {baseItems.item}</button>);*/
+
+>>>>>>> d0ffa684ab309b94f8d4ba8bf21311cf50aa27ff
   const listItems = baseItems.map(baseItems => <div class="grid-item"><button class = "cashButton"key={baseItems.id}> {baseItems.item}</button></div>);
 
   return (
