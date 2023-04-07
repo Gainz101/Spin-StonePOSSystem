@@ -51,12 +51,16 @@ export default function Login(props){
                     <input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}></input>
                     <label htmlFor="password">Password</label>
                 </div>
+                
 
                 {(username === "yeezy"  & password === "yeezy77") ? (
                     <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign in</button>
-                ) :(username === "cash"  & password === "cash123") ? (
+                ) : (username === "cash"  & password === "cash123") ? (
                     <button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in</button>
-                ) : (
+                ) : (username === "man" & password === "man000") ? (
+                    <button onClick={() => props.onFormSwitch("manger_view")} type="submit" class="signin">Sign in</button>
+                )
+                : (
                     <div>
                         <button onClick={e => setState(false)} type="submit" class="signinFalse">Sign in</button>
                         {(loginState===true) ? null : <LoginFail/>}
