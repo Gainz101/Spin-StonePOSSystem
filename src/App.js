@@ -6,6 +6,7 @@ import Login from './Login';
 import { SignUp } from './SignUp';
 import CashierView from './Cashier';
 import ToppingTabs from './ToppingTabs';
+import ManagerSelect from './ManagerView';
 
 
 /* Yezen, please uncomment this after you push the Toppings tab */
@@ -35,7 +36,12 @@ export default function MyApp() {
     <div className='App'>
     {
       /*Sorry for this compact code if else wasnt working and knew no other way*/
-      currentForm==="login" ? <Login onFormSwitch={toggleForm}/> : currentForm==="signup" ? <SignUp onFormSwitch={toggleForm}/> : currentForm ==="consumer_view" ?<ConsumerView onFormSwitch={toggleForm}/>: currentForm === "cashier_view" ? <CashierView onFormSwitch={toggleForm}/>: currentForm ==="toppings_tabs"?<ToppingTabs onFormSwitch={toggleForm}/>: null//didnt need an else so i put null and it worked i guess
+      currentForm=== "login" ? <Login onFormSwitch={toggleForm}/>: 
+      currentForm=== "signup" ? <SignUp onFormSwitch={toggleForm}/>: 
+      currentForm === "consumer_view" ? <ConsumerView onFormSwitch={toggleForm}/>: 
+      currentForm === "cashier_view" ? <CashierView onFormSwitch={toggleForm}/>: 
+      currentForm === "toppings_tabs" ? <ToppingTabs onFormSwitch={toggleForm}/>: 
+      currentForm === "manager_view"? <ManagerSelect onFormSwitch={toggleForm}/>: null //didnt need an else so i put null and it worked i guess
       // The names are declared when the buttons are pressed and formswitch is assign with a string. The strings are then matched here.
       // If the current form is login then stay at login, if its signup then move to sign up screen.
     }
