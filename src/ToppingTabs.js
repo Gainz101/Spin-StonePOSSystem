@@ -48,6 +48,11 @@ export default function ToppingTabs(props) {
             </TabPanel>
             <TabPanel>
                 {listItemsDrizzle}
+                <div class="finish_order">
+                    <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                        Finish Order
+                    </button>
+                </div>
             </TabPanel>
         </Tabs>
     );

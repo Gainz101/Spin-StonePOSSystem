@@ -70,7 +70,7 @@ export default function Login(props){
                     <label htmlFor="username">Username</label>
                 </div>
                 <div class="input-field">
-                    <input type = "text" id= "password" placeloginholder=" " onChange={e => setPassword(e.target.value)}></input>
+                    <input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}></input>
                     <label htmlFor="password">Password</label>
                 </div>
 
