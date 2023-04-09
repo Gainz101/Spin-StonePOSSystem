@@ -6,11 +6,6 @@ import './App.css'; // Tell webpack that App.js uses these styles
 
 
 
-// const baseItems = [{item: 'Cheese Pizza', id: 1}, 
-//                     {item:'1 Topping Pizza', id: 2}, 
-//                     {item:'2-4 Topping Pizza', id: 3},
-//                     {item:'Drink', id: 4}
-//                   ];
 
 
 
@@ -18,7 +13,10 @@ export default function ConsumerView(props) {
   // const [countNum, changeCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   //const [baseItems, setItems] = useState([]);
-  const baseItems = [{item: 'Cheese Pizza', id: 1}, {item:'1 Topping Pizza', id: 2}, {item:'2-4 Topping Pizza', id: 3}, {item:'Drink', id: 4}];
+  const baseItems = [{item: 'Cheese Pizza', id: 1},
+                    {item:'1 Topping Pizza', id: 2},
+                    {item:'2-4 Topping Pizza', id: 3},
+                    {item:'Drink', id: 4}];
 
 
   // from https://legacy.reactjs.org/docs/faq-ajax.html
@@ -36,28 +34,22 @@ export default function ConsumerView(props) {
   //       })
   // }, [])
 
-  // function whenClicked(){
-  //   changeCount(countNum+1);
-  // }
-  const listItems = baseItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch("toppings_tabs")}> {baseItems.item}</button></div></div>);
+
+  const listItems = baseItems.map(baseItems => 
+  <div class="card__container">
+    <div class = "card">
+      <button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch("toppings_tabs")}> 
+        {baseItems.item}
+      </button>
+    </div>
+  </div>);
 
   return (
     //Parent Element
     <div>
       <div class="background">
         <h2>Choose your Main</h2>
-        {
-          // baseItems.map(item =>
-          //   <div class="card__container">
-          //     <div class="card">
-          //       <button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch("toppings_tabs")}>
-          //         {/* {item.item_display_name} */}
-          //         
-          //       </button>
-          //     </div>
-          //   </div>)
-          listItems
-        }
+        {listItems}
       </div>
       <footer class="footer">
         <p>Copyright &copy; 2023 Yezen Hijazin</p>
