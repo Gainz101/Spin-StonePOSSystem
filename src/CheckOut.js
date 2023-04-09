@@ -4,18 +4,18 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './App.css'; // Tell webpack that App.js uses these styles
 
-export default function CheckOut(){
+export default function CheckOut(props){
     return(
-    <div>
-        <div class="background">
+    <div class="background">
+        <div class="payBackground">
             <div class ="itemBoxContainer">
                 <div class ="itemBox">
-                    <div class="itemBoxContentName">
+                    <div class="contentName">
                         <strong>2-4 Topping Pizza</strong>
-                        <div class ="itemBoxContentPrice">$2.00</div>
+                        <div class ="contentPrice">$2.00</div>
                     </div>
                     <div class ="itemBoxContentEditRemove">
-                        <a>Edit </a><a>Remove</a>
+                        <a onClick={() => props.onFormSwitch("toppings_tabs")}>Edit </a><a>Remove</a>
                         <div class ="itemBoxContentQTY"><strong>Qty 1</strong></div>
                     </div>
                 </div>
@@ -28,6 +28,11 @@ export default function CheckOut(){
                     </div>
                 </div>
             </div>
+            <div class="finish_order">
+                    <button class="finish_orderText" onClick={() => props.onFormSwitch("consumer_view")}>
+                        Pay
+                    </button>
+                </div>
         </div>
     </div>
     );
