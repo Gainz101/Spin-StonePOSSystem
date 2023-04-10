@@ -5,7 +5,7 @@
 #
 # How to run this:
 #   cd Project3_Zeta/backend
-#   python3 -m flask --app main run
+#   python3 -m flask --app main run -p 5001
 
 from flask import Flask, jsonify
 

@@ -17,17 +17,16 @@ export default function CustomerView(props) {
   //                   {item_display_name:'2-4 Topping Pizza', itemtype_id: 3},
   //                   {item_display_name:'D', itemtype_id: 4}];
 
-
   //from https://legacy.reactjs.org/docs/faq-ajax.html
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/baseItems")
-      .then((res) => res.json())
-      .then((res) => {
+    fetch("http://127.0.0.1:5001/baseItems")
+      .then((res)=>res.json())
+      .then((jsonItems) => {
         setIsLoaded(true);
-        setItems(res);
+        setItems(jsonItems);
       },
         (error) => {
-          setIsLoaded(true);
+          setIsLoaded(false);
           console.log("error:", error)
           alert(error);
         })

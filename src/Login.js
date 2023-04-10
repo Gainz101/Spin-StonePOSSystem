@@ -89,7 +89,7 @@ export default function Login(props){
 
 
                     {(username === "yeezy"  & password === "yeezy77") ? (
-                        <button onClick={() => navigateTo('/?form=customer_view')} type="submit" class="signin">Sign in</button>
+                        <button onClick={() => props.onFormSwitch("customer_view")} type="submit" class="signin">Sign in</button>
                     ) :(username === "cash"  & password === "cash123") ? (
                         <button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in</button>
                     ) : (username === "man" & password === "man000") ? (
