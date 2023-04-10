@@ -16,7 +16,7 @@ import './App.css'; // Tell webpack that App.js uses these styles
 
 
 
-export default function ConsumerView(props) {
+export default function CustomerView(props) {
   // const [countNum, changeCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [baseItems, setItems] = useState([]);

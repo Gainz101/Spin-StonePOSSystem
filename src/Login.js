@@ -30,7 +30,7 @@ export default function Login(props){
 
 
     // Hack: skip login screen
-    // For example, http://localhost:3000/?form=consumer_view
+    // For example, http://localhost:3000/?form=customer_view
     const urlParams = getURLParams()
     if(urlParams.get("form") !== null) {
         props.onFormSwitch(urlParams.get("form"))
@@ -60,7 +60,13 @@ export default function Login(props){
     return(
         <div id="background">
         <div class="box">
-            
+
+            {/***** Login bypass *****/}
+            <h1><a href="/?form=customer_view">Consumer View</a></h1>
+            <h1><a href="/?form=cashier_view">Cashier View</a></h1>
+            <h1><a href="/?form=manager_view">Manager View (WIP)</a></h1>
+            {/***** End login bypass *****/}
+
             <form onSubmit={handleSubmit}>
                 <h1>Log In</h1>
                 <div class="smallGreyText">Welcome to Spin and Stone. Please Sign in.</div>
@@ -75,7 +81,7 @@ export default function Login(props){
                 </div>
 
                 {(username === "yeezy"  & password === "yeezy77") ? (
-                    <button onClick={() => props.onFormSwitch("consumer_view")} type="submit" class="signin">Sign in</button>
+                    <button onClick={() => props.onFormSwitch("customer_view")} type="submit" class="signin">Sign in</button>
                 ) :(username === "cash"  & password === "cash123") ? (
                     <button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in</button>
                 ) : (

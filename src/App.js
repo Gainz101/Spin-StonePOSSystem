@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from "react";
 import './App.css'; // Tell webpack that App.js uses these styles
-import ConsumerView from './ConsumerView';
+import CustomerView from './CustomerView';
 import Login from './Login';
 import { SignUp } from './SignUp';
 import CashierView from './Cashier';
@@ -14,7 +14,7 @@ import CashierView from './Cashier';
 
 const sceneSelector = () => {
   if (showPayment) {
-    return <ConsumerView />;
+    return <CustomerView />;
   } else if (baseItem) {
     return <CashierView />;
   } else {
@@ -38,8 +38,8 @@ export default function MyApp() {
           <Login onFormSwitch={toggleForm} />
         : currentForm === "signup" ?
           <SignUp onFormSwitch={toggleForm} />
-        : currentForm === "consumer_view" ?
-          <ConsumerView onFormSwitch={toggleForm} />
+        : currentForm === "customer_view" ?
+          <CustomerView onFormSwitch={toggleForm} />
         : currentForm === "cashier_view" ?
           <CashierView onFormSwitch={toggleForm} />
 
