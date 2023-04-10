@@ -22,9 +22,11 @@ export default function ToppingTabs(props) {
     const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
     const listItemsDrizzle = drizzleItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
 
-    
+    const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+
     
     return (
+        <div class ="background">
         <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
             <TabList>
                 <Tab>Crust</Tab>
@@ -35,18 +37,28 @@ export default function ToppingTabs(props) {
             </TabList>
         
             <TabPanel>
+                {exit}
+                <h2>Choose your Toppings</h2>
                 {listItemsCrust}
             </TabPanel>
             <TabPanel>
+                {exit}
+                <h2>Choose your Toppings</h2>
                 {listItemsSauce}
             </TabPanel>
             <TabPanel>
+                {exit}
+                <h2>Choose your Toppings</h2>
                 {listItemsMeats}
             </TabPanel>
             <TabPanel>
+                {exit}
+                <h2>Choose your Toppings</h2>
                 {listItemsVeggies}
             </TabPanel>
             <TabPanel>
+                {exit}
+                <h2>Choose your Toppings</h2>
                 {listItemsDrizzle}
                 <div class="finish_order">
                     <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
@@ -55,6 +67,7 @@ export default function ToppingTabs(props) {
                 </div>
             </TabPanel>
         </Tabs>
+        </div>
     );
     
 }

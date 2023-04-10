@@ -164,7 +164,7 @@ footer{
     padding: 50px;
 }
 .finish_order:active {
-    transform: scale(0.95);
+    transform: scale(0.9);
 }
 .finish_orderText{
     width: 100%;
@@ -173,18 +173,15 @@ footer{
     font-size:30px;
     color: black;
     background-color: #fff;
-    border: #000 3px solid;
+    border: #000 5px solid;
 }
 
 
 .finish_orderText.selected {
-    background-color: black;
-    color: #fff;
 }
   
 .finish_orderText:hover {
-    background-color: black;
-    color: #fff;
+    transform: scale(1.1);
 }
 .itemBoxContainer{
     width: 50%;
@@ -256,3 +253,63 @@ footer{
     width: min(100%, 700px);
     border-radius: 10px;
 }
+
+/* Tabs Container */
+.react-tabs {
+    font-size: 45px;
+    /* max-width: 700px; */
+    border-radius: 15px;
+    
+  }
+  
+  /* Tab List */
+  .react-tabs__tab-list {
+    padding: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    text-decoration: none;
+    background-color: #000;
+  }
+  
+  /* Tab */
+  .react-tabs__tab {
+    color: white;
+    border: none;
+    border-radius: 15px 15px 0 0;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    position: relative;
+  }
+
+  
+  .react-tabs__tab:hover {
+    background-color: #ffffff;
+    color: #000;
+    transform: scale(1.1);
+  }
+  
+  .react-tabs__tab:focus {
+    box-shadow: none;
+  }
+  
+
+  
+  .react-tabs__tab--selected {
+    background-color: #FFFFFF;
+    color: black;
+  }
+  
+  .react-tabs__tab--selected::before {
+    background-color: #FFFFFF;
+  }
+  
+  /* Tab Panels */
+  .react-tabs__tab-panel {
+    padding: 30px;
+    color: white;
+    border-radius: 0 15px 15px 15px;
+  }
+  
+
+  
