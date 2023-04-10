@@ -56,59 +56,67 @@ export default function Login(props){
         );
       }
       
-
+      function navigateTo(url) {
+        window.location.href = url;
+        
+      }
 
     return(
         <div id="background">
-        <div class="box">
+            <div class="box">
 
-            {/***** Login bypass *****/}
-            <h1><a href="/?form=customer_view">Consumer View</a></h1>
-            <h1><a href="/?form=cashier_view">Cashier View</a></h1>
-            <h1><a href="/?form=manager_view">Manager View (WIP)</a></h1>
-            {/***** End login bypass *****/}
+                {/***** Login bypass *****/}
+                <h1><a href="/?form=customer_view">Consumer View</a></h1>
+                <h1><a href="/?form=cashier_view">Cashier View</a></h1>
+                <h1><a href="/?form=manager_view">Manager View (WIP)</a></h1>
+                {/***** End login bypass *****/}
 
-            <form onSubmit={handleSubmit}>
-                <h1>Log In</h1>
-                <div class="smallGreyText">Welcome to Spin and Stone. Please Sign in.</div>
+                <form onSubmit={handleSubmit}>
+                    <h1>Log In</h1>
+                    <div class="smallGreyText">Welcome to Spin and Stone. Please Sign in.</div>
 
-                <div class="input-field">
-                    <input type="text" id="username" placeholder=" " onChange={e => setUsername(e.target.value)}></input>
-                    <label htmlFor="username">Username</label>
-                </div>
-                <div class="input-field">
-                    <input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}></input>
-                    <label htmlFor="password">Password</label>
-                </div>
-
-
-                {(username === "yeezy"  & password === "yeezy77") ? (
-                    <button onClick={() => props.onFormSwitch("customer_view")} type="submit" class="signin">Sign in</button>
-                ) :(username === "cash"  & password === "cash123") ? (
-                    <button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in</button>
-                ) : (username === "man" & password === "man000") ? (
-                    <button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="signin">Sign in</button>
-                ) :
-                (
-                    <div>
-                        <button onClick={e => setState(false)} type="submit" class="signinFalse">Sign in</button>
-                        {(loginState===true) ? null : <LoginFail/>}
+                    <div class="input-field">
+                        <input type="text" id="username" placeholder=" " onChange={e => setUsername(e.target.value)}></input>
+                        <label htmlFor="username">Username</label>
                     </div>
-                )}                
-                {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
+                    <div class="input-field">
+                        <input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}></input>
+                        <label htmlFor="password">Password</label>
+                    </div>
+
+
+        
+
+
+                    {(username === "yeezy"  & password === "yeezy77") ? (
+                        <button onClick={() => navigateTo('/?form=customer_view')} type="submit" class="signin">Sign in</button>
+                    ) :(username === "cash"  & password === "cash123") ? (
+                        <button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in</button>
+                    ) : (username === "man" & password === "man000") ? (
+                        <button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="signin">Sign in</button>
+                    ) :
+                    (
+                        <div>
+                            <button onClick={e => setState(false)} type="submit" class="signinFalse">Sign in</button>
+                            {(loginState===true) ? null : <LoginFail/>}
+                        </div>
+                    )}                
+                    {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
 
 
 
-                <span>or</span>
-                <button class="google-signin">
-                    <div><SvgComponent /></div>
-                    <div class="centerr">Log in with Google</div>
-                </button>           
-                <p class="smallGreyText">
-                    Don't have an account?
-                    <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
-                </p> 
-            </form>
-        </div>
+                    <span>or</span>
+                    <button class="google-signin">
+                        <div><SvgComponent /></div>
+                        <div class="centerr">Log in with Google</div>
+                    </button>           
+                    <p class="smallGreyText">
+                        Don't have an account?
+                        <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
+                    </p> 
+                </form>
+            </div>
         </div>
     );
+                }
+            
