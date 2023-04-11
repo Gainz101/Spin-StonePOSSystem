@@ -12,10 +12,11 @@ export default function CustomerView(props) {
   // const [countNum, changeCount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [baseItems, setItems] = useState([]);
-  // const baseItems = [{item_display_name: 'Cheese Pizza', itemtype_id: 1},
-  //                   {item_display_name:'1 Topping Pizza', itemtype_id: 2},
-  //                   {item_display_name:'2-4 Topping Pizza', itemtype_id: 3},
-  //                   {item_display_name:'D', itemtype_id: 4}];
+//   const baseItems = [{item: 'Cheese Pizza', id: 1},
+//   {item:'1 Topping Pizza', id: 2},
+//   {item:'2-4 Topping Pizza', id: 3},
+//   {item:'Drink', id: 4}];
+// const listItems = baseItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch("toppings_tabs")}> {baseItems.item}</button></div></div>);
 
   //from https://legacy.reactjs.org/docs/faq-ajax.html
   useEffect(() => {
@@ -31,7 +32,6 @@ export default function CustomerView(props) {
           alert(error);
         })
   }, [])
-
 
 
 
