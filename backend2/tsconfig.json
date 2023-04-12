@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "lib": ["es2020"],
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "target": "es2019",
+      "rootDir": "src",
+      "outDir": "build",
+      "allowSyntheticDefaultImports": true,
+      "importHelpers": true,
+      "alwaysStrict": true,
+      "sourceMap": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true
+    }
+  }
