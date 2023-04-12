@@ -31,31 +31,7 @@ h2{
     opacity: 1;
     padding-bottom: 35%;
 }
-.topping-button {
-    font-family: 'Nunito', sans-serif;
-    background-color: rgb(79, 134, 146);
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    font-size: 50px;
-    border-radius: 9px;
-    transition: background-color 0.4s ease;
-    width: 100%;
-}
-  
-.topping-button.selected {
-    background-color: #000;
-    color: #fff;
-}
-  
-.topping-button:hover {
-    background-color: #000;
-    color: #fff;
-}
-  
-.topping-button:active {
-    transform: scale(0.95);
-}
+
 .rejectButton {
     background-color: grey;
     border: none;
