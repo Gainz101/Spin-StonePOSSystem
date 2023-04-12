@@ -16,23 +16,23 @@ export default function CashierView(props) {
   //   changeCount(countNum+1);
   // }
   
-  const listItems = baseItems.map(baseItems => <div class="grid-item"><button class = "cashButton"key={baseItems.id}> {baseItems.item}</button></div>);
+  const listItems = baseItems.map(baseItems => <button role="button" class="button-nameBase" key={baseItems.id}> {baseItems.item}</button>);
   
 
   const crustItems = [{item: 'Normal Crust', id: 1}, {item:'Cauliflower Crust', id: 2}];
-    const listItemsCrust = crustItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
+    const listItemsCrust = crustItems.map(baseItems => <button role="button" class="button-name" key={baseItems.id}> {baseItems.item}</button>);
 
     const sauceItems = [{item: 'Alfredo', id: 1}, {item:'Traditional Red', id: 2}, {item:'Zesty Red', id: 3}];
-    const listItemsSauce = sauceItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
+    const listItemsSauce = sauceItems.map(baseItems => <button role="button" class="button-name" key={baseItems.id}> {baseItems.item}</button>);
 
     const meatsItems = [{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5}];
-    const listItemsMeats = meatsItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
+    const listItemsMeats = meatsItems.map(baseItems => <button role="button" class="button-name" key={baseItems.id}> {baseItems.item}</button>);
 
     const veggiesItems = [{item: 'Green Peppers', id: 1}, {item:'Black Olives', id: 2}, {item:'Banana Peppers', id: 3}, {item:'Jalapenos', id: 4}, {item:'Mushrooms', id: 5}, {item:'Onions', id: 6}];
-    const listItemsVeggies = veggiesItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
+    const listItemsVeggies = veggiesItems.map(baseItems => <button role="button" class="button-name" key={baseItems.id}> {baseItems.item}</button>);
 
     const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
-    const listItemsDrizzle = drizzleItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id}> {baseItems.item}</button></div></div>);
+    const listItemsDrizzle = drizzleItems.map(baseItems => <button role="button" class="button-name" key={baseItems.id}> {baseItems.item}</button>);
   
     const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
   return (
@@ -55,13 +55,12 @@ export default function CashierView(props) {
               </div>
             </div>
             <div class="orderLog">
-              <div class="gridMoverToppings">
-                <div class="grid-containerToppings">
+              <div class="">
+                
                   <div class="box">
                     
                   </div>
-
-                </div>
+           
               </div>
             </div>
           </div>
