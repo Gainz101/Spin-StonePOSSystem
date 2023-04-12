@@ -76,11 +76,38 @@ h2{
   height: 40%;
   padding: 20px;
 }
+
+.toppingsSection{
+    display: flex;
+    align-items: right;
+}
+.baseSection{
+    display: flex;
+    align-items: left;
+}
+.grid-containerToppings {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  .grid-item {
+    font-size: 25px;
+    
+    text-align: center;
+    border-radius: 20px;
+    padding: 5px;
+  }
+  .gridMoverToppings{
+    position:relative;
+    left:10px; top:2px;
+    width: 1000px;
+    height: 40%;
+    padding: 20px;
+  }
 .cashButton{
   font-family: 'Nunito', sans-serif;
   font-size:40px;
-  width: 300px;
-  height: 300px;
+  width: 210px;
+  height: 210px;
   background-color: lightblue;
   border-radius: 20px;
 }
@@ -114,4 +141,12 @@ h2{
     font-size: 8pt;
     font-family: tahoma;
     margin-right: 10px;
+  }
+  .orderLog{
+    display: flex;
+    align-items: right;
+  }
+  .box{
+    width: 100%;
+    height: 100%;
   }

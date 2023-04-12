@@ -29,10 +29,10 @@ export default function CheckOut(props){
                 </div>
             </div>
             <div class="finish_order">
-                    <button class="finish_orderText" onClick={() => props.onFormSwitch("consumer_view")}>
-                        Pay
-                    </button>
-                </div>
+                <button class="finish_orderText" onClick={() => props.onFormSwitch("consumer_view")}>
+                    Pay
+                </button>
+            </div>
         </div>
     </div>
     );
