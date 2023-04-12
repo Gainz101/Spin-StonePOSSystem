@@ -57,7 +57,7 @@ export default function CashierView(props) {
             <div class="orderLog">
               <div class="">
                 
-                  <div class="box">
+                  <div class="box2">
                     
                   </div>
            
