@@ -26,7 +26,7 @@ function startHosting(dbConn: dbConnection) {
         // https://web.dev/cross-origin-resource-sharing/
         response.setHeader('Access-Control-Allow-Origin', '*')
 
-        ItemType.getItemTypes(dbConn)
+        ItemType.dbGetItemTypes(dbConn)
             .then(itemTypes=>response.send(itemTypes))
     })
 
@@ -36,8 +36,8 @@ function startHosting(dbConn: dbConnection) {
 
         // https://web.dev/cross-origin-resource-sharing/
         response.setHeader('Access-Control-Allow-Origin', '*')
-        
-        ItemType.getItemTypes(dbConn)
+
+        ItemType.dbGetItemTypes(dbConn)
             .then(itemTypes=>itemTypes.filter((item)=>item.is_pizza))
             .then(itemTypes=>{
                 response.send(itemTypes.map(({item_display_name, itemtype_id})=>({
