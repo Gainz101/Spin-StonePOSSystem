@@ -11,7 +11,7 @@ export default class db {
             port: 5432,
             ssl: SSLMode.Disable // <--- this is really really bad, we aren't encrypted when talking to the server
         });
-        //
+        //  
         return client.connect().then(()=>{
             return new dbConnection(client);
         });

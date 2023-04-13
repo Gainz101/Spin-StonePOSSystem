@@ -1,4 +1,4 @@
-import { Client } from 'ts-postgres';
+import { Client, Value } from 'ts-postgres';
 
 const process = require('process')
 
@@ -10,8 +10,8 @@ export class dbConnection {
             postgresClient.end()
         })
     }
-    public sqlQuery<T extends {}>(query: string) {
-        return this.postgresClient.query(query).then((queryResult) => {
+    public sqlQuery<T extends {}>(query: string, queryArgs: Value[] = []) {
+        return this.postgresClient.query(query, queryArgs).then((queryResult) => {
             const { names, rows } = queryResult
             return rows.map((row) => {
                 let result: Record<string, any> = {}

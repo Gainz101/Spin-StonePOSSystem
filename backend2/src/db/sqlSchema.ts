@@ -1,8 +1,12 @@
 type SQL_ID = number
 type SQL_TimeStamp = string
 
-interface SQL_Order {
+
+interface SQL_Order_ID {
     order_id: SQL_ID;
+}
+
+interface SQL_Order extends SQL_Order_ID {
     creation_time: SQL_TimeStamp;
     completed: boolean;
 }
