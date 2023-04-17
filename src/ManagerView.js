@@ -3,6 +3,7 @@ import React from "react";
 import './ManagerView.css'; // Tell webpack that App.js uses these styles
 import SalesView from './SaleReport';
 import XZReport from './XZReport';
+import Inventory from './Inventory';
 
 
 const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {item:'Inventory', id: 3}];
@@ -21,7 +22,7 @@ const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {i
         return "xz_view";
       }
       else{ // 3 - inventory view
-        return "sales_view";
+        return "inventory_view";
       }
     };
 
