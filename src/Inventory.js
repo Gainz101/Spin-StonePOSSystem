@@ -22,11 +22,9 @@ function createStockData(stockId, stockName, quantity, minAmount, units) {
   }
   //INPUTS Test for Menu Table
   const stockRows = [
-    createMenuData('1 Topping Pizza', 6.25, 'OT',false),
-    createMenuData('Cheese Pizza', 6.25, 'CZ', false),
-    createMenuData('Cauliflower Crust', 2.25, 'CC', true),
-    createMenuData('Spinach', 0.0, 'SP', true)
-    
+    createStockData('WA', 'Water', 15, 0, "lbs"),
+    createStockData('MB', 'Meatball', 4, 0, "lbs"),
+    createStockData('SP', "Spinach", 10, 0, "lbs")
   ];  
 
 function Inventory() {
@@ -44,6 +42,7 @@ function Inventory() {
     
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1}}>
     
+    {/*Menu Items*/}
     <Grid item xs={6}>
     <TableContainer component={Paper} style={{margin: '10px', width:700}}>
     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -74,29 +73,32 @@ function Inventory() {
     </TableContainer>
     </Grid>
 
+    {/*Stock Table*/}
     <Grid item xs={6}>
     <TableContainer component={Paper} style={{margin: '10px', width:700}}>
     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead style={{backgroundColor:"#8458B3", fontFamily: 'monospace'}}>
           <TableRow>
-            <TableCell>Menu Item</TableCell>
-            <TableCell align="right">Price&nbsp;($)</TableCell>
-            <TableCell align="right">Id</TableCell>
-            <TableCell align="right">isModifier</TableCell>
+            <TableCell>Stock ID</TableCell>
+            <TableCell align="right">Stock Name</TableCell>
+            <TableCell align="right">Quantity&nbsp;</TableCell>
+            <TableCell align="right">Minimum Amount</TableCell>
+            <TableCell align="right">Unit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {menuRows.map((menuRows) => (
+          {stockRows.map((stockRows) => (
             <TableRow
-              key={menuRows.menuItem}
+              key={stockRows.menuItem}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {menuRows.menuItem}
+                {stockRows.stockId}
               </TableCell>
-              <TableCell align="right">{menuRows.menuPrice}</TableCell>
-              <TableCell align="right">{menuRows.id}</TableCell>
-              <TableCell align="right">{String(menuRows.isModifier)}</TableCell>
+              <TableCell align="right">{stockRows.stockName}</TableCell>
+              <TableCell align="right">{stockRows.quantity}</TableCell>
+              <TableCell align="right">{stockRows.minAmount}</TableCell>
+              <TableCell align="right">{stockRows.units}</TableCell>
             </TableRow>
           ))}
         </TableBody>
