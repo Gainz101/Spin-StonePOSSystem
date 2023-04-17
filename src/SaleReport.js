@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import React from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import { red } from '@material-ui/core/colors';
+import { blueGrey, red } from '@material-ui/core/colors';
 import './ManagerView.css'; // Tell webpack that App.js uses these styles
 
 function SalesReport() {
@@ -12,15 +12,15 @@ function SalesReport() {
   function handleOkButton() {
     // Do something when the "OK" button is pressed
   }
-
-  function handleGoBack() {
-    // Do something when the "X" button is pressed
-  }
-
-  const textBox = <p>BLAHBLAHBALH</p>
+  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+ 
+  const textBox = <p>Order #1</p>
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    
+    <body style={{background: "#e9dac4", height: "100vh", width: "100%", padding: "20px", }}>
+    {exit}
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
       <Typography variant="h3">Sales Report</Typography>
    
       <div style={{display: 'flex', width: "100%", marginTop: "1rem", marginBottom:"1rem", justifyContent: 'center', alignItems: 'center'}}>
@@ -31,15 +31,17 @@ function SalesReport() {
 
       <div style={{ display: "flex", justifyContent: "space-between", width: "80%" }}>
         <TextField
+          style={{backgroundColor:"white"}}
           label="Start Date"
-          variant="outlined"
+          variant="filled"
           size="small"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
         <TextField
+          style={{backgroundColor:"white"}}
           label="End Date"
-          variant="outlined"
+          variant="filled"
           size="small"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
@@ -47,12 +49,13 @@ function SalesReport() {
       </div>
       
       <div style={{ marginTop: "2rem" }}>
-        <Button variant="contained" color="primary" onClick={handleOkButton}>
+        <Button variant="contained" color="grey" onClick={handleOkButton}>
           OK
         </Button>
       </div>
       
     </div>
+    </body>
   );
 }
 
