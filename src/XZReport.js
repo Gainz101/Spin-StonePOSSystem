@@ -17,7 +17,8 @@ const XZReport = () => {
   const OnCurrentZReportButtonPressed = () => {
     // handle current Z report button press
   };
-
+  
+  // not working exit button
   const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
 
   return (
