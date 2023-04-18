@@ -14,3 +14,13 @@ export async function dbApplyStockCosts(dbConn: dbConnection, order_id: number) 
         ) GROUP BY inventory_costs.stock_id)
     AS stock_costs WHERE stock_costs.stock_id = inventory.stock_id`, [order_id])
 }
+
+export async function dbGetStocks(dbConn: dbConnection) {
+    return await dbConn.sqlQuery<{
+        stock_id: number,
+        stock_display_name: string,
+        stock_amount: number,
+        stock_units: string,
+        minimum_amount: number
+    }>(`SELECT * FROM inventory`, [])
+}

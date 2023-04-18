@@ -8,6 +8,7 @@ import db from './db/index'
 import { dbConnection } from './db/dbConnection';
 import { dbGetItemTypes } from './db/ItemType'
 import { dbAddItemToOrder, dbCompleteOrder, dbCreateNewOrder, dbGetEntireOrder, dbRemoveItemFromOrder } from './db/Order';
+import { dbGetStocks } from './db/Stock';
 
 
 // Constants
@@ -48,6 +49,12 @@ function parseIntStrict(str: string): number {
 }
 
 const parseIntStrictOptional = createOptionalParser(parseIntStrict);
+
+const parseStockCode = (s: string) => (s.length == 2) && s.match(/[A-Za-z][A-Za-z]/)
+const parseStockCodeOptional = createOptionalParser(parseStockCode)
+
+const parseString = (s: string) => s;
+const parseStringOptional = createOptionalParser(parseString)
 
 /**
  * Helper function to parse HTTP queries and ensure that they have the correct parameters passed to them
@@ -151,6 +158,8 @@ function startHosting(dbConn: dbConnection) {
     })
 
     app.use('/order/new', (request, response)=>{
+        request; // Surpress error message
+
         dbCreateNewOrder(dbConn).then(
             (new_order)=>response.send(new_order),
             createSQLErrorHandler(response)
@@ -174,6 +183,17 @@ function startHosting(dbConn: dbConnection) {
             },
                 createSQLErrorHandler(response))
     })
+
+    app.use('/stocks', (request, response)=>{
+        request; // surpress error message
+
+        dbGetStocks(dbConn).then((stocks)=>{
+            response.send(stocks)
+        }, createSQLErrorHandler(response))
+    })
+
+
+
 
     // Start hosting the server on PORT
     app.listen(PORT, () => {
