@@ -7,7 +7,7 @@ import express from 'express';
 import db from './db/index'
 import { dbConnection } from './db/dbConnection';
 import { dbGetItemTypes } from './db/ItemType'
-import { dbAddItemToOrder, dbGetEntireOrder, dbRemoveItemFromOrder } from './db/Order';
+import { dbAddItemToOrder, dbCompleteOrder, dbCreateNewOrder, dbGetEntireOrder, dbRemoveItemFromOrder } from './db/Order';
 
 
 // Constants
@@ -70,8 +70,6 @@ function parseQuery<T extends ParserMap>(obj: Record<string, string>, parseArray
 function startHosting(dbConn: dbConnection) {
     const app = express();
 
-
-
     // Serve the static react app (html, js, css)
     app.use('/', express.static(REACT_APP_DIRECTORY))
 
@@ -88,7 +86,6 @@ function startHosting(dbConn: dbConnection) {
 
     // Send pretty
     app.set('json spaces', 40);
-
 
     // API endpoint for ItemTypes
     app.use('/itemTypes', (request, response) => {
@@ -143,6 +140,23 @@ function startHosting(dbConn: dbConnection) {
             createSQLErrorHandler(response)
         )
     })
+
+    app.use('/order/complete', (request, response)=>{
+        const { order_id } = parseQuery(request.query as any, {
+            order_id: parseIntStrict, // Required param                
+        });
+
+        dbCompleteOrder(dbConn, order_id)
+            .then(()=>dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send(entire_order)), createSQLErrorHandler(response));
+    })
+
+    app.use('/order/new', (request, response)=>{
+        dbCreateNewOrder(dbConn).then(
+            (new_order)=>response.send(new_order),
+            createSQLErrorHandler(response)
+        )
+    })
+
 
 
 
