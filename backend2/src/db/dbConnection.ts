@@ -10,6 +10,14 @@ export class dbConnection {
             postgresClient.end()
         })
     }
+
+    /** Takes a SQL query, executes it on the postgreSQL database,
+     * then returns the results as an array of JSON objects.
+     * T is the TypeScript type of the JSON object
+     * @param query the SQL query
+     * @param queryArgs the parameters to the SQL query
+     * @return an array of javascript {key:value} objects corresponding to the query
+     */
     public sqlQuery<T extends {}>(query: string, queryArgs: Value[] = []) {
         return this.postgresClient.query(query, queryArgs).then((queryResult) => {
             const { names, rows } = queryResult
@@ -22,8 +30,14 @@ export class dbConnection {
             })
         })
     }
-    public async generateNewOrderId() {
-        return (await this.sqlQuery<{ new_order_id: number }>
-            (`SELECT MAX(order_id)+1 AS new_order_id FROM orders`))[0].new_order_id
+
+    /** Given an SQL update, returns an array of JSON objects from the query.
+     * T is the TypeScript type of the JSON object
+     * @param update the SQL update statement
+     * @param updateArgs the parameters to the SQL query
+     * @return an array of javascript {key:value} objects corresponding to the query
+     */
+    public sqlUpdate(update: string, updateArgs: Value[] = []) {
+        return this.postgresClient.query(update, updateArgs)
     }
 }
