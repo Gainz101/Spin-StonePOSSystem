@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { blueGrey, red } from '@material-ui/core/colors';
 import './ManagerView.css'; // Tell webpack that App.js uses these styles
 
-function SalesReport() {
+function SalesReport(props) {
   // useStates in order 
   const [salesReport, setSalesReport] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -15,7 +15,7 @@ function SalesReport() {
   }
 
   // not working exit button
-  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
  
   const textBox = <p>Order #1</p>
 
