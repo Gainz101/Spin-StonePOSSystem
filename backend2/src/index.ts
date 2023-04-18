@@ -53,8 +53,8 @@ const parseIntStrictOptional = createOptionalParser(parseIntStrict);
 const parseStockCode = (s: string) => (s.length == 2) && s.match(/[A-Za-z][A-Za-z]/)
 const parseStockCodeOptional = createOptionalParser(parseStockCode)
 
-const parseString = (s: string) => s;
-const parseStringOptional = createOptionalParser(parseString)
+// const parseString = (s: string) => s;
+// const parseStringOptional = createOptionalParser(parseString)
 
 /**
  * Helper function to parse HTTP queries and ensure that they have the correct parameters passed to them
@@ -192,7 +192,26 @@ function startHosting(dbConn: dbConnection) {
         }, createSQLErrorHandler(response))
     })
 
+    // app.use('/stocks/update', (request, response)=>{
+    //     const queryParams = parseQuery(request.query as any, {
+    //         actual_stock_id: parseStockCode,
+    //         stock_id: parseStockCodeOptional, // Required param
+    //         stock_display_name: parseString,
+    //         stock_amount: parseIntStrictOptional,
+    //         stock_units: parseString,
+    //         minimum_amount: 
+    //     });
 
+    //     const updateParams = {
+    //         ...queryParams,
+    //         actual_stock_id: undefined
+    //     }
+        
+
+    //     dbGetStocks(dbConn).then((stocks)=>{
+    //         response.send(stocks)
+    //     }, createSQLErrorHandler(response))
+    // })
 
 
     // Start hosting the server on PORT
