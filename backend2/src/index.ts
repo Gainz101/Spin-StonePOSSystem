@@ -50,8 +50,8 @@ function parseIntStrict(str: string): number {
 
 const parseIntStrictOptional = createOptionalParser(parseIntStrict);
 
-const parseStockCode = (s: string) => (s.length == 2) && s.match(/[A-Za-z][A-Za-z]/)
-const parseStockCodeOptional = createOptionalParser(parseStockCode)
+// const parseStockCode = (s: string) => (s.length == 2) && s.match(/[A-Za-z][A-Za-z]/)
+// const parseStockCodeOptional = createOptionalParser(parseStockCode)
 
 // const parseString = (s: string) => s;
 // const parseStringOptional = createOptionalParser(parseString)
