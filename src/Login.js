@@ -65,11 +65,11 @@ export default function Login(props){
         <div id="background">
             <div class="box">
 
-                {/***** Login bypass *****/}
+                {/* **** Login bypass *****/}
                 <h1><a href="/?form=customer_view">Consumer View</a></h1>
                 <h1><a href="/?form=cashier_view">Cashier View</a></h1>
                 <h1><a href="/?form=manager_view">Manager View (WIP)</a></h1>
-                {/***** End login bypass *****/}
+                {/***** End login bypass **** */}
 
                 <form onSubmit={handleSubmit}>
                     <h1>Log In</h1>

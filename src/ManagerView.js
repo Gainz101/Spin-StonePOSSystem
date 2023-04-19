@@ -2,9 +2,12 @@ import {useState} from 'react';
 import React from "react";
 import './ManagerView.css'; // Tell webpack that App.js uses these styles
 import SalesView from './SaleReport';
+import XZReport from './XZReport';
+import Inventory from './Inventory';
+import OrderHistory from './OrderHistory';
 
 
-const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {item:'Inventory', id: 3}];
+const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {item:'Inventory', id: 3}, {item:'Order History', id: 4}];
 
 
 
@@ -17,10 +20,13 @@ const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {i
         return "sales_view";
       }
       else if(itemId == 2){ // X-Z Report
-        return "sales_view";
+        return "xz_view";
       }
-      else{ // 3 - inventory view
-        return "sales_view";
+      else if(itemId == 3){ // 3 - inventory view
+        return "inventory_view";
+      }
+      else{ // 4
+        return "order_view";
       }
     };
 

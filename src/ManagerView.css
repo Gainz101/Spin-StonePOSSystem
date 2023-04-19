@@ -80,7 +80,7 @@ h2{
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
 }
 
-.card__container {
+/* .card__container {
     padding: 10px;
   }
 
@@ -116,7 +116,7 @@ h2{
     
   .card:active {
       transform: scale(0.95);
-  }
+  } */
 
   .exit_text{
     background-clip: text;
