@@ -48,7 +48,16 @@ function parseIntStrict(str: string): number {
     return result;
 }
 
+
 const parseIntStrictOptional = createOptionalParser(parseIntStrict);
+
+function parseIntListStrict(str: string): number[] {
+    const results = [];
+    for(let number_string of str.split(",")) {
+        results.push(parseIntStrict(number_string));
+    }
+    return results;
+}
 
 // const parseStockCode = (s: string) => (s.length == 2) && s.match(/[A-Za-z][A-Za-z]/)
 // const parseStockCodeOptional = createOptionalParser(parseStockCode)
@@ -116,19 +125,23 @@ function startHosting(dbConn: dbConnection) {
     /*
     /order/addItem?order_id=12345&itemtype_id=5
     /order/addItem?order_id=12345&itemtype_id=3001&root_item_id=3000
+    /order/addItem?order_id=12345&itemtype_id=5,6,7&root_item_id=6990
 
     returns new order
+
+    EDIT: can take multiple items now!
     */
     app.use('/order/addItem', (request, response) => {
         const { order_id,
-            itemtype_id,
+            itemtype_ids,
             root_item_id } = parseQuery(request.query as any, {
                 order_id: parseIntStrict, // Required param
-                itemtype_id: parseIntStrict, // Required param
+                itemtype_ids: parseIntListStrict, // Required param
                 root_item_id: parseIntStrictOptional // Optional
             });
 
-        dbAddItemToOrder(dbConn, order_id, itemtype_id, root_item_id)
+        /* Promise.all waits for all items to be added first, then executes the 'then' function */
+        Promise.all(itemtype_ids.map((itemtype_id)=>dbAddItemToOrder(dbConn, order_id, itemtype_id, root_item_id)))
             .then(
                 () => dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send(entire_order)),
                 createSQLErrorHandler(response)

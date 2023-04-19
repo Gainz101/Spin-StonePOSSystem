@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "backend server for spin n stone",
   "scripts": {
-    "build": "npx tsc && pushd .. && npm run build && popd",
+    "build": "npx tsc",
     "start": "node build",
     "start-dev": "nodemon build",
     "dev": "npx tsc -w",
