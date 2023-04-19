@@ -11,9 +11,7 @@ import CheckOut from './CheckOut';
 import SalesReport from './SaleReport';
 import XZReport from './XZReport';
 import Inventory from './Inventory';
-
-/* Yezen, please uncomment this after you push the Toppings tab */
-/* import ToppingTabs from './ToppingTabs'; */
+import OrderHistory from './OrderHistory';
 
 
 export default function MyApp() {
@@ -35,6 +33,7 @@ export default function MyApp() {
       currentForm === "sales_view" ? <SalesReport onFormSwitch={toggleForm}/> :
       currentForm === "xz_view" ? <XZReport onFormSwitch={toggleForm}/> : 
       currentForm === "inventory_view" ? <Inventory onFormSwitch={toggleForm}/> : 
+      currentForm === "order_view" ? <OrderHistory onFormSwitch={toggleForm}/> : 
       null //didnt need an else so i put null and it worked i guess
       // The names are declared when the buttons are pressed and formswitch is assign with a string. The strings are then matched here.
       // If the current form is login then stay at login, if its signup then move to sign up screen.

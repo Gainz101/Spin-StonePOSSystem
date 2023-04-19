@@ -27,10 +27,10 @@ function createStockData(stockId, stockName, quantity, minAmount, units) {
     createStockData('SP', "Spinach", 10, 0, "lbs")
   ];  
 
-function Inventory() {
+function Inventory(props) {
 
   // not working exit button
-  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
  
 
 
