@@ -29,8 +29,7 @@ export default function MyApp() {
       currentForm === "login" ? <Login onFormSwitch={toggleForm}/>: 
       currentForm === "signup" ? <SignUp onFormSwitch={toggleForm}/>: 
       currentForm === "customer_view" ? <CustomerView onFormSwitch={toggleForm}/>: 
-      currentForm === "cashier_view" ? <CashierView onFormSwitch={toggleForm}/>: 
-      currentForm === "toppings_tabs" ? <ToppingTabs onFormSwitch={toggleForm}/>: 
+      currentForm === "cashier_view" ? <CashierView onFormSwitch={toggleForm}/>:
       currentForm === "manager_view"? <ManagerSelect onFormSwitch={toggleForm}/>:
       currentForm === "checkout_view"? <CheckOut onFormSwitch={toggleForm}/>: 
       currentForm === "sales_view" ? <SalesReport onFormSwitch={toggleForm}/> :
