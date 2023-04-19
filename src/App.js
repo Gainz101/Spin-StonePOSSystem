@@ -21,16 +21,16 @@ export default function MyApp() {
     <div className='App'>
     {
       /*Sorry for this compact code if else wasnt working and knew no other way*/
-      currentForm === "login" ? <Login onFormSwitch={toggleForm}/>: 
-      currentForm === "signup" ? <SignUp onFormSwitch={toggleForm}/>: 
-      currentForm === "customer_view" ? <CustomerView onFormSwitch={toggleForm}/>: 
-      currentForm === "cashier_view" ? <CashierView onFormSwitch={toggleForm}/>:
-      currentForm === "manager_view"? <ManagerSelect onFormSwitch={toggleForm}/>:
-      currentForm === "checkout_view"? <CheckOut onFormSwitch={toggleForm}/>: 
-      currentForm === "sales_view" ? <SalesReport onFormSwitch={toggleForm}/> :
-      currentForm === "xz_view" ? <XZReport onFormSwitch={toggleForm}/> : 
-      currentForm === "inventory_view" ? <Inventory onFormSwitch={toggleForm}/> : 
-      currentForm === "order_view" ? <OrderHistory onFormSwitch={toggleForm}/> : 
+      currentForm === "login" ? <Login onFormSwitch={setCurrentForm}/>: 
+      currentForm === "signup" ? <SignUp onFormSwitch={setCurrentForm}/>: 
+      currentForm === "customer_view" ? <CustomerView onFormSwitch={setCurrentForm}/>: 
+      currentForm === "cashier_view" ? <CashierView onFormSwitch={setCurrentForm}/>:
+      currentForm === "manager_view"? <ManagerSelect onFormSwitch={setCurrentForm}/>:
+      currentForm === "checkout_view"? <CheckOut onFormSwitch={setCurrentForm}/>: 
+      currentForm === "sales_view" ? <SalesReport onFormSwitch={setCurrentForm}/> :
+      currentForm === "xz_view" ? <XZReport onFormSwitch={setCurrentForm}/> : 
+      currentForm === "inventory_view" ? <Inventory onFormSwitch={setCurrentForm}/> : 
+      currentForm === "order_view" ? <OrderHistory onFormSwitch={setCurrentForm}/> : 
       null //didnt need an else so i put null and it worked i guess
       // The names are declared when the buttons are pressed and formswitch is assign with a string. The strings are then matched here.
       // If the current form is login then stay at login, if its signup then move to sign up screen.

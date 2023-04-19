@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dbApplyStockCosts = void 0;
+exports.dbGetStocks = exports.dbApplyStockCosts = void 0;
 /** Run an SQL query that combines items from an order with their ingredients (via their item type), then
  * applies this to the stocks
  */
@@ -16,4 +16,8 @@ async function dbApplyStockCosts(dbConn, order_id) {
     AS stock_costs WHERE stock_costs.stock_id = inventory.stock_id`, [order_id]);
 }
 exports.dbApplyStockCosts = dbApplyStockCosts;
+async function dbGetStocks(dbConn) {
+    return await dbConn.sqlQuery(`SELECT * FROM inventory`, []);
+}
+exports.dbGetStocks = dbGetStocks;
 //# sourceMappingURL=Stock.js.map
