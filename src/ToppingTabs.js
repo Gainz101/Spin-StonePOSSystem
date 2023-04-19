@@ -48,7 +48,9 @@ export default function ToppingTabs(props) {
                 <TabList>
                     <Tab>Crust</Tab>
                     <Tab>Sauce</Tab>
+
                     { max_toppings > 0 ? <Tab>Meats & Veggies</Tab> : null }
+
                     <Tab>Drizzle</Tab>
                 </TabList>
 

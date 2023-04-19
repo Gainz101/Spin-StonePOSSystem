@@ -1,0 +1,33 @@
+POST /AddItemToOrder
+
+Body:
+[{
+  itemtype_id: 2,  
+  children: [
+    {
+        itemtype_id: 1
+    }
+  ]
+}]
+
+Response (New order object containing order + items from entire_orders):
+{
+    order_id: 94929
+    items: [
+        {
+            item_id: 23,
+            itemtype_id: 2, 
+            item_display_name: 'Cheese Pizza',
+            price: 7.99,
+
+            modifiers: [
+                {
+                    item_id: 24,
+                    itemtype_id: 2,
+                    item_display_name: 'Cauliflower Crust',
+                    price: 3.99
+                },
+            ]
+        }
+    ]
+}

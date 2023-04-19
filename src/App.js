@@ -17,9 +17,6 @@ import OrderHistory from './OrderHistory';
 export default function MyApp() {
   const [currentForm, setCurrentForm]=useState("login")
   
-  const toggleForm = (formName) =>{
-    setCurrentForm(formName)
-  }
   return (
     <div className='App'>
     {
