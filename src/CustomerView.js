@@ -18,7 +18,7 @@ export default function CustomerView(props) {
 
   const [baseItems, setItems] = useState([]);
 
-  const [itemType, setItemType] = useState(null)
+  const [itemType, setItemType] = useState(null);
 
   //   const baseItems = [{item: 'Cheese Pizza', id: 1},
   //   {item:'1 Topping Pizza', id: 2},
