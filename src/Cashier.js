@@ -15,6 +15,8 @@ export default function CashierView(props) {
   const [drizzleCount, changeCountDrizz] = useState(0);
   const [sauceCount, changeCountSauce] = useState(0);
   const [pizzaState, setState] = useState(1);
+  const [buttonSelected, setButtonSelected]=useState(false);
+  
 
   
 
@@ -30,22 +32,30 @@ export default function CashierView(props) {
         changeCountTop((prevCount) => prevCount + 1);
       } 
     }
+    setButtonSelected(!buttonSelected);
+
   }
 
   function whenClickedCrust(){
     if (crustCount < 1) {
       changeCountCrust(crustCount + 1);
     } 
+    setButtonSelected(!buttonSelected);
+
   }
   function whenClickedDrizz(){
     if (drizzleCount < 1) {
       changeCountDrizz(drizzleCount + 1);
     } 
+    setButtonSelected(!buttonSelected);
+
   }
   function whenClickedSauce(){
     if (sauceCount < 1) {
       changeCountSauce((prevCount) => prevCount + 1);
     } 
+    setButtonSelected(!buttonSelected);
+
   }
 
   function returnID(newState){
@@ -53,8 +63,9 @@ export default function CashierView(props) {
     // Reset the topping count when the pizza state changes
     changeCountTop(0); 
   }
+  
   function createButton(baseItem, whenClick, buttonClass){
-    return <button onClick={whenClick} role="button" class={buttonClass} key={baseItem.id}> {baseItem.item}</button>
+    return <button onClick={whenClick} role="button" class={buttonSelected ? 'selected' : buttonClass} key={baseItem.id}> {baseItem.item}</button>
   }
 
   function CountingFunction({id}){
@@ -72,23 +83,22 @@ export default function CashierView(props) {
   
   const listItems = baseItems.map(baseItems => <button onClick={() => returnID(baseItems.id)} role="button" class="button-nameBase" key={baseItems.id}> {baseItems.item}</button>);
   
-
   const crustItems = [{item: 'Normal Crust', id: 1}, {item:'Cauliflower Crust', id: 2}];
-    const listItemsCrust = crustItems.map(baseItem => createButton(baseItem, whenClickedCrust, "button-nameC"));
+  const listItemsCrust = crustItems.map(baseItem => createButton(baseItem, whenClickedCrust, "button-nameC"));
 
-    const sauceItems = [{item: 'Alfredo', id: 1}, {item:'Traditional Red', id: 2}, {item:'Zesty Red', id: 3}];
-    const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2"));
+  const sauceItems = [{item: 'Alfredo', id: 1}, {item:'Traditional Red', id: 2}, {item:'Zesty Red', id: 3}];
+  const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2"));
 
-    const meatsItems = [{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5}];
-    const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3"));
+  const meatsItems = [{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5}];
+  const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3"));
 
-    const veggiesItems = [{item: 'Green Peppers', id: 1}, {item:'Black Olives', id: 2}, {item:'Banana Peppers', id: 3}, {item:'Jalapenos', id: 4}, {item:'Mushrooms', id: 5}, {item:'Onions', id: 6}];
-    const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4"));
+  const veggiesItems = [{item: 'Green Peppers', id: 1}, {item:'Black Olives', id: 2}, {item:'Banana Peppers', id: 3}, {item:'Jalapenos', id: 4}, {item:'Mushrooms', id: 5}, {item:'Onions', id: 6}];
+  const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4"));
 
-    const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
-    const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5"));
-  
-    const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+  const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
+  const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5"));
+
+  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
   return (
     //Parent Element
     <div>
