@@ -24,8 +24,8 @@ export default function CashierView(props) {
   const [buttonSelected, setButtonSelected]=useState(false);
   const [selectedStateCrust,setSelectedStateCrust]=useState(Array(crustItems.length).fill(false));
   const [selectedStateSauce,setSelectedStateSauce]=useState(Array(sauceItems.length).fill(false));
-  // const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
-  // const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
+  const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
+  const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
   const [selectedStateDrizz,setSelectedStateDrizz]=useState(Array(drizzleItems.length).fill(false));
   const [selectedStateTop,setSelectedStateTop]=useState(Array(topItems.length).fill(false));
 
@@ -42,16 +42,21 @@ export default function CashierView(props) {
       null;
     }else if(pizzaState==2){
       if (toppingCount < 1) {
-        changeCountTop((prevCount) => prevCount + 1);
+        changeCountTop(toppingCount + 1);
       } 
     }else if(pizzaState==3){
       if (toppingCount < 4) {
-        changeCountTop((prevCount) => prevCount + 1);
+        changeCountTop(toppingCount + 1);
       } 
     }
+    const selectedCount = selectedStateTop.filter(Boolean).length;
+    if (selectedCount >= 4) {
+      return;
+    }
     // setButtonSelected(!buttonSelected);
-    const newSelectedState = [...selectedStateTop];
-    newSelectedState[index] = !newSelectedState[index];
+    selectedStateTop.filter(Boolean).length >= 4;
+    const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
+    newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
     setSelectedStateTop(newSelectedState);
 
   }
@@ -64,8 +69,8 @@ export default function CashierView(props) {
     // setSelectedStateCrust[index]=!setSelectedStateCrust[index];
 
     // Set the selected state of the clicked button to true
-    const newSelectedState = [...selectedStateCrust];
-    newSelectedState[index] = !newSelectedState[index];
+    const newSelectedState = Array(crustItems.length).fill(false);//restarts the array with false
+    newSelectedState[index] = true;
     setSelectedStateCrust(newSelectedState);
 
   }
@@ -77,22 +82,21 @@ export default function CashierView(props) {
     // setSelectedStateDrizz[index]=!setSelectedStateDrizz[index];  
 
     // Set the selected state of the clicked button to true
-    const newSelectedState = [...selectedStateDrizz];
-    newSelectedState[index] = !newSelectedState[index];
+    const newSelectedState = Array(drizzleItems.length).fill(false);
+    newSelectedState[index] = true;
     setSelectedStateDrizz(newSelectedState);  
   }
   function whenClickedSauce(index){
     if (sauceCount < 1) {
-      changeCountSauce((prevCount) => prevCount + 1);
+      changeCountSauce(sauceCount + 1);
     } 
     // setButtonSelected(!buttonSelected);
     // setSelectedStateSauce[index]=!setSelectedStateSauce[index];
 
     // Set the selected state of the clicked button to true
-    const newSelectedState = [...selectedStateSauce];
-    newSelectedState[index] = !newSelectedState[index];
+    const newSelectedState = Array(sauceItems.length).fill(false);
+    newSelectedState[index] = true;
     setSelectedStateSauce(newSelectedState);  
-
   }
 
   function returnID(newState){
@@ -123,10 +127,12 @@ export default function CashierView(props) {
   const listItemsCrust = crustItems.map(baseItem => createButton(baseItem, whenClickedCrust, "button-nameC", selectedStateCrust, baseItem.id));
 
   const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2", selectedStateSauce, baseItem.id));
+  
+  const listItemsTop = topItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name4", selectedStateTop, baseItem.id));
 
-  const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateTop, baseItem.id));
+  // const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateMeats, baseItem.id));
 
-  const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4", selectedStateTop, baseItem.id));
+  // const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4", selectedStateVeggies, baseItem.id));
 1
   const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5", selectedStateDrizz, baseItem.id));
 
@@ -147,7 +153,7 @@ export default function CashierView(props) {
             <div class="toppingsSection">
               <div class="gridMoverToppings">
                 <div class="grid-containerToppings">
-                  {listItemsCrust}{listItemsSauce}{listItemsMeats}{listItemsVeggies}{listItemsDrizzle}
+                  {listItemsCrust}{listItemsSauce}{listItemsTop}{listItemsDrizzle}
                 </div>
               </div>
             </div>
