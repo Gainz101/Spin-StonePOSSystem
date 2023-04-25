@@ -77,7 +77,7 @@ export default function CustomerView(props) {
   return (
     //Parent Element
     <div>
-      <div class="background10">
+      <div class="background">
 
         {((isBaseItemsLoaded) && (currentOrder !== null) && (itemTypes !== null)) ?
           (itemType == null ?

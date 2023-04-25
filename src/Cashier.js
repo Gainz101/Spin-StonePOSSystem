@@ -5,6 +5,11 @@ import './Cashier.css'; // Tell webpack that App.js uses these styles
 
 // Sort of array with all the current listed Items
 const baseItems = [{ item: 'Cheese Pizza', id: 1 }, { item: '1 Topping Pizza', id: 2 }, { item: '2-4 Topping Pizza', id: 3 }, { item: 'Drink', id: 4 }];
+const crustItems = [{item: 'Normal Crust', id: 1}, {item:'Cauliflower Crust', id: 2}];
+const sauceItems = [{item: 'Alfredo', id: 1}, {item:'Traditional Red', id: 2}, {item:'Zesty Red', id: 3}];
+const meatsItems = [{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5}];
+const veggiesItems = [{item: 'Green Peppers', id: 1}, {item:'Black Olives', id: 2}, {item:'Banana Peppers', id: 3}, {item:'Jalapenos', id: 4}, {item:'Mushrooms', id: 5}, {item:'Onions', id: 6}];
+const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
 
 
 
@@ -16,11 +21,20 @@ export default function CashierView(props) {
   const [sauceCount, changeCountSauce] = useState(0);
   const [pizzaState, setState] = useState(1);
   const [buttonSelected, setButtonSelected]=useState(false);
-  
+  const [selectedStateCrust,setSelectedStateCrust]=useState(Array(crustItems.length).fill(false));
+  const [selectedStateSauce,setSelectedStateSauce]=useState(Array(sauceItems.length).fill(false));
+  const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
+  const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
+  const [selectedStateDrizz,setSelectedStateDrizz]=useState(Array(drizzleItems.length).fill(false));
+
+
+
 
   
 
-  function whenClickedTop(){
+  
+
+  function whenClickedTop(index){
     if(pizzaState==1||pizzaState==4){
       null;
     }else if(pizzaState==2){
@@ -32,29 +46,46 @@ export default function CashierView(props) {
         changeCountTop((prevCount) => prevCount + 1);
       } 
     }
-    setButtonSelected(!buttonSelected);
+    // setButtonSelected(!buttonSelected);
 
   }
 
-  function whenClickedCrust(){
+  function whenClickedCrust(index){
     if (crustCount < 1) {
       changeCountCrust(crustCount + 1);
     } 
-    setButtonSelected(!buttonSelected);
+    // setButtonSelected(!buttonSelected);
+    // setSelectedStateCrust[index]=!setSelectedStateCrust[index];
+
+    // Set the selected state of the clicked button to true
+    const newSelectedState = Array(crustItems.length).fill(false);
+    newSelectedState[index] = true;
+    setSelectedStateCrust(newSelectedState);
 
   }
-  function whenClickedDrizz(){
+  function whenClickedDrizz(index){
     if (drizzleCount < 1) {
       changeCountDrizz(drizzleCount + 1);
     } 
-    setButtonSelected(!buttonSelected);
+    // setButtonSelected(!buttonSelected);
+    // setSelectedStateDrizz[index]=!setSelectedStateDrizz[index];  
 
+    // Set the selected state of the clicked button to true
+    const newSelectedState = Array(crustItems.length).fill(false);
+    newSelectedState[index] = true;
+    setSelectedStateDrizz(newSelectedState);  
   }
-  function whenClickedSauce(){
+  function whenClickedSauce(index){
     if (sauceCount < 1) {
       changeCountSauce((prevCount) => prevCount + 1);
     } 
-    setButtonSelected(!buttonSelected);
+    // setButtonSelected(!buttonSelected);
+    // setSelectedStateSauce[index]=!setSelectedStateSauce[index];
+
+    // Set the selected state of the clicked button to true
+    const newSelectedState = Array(crustItems.length).fill(false);
+    newSelectedState[index] = true;
+    setSelectedStateSauce(newSelectedState);  
 
   }
 
@@ -64,8 +95,8 @@ export default function CashierView(props) {
     changeCountTop(0); 
   }
   
-  function createButton(baseItem, whenClick, buttonClass){
-    return <button onClick={whenClick} role="button" class={buttonSelected ? 'selected' : buttonClass} key={baseItem.id}> {baseItem.item}</button>
+  function createButton(baseItem, whenClick, buttonClass, selectedState, index){
+    return <button onClick={() => whenClick(index-1)} role="button" class={selectedState[index-1] ? 'selected' : buttonClass} key={baseItem.id}> {baseItem.item}</button>
   }
 
   function CountingFunction({id}){
@@ -83,20 +114,15 @@ export default function CashierView(props) {
   
   const listItems = baseItems.map(baseItems => <button onClick={() => returnID(baseItems.id)} role="button" class="button-nameBase" key={baseItems.id}> {baseItems.item}</button>);
   
-  const crustItems = [{item: 'Normal Crust', id: 1}, {item:'Cauliflower Crust', id: 2}];
-  const listItemsCrust = crustItems.map(baseItem => createButton(baseItem, whenClickedCrust, "button-nameC"));
+  const listItemsCrust = crustItems.map(baseItem => createButton(baseItem, whenClickedCrust, "button-nameC", selectedStateCrust, baseItem.id));
 
-  const sauceItems = [{item: 'Alfredo', id: 1}, {item:'Traditional Red', id: 2}, {item:'Zesty Red', id: 3}];
-  const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2"));
+  const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2", selectedStateSauce, baseItem.id));
 
-  const meatsItems = [{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5}];
-  const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3"));
+  const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateMeats, baseItem.id));
 
-  const veggiesItems = [{item: 'Green Peppers', id: 1}, {item:'Black Olives', id: 2}, {item:'Banana Peppers', id: 3}, {item:'Jalapenos', id: 4}, {item:'Mushrooms', id: 5}, {item:'Onions', id: 6}];
-  const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4"));
+  const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4", selectedStateVeggies, baseItem.id));
 
-  const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
-  const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5"));
+  const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5", selectedStateDrizz, baseItem.id));
 
   const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
   return (
@@ -106,7 +132,6 @@ export default function CashierView(props) {
         {exit}
         <h3>Cashier's Window</h3>
         <CountingFunction id={pizzaState}/>
-        {/* <div class="counter"> Crust({crustCount}/1) Sauce ({sauceCount}/1) Toppings({toppingCount}/4) Drizzle({drizzleCount}/1)</div> */}
           <div class="baseSection">
             <div class="gridMover">
               <div class="grid-container">
@@ -125,7 +150,6 @@ export default function CashierView(props) {
                   <div class="box2">
                     
                   </div>
-           
               </div>
             </div>
           </div>
