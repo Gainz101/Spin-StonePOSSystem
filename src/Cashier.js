@@ -10,7 +10,8 @@ const sauceItems = [{item: 'Alfredo', id: 1}, {item:'Traditional Red', id: 2}, {
 const meatsItems = [{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5}];
 const veggiesItems = [{item: 'Green Peppers', id: 1}, {item:'Black Olives', id: 2}, {item:'Banana Peppers', id: 3}, {item:'Jalapenos', id: 4}, {item:'Mushrooms', id: 5}, {item:'Onions', id: 6}];
 const drizzleItems = [{item: 'BBQ Sauce', id: 1}, {item:'Olive Oil', id: 2}, {item:'Siracha', id: 3}, {item:'Ranch', id: 4}, {item:'Oregano', id: 5}];
-
+// const topItems = new Map(meatsItems,veggiesItems);
+const topItems =[{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5},{item: 'Green Peppers', id: 6}, {item:'Black Olives', id: 7}, {item:'Banana Peppers', id: 8}, {item:'Jalapenos', id: 9}, {item:'Mushrooms', id: 10}, {item:'Onions', id: 11}];
 
 
 
@@ -23,9 +24,11 @@ export default function CashierView(props) {
   const [buttonSelected, setButtonSelected]=useState(false);
   const [selectedStateCrust,setSelectedStateCrust]=useState(Array(crustItems.length).fill(false));
   const [selectedStateSauce,setSelectedStateSauce]=useState(Array(sauceItems.length).fill(false));
-  const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
-  const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
+  // const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
+  // const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
   const [selectedStateDrizz,setSelectedStateDrizz]=useState(Array(drizzleItems.length).fill(false));
+  const [selectedStateTop,setSelectedStateTop]=useState(Array(topItems.length).fill(false));
+
 
 
 
@@ -47,6 +50,9 @@ export default function CashierView(props) {
       } 
     }
     // setButtonSelected(!buttonSelected);
+    const newSelectedState = [...selectedStateTop];
+    newSelectedState[index] = !newSelectedState[index];
+    setSelectedStateTop(newSelectedState);
 
   }
 
@@ -58,8 +64,8 @@ export default function CashierView(props) {
     // setSelectedStateCrust[index]=!setSelectedStateCrust[index];
 
     // Set the selected state of the clicked button to true
-    const newSelectedState = Array(crustItems.length).fill(false);
-    newSelectedState[index] = true;
+    const newSelectedState = [...selectedStateCrust];
+    newSelectedState[index] = !newSelectedState[index];
     setSelectedStateCrust(newSelectedState);
 
   }
@@ -71,8 +77,8 @@ export default function CashierView(props) {
     // setSelectedStateDrizz[index]=!setSelectedStateDrizz[index];  
 
     // Set the selected state of the clicked button to true
-    const newSelectedState = Array(crustItems.length).fill(false);
-    newSelectedState[index] = true;
+    const newSelectedState = [...selectedStateDrizz];
+    newSelectedState[index] = !newSelectedState[index];
     setSelectedStateDrizz(newSelectedState);  
   }
   function whenClickedSauce(index){
@@ -83,8 +89,8 @@ export default function CashierView(props) {
     // setSelectedStateSauce[index]=!setSelectedStateSauce[index];
 
     // Set the selected state of the clicked button to true
-    const newSelectedState = Array(crustItems.length).fill(false);
-    newSelectedState[index] = true;
+    const newSelectedState = [...selectedStateSauce];
+    newSelectedState[index] = !newSelectedState[index];
     setSelectedStateSauce(newSelectedState);  
 
   }
@@ -118,10 +124,10 @@ export default function CashierView(props) {
 
   const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2", selectedStateSauce, baseItem.id));
 
-  const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateMeats, baseItem.id));
+  const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateTop, baseItem.id));
 
-  const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4", selectedStateVeggies, baseItem.id));
-
+  const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4", selectedStateTop, baseItem.id));
+1
   const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5", selectedStateDrizz, baseItem.id));
 
   const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
