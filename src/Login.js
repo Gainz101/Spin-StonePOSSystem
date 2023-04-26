@@ -2,6 +2,7 @@
 import {useState} from 'react'
 import './Login.css'; // Tell webpack that Login.js uses these styles
 import SvgComponent from './assets/SvgComponent';
+import MapContainer from './mapview';
 
 // import './assets/google-logo.svg';
 // import './assets/hide-eye.svg';
@@ -69,6 +70,9 @@ export default function Login(props){
                 <h1><a href="/?form=customer_view">Consumer View</a></h1>
                 <h1><a href="/?form=cashier_view">Cashier View</a></h1>
                 <h1><a href="/?form=manager_view">Manager View (WIP)</a></h1>
+                
+                
+
                 {/***** End login bypass **** */}
 
                 <form onSubmit={handleSubmit}>
@@ -83,9 +87,6 @@ export default function Login(props){
                         <input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}></input>
                         <label htmlFor="password">Password</label>
                     </div>
-
-
-        
 
 
                     {(username === "yeezy"  & password === "yeezy77") ? (
@@ -103,7 +104,7 @@ export default function Login(props){
                     )}                
                     {/* <div class="smallGreyText">If you forgot your password press "Forgot Password"</div> */}
 
-
+                            
 
                     <span>or</span>
                     <button class="google-signin">
@@ -115,6 +116,8 @@ export default function Login(props){
                         <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
                     </p> 
                 </form>
+                {MapContainer()}
+                
             </div>
         </div>
     );
