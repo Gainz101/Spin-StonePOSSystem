@@ -2,7 +2,8 @@
 import {useState} from 'react'
 import './Login.css'; // Tell webpack that Login.js uses these styles
 import SvgComponent from './assets/SvgComponent';
-import MapContainer from './mapview';
+
+import { GoogleLogin } from '@react-oauth/google';
 
 // import './assets/google-logo.svg';
 // import './assets/hide-eye.svg';
@@ -10,8 +11,9 @@ import MapContainer from './mapview';
 import './assets/btn_google_light_normal_ios.svg';
 import myImage from './assets/image.png';
 import maps from "./assets/google-maps.png"
+import oauth from './oauth';
 {/* <script src="https://apis.google.com/js/platform.js" async defer></script> */}
-
+ 
 
 
 // import './assets/btn_google_light_normal_ios.eps';
@@ -68,6 +70,8 @@ export default function Login(props){
         
       }
 
+
+
     return(
         <div id="background">
             <div class="box">
@@ -112,8 +116,9 @@ export default function Login(props){
 
                     <span>or</span>
                     <button class="google-signin">
-                        <div><SvgComponent /></div>
-                        <div class="centerr">Log in with Google</div>
+                        <div><SvgComponent /></div>{oauth()}
+                        
+                        {/* <div class="centerr">Log in with Google</div> */}
                     </button>           
                     <p class="smallGreyText">
                         Don't have an account?
