@@ -80,7 +80,7 @@ export default function CustomerView(props) {
     //Parent Element
     <div>
       <div class="background">
-
+        {/* <div class="buttonSelection"> */}
         {((isBaseItemsLoaded) && (currentOrder !== null) && (itemTypes !== null)) ?
           (itemType == null ?
             <div>               
@@ -101,7 +101,11 @@ export default function CustomerView(props) {
             (<h1>
               Loading...
             </h1>)}
-      </div>
+          </div>
+          {/* <div class="orderLog2">
+            <div class="box3"></div>
+          </div> */}
+      {/* </div> */}
       <footer class="footer">
         <p>Copyright &copy; 2023 Yezen Hijazin</p>
       </footer>

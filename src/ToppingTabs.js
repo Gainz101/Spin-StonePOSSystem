@@ -39,6 +39,9 @@ export default function ToppingTabs(props) {
     const drizzleItems = [{ item: 'BBQ Sauce', id: 1 }, { item: 'Olive Oil', id: 2 }, { item: 'Siracha', id: 3 }, { item: 'Ranch', id: 4 }, { item: 'Oregano', id: 5 }];
     const listItemsDrizzle = drizzleItems.map(item => createButton(item.id, item.item, ()=>{}));
 
+    const drinks = [{ item: 'Gatorade', id: 1 }, { item: 'Pepsi', id: 2 }, { item: 'Montain Dew', id: 3 }, { item: 'Water', id: 4 }, { item: 'Dr. Pepper', id: 5 }, { item: 'Starry', id: 6 }];
+    const listDrinks = drinks.map(item => createButton(item.id, item.item, ()=>{}));
+
     const exit = <div class="exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
 
 
@@ -52,6 +55,7 @@ export default function ToppingTabs(props) {
                     { max_toppings > 0 ? <Tab>Meats & Veggies</Tab> : null }
 
                     <Tab>Drizzle</Tab>
+                    <Tab>Drink</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -96,6 +100,18 @@ export default function ToppingTabs(props) {
                     <h2>Choose your Drizzle</h2>
                     <div class="card__container">
                         {listItemsDrizzle}
+                    </div>
+                    <div class="finish_order">
+                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                            Next
+                        </button>
+                    </div>
+                </TabPanel>
+                <TabPanel>
+                    {exit}
+                    <h2>Choose your Drink</h2>
+                    <div class="card__container">
+                        {listDrinks}
                     </div>
                     <div class="finish_order">
                         <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>

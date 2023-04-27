@@ -157,11 +157,7 @@ export default function CashierView(props) {
               </div>
             </div>
             <div class="orderLog">
-              <div class="">
-                  <div class="box2">
-                    
-                  </div>
-              </div>
+                <div class="box2"></div>
             </div>
           </div>
         </div>

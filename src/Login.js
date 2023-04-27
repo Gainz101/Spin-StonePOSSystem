@@ -10,6 +10,8 @@ import MapContainer from './mapview';
 import './assets/btn_google_light_normal_ios.svg';
 import myImage from './assets/image.png';
 import maps from "./assets/google-maps.png"
+{/* <script src="https://apis.google.com/js/platform.js" async defer></script> */}
+
 
 
 // import './assets/btn_google_light_normal_ios.eps';
