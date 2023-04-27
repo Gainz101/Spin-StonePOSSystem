@@ -24,8 +24,8 @@ export default function CashierView(props) {
   const [buttonSelected, setButtonSelected]=useState(false);
   const [selectedStateCrust,setSelectedStateCrust]=useState(Array(crustItems.length).fill(false));
   const [selectedStateSauce,setSelectedStateSauce]=useState(Array(sauceItems.length).fill(false));
-  const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
-  const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
+  // const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
+  // const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
   const [selectedStateDrizz,setSelectedStateDrizz]=useState(Array(drizzleItems.length).fill(false));
   const [selectedStateTop,setSelectedStateTop]=useState(Array(topItems.length).fill(false));
 
@@ -54,7 +54,6 @@ export default function CashierView(props) {
       return;
     }
     // setButtonSelected(!buttonSelected);
-    selectedStateTop.filter(Boolean).length >= 4;
     const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
     newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
     setSelectedStateTop(newSelectedState);

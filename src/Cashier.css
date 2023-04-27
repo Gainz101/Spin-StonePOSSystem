@@ -74,7 +74,7 @@ h2{
   padding: 5px;
   border-radius: 20px; */
 }
-.grid-item {
+/* .grid-item {
   font-size: 30px;
   
   text-align: center;
@@ -82,7 +82,7 @@ h2{
   padding: 5px;
   background-color: #ff0000;
 
-}
+} */
 .gridMover{
   position:relative; right:10px; top:2px;
   width: 40%;
@@ -428,9 +428,6 @@ h3{
    .button-name4:active {
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
-   }
-   .button-name4:selected {
-    
    }
    .button-name5 {
     align-items: center;

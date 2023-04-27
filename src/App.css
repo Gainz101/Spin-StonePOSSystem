@@ -90,13 +90,34 @@ footer{
 
 
 
-.card__container {
+/* .card__container {
     padding: 10px;
   }
 
 .card {
     width: 80%;
     height: 140px;
+    border-radius: 20px;
+    padding: 7px;
+    margin-bottom: 200px;
+    
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    background-image: linear-gradient(144deg,#f57c19, #f7ca28 50%,#ebff0b);
+    margin: auto;
+} */
+
+.card__container {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 70%;
+    margin: auto;
+    grid-gap: 20px;
+}
+
+.card {
+    width: 300px;
+    height: 300px;
     border-radius: 20px;
     padding: 7px;
     margin-bottom: 200px;

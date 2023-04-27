@@ -8,6 +8,9 @@ import MapContainer from './mapview';
 // import './assets/hide-eye.svg';
 // import './assets/show-eye.svg';
 import './assets/btn_google_light_normal_ios.svg';
+import myImage from './assets/image.png';
+
+
 // import './assets/btn_google_light_normal_ios.eps';
 // import './assets/btn_google_light_normal_ios.jpeg';
 
@@ -67,9 +70,7 @@ export default function Login(props){
             <div class="box">
 
                 {/* **** Login bypass *****/}
-                <h1><a href="/?form=customer_view">Consumer View</a></h1>
-                <h1><a href="/?form=cashier_view">Cashier View</a></h1>
-                <h1><a href="/?form=manager_view">Manager View (WIP)</a></h1>
+                <img src={myImage} alt="My image" />
                 
                 
 
@@ -114,6 +115,10 @@ export default function Login(props){
                     <p class="smallGreyText">
                         Don't have an account?
                         <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
+                        <br></br>Consumer Info:
+                        user: yeezy, pass: yezzy77; 
+                        user: cash, pass:cash123; 
+                        user: man, pass:man000;
                     </p> 
                 </form>
                 {MapContainer()}

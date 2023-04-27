@@ -5,7 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 import './App.css'; // Tell webpack that App.js uses these styles
 
 function createButton(key, text, onClick) {
-    return <div class="card__container"><div class="card"><button class="cardContent" key={key} onClick={onClick}> {text}</button></div></div>
+    return <div class="card"><button class="cardContent" key={key} onClick={onClick}> {text}</button></div>
 }
 export default function ToppingTabs(props) {
     const [tabIndex, setTabIndex] = useState(0);
@@ -57,23 +57,31 @@ export default function ToppingTabs(props) {
                 <TabPanel>
                     {exit}
                     <h2>Choose your Crust</h2>
-                    {listItemsCrust}
+                    <div class="card__container">
+                        {listItemsCrust}
+                    </div>
                 </TabPanel>
                 <TabPanel>
                     {exit}
                     <h2>Choose your Sauce</h2>
-                    {listItemsSauce}
+                    <div class="card__container">
+                        {listItemsSauce}
+                    </div>
                 </TabPanel>
                 { max_toppings > 0 ? <TabPanel>
                     {exit}
                     <h2>Choose your Meats & Veggies</h2>
-                    {[listItemsMeats,...listItemsVeggies]}
+                    <div class="card__container">
+                        {[listItemsMeats,...listItemsVeggies]}
+                    </div>
                 </TabPanel> : null }
                 
                 <TabPanel>
                     {exit} 
                     <h2>Choose your Drizzle</h2>
-                    {listItemsDrizzle}
+                    <div class="card__container">
+                        {listItemsDrizzle}
+                    </div>
                     <div class="finish_order">
                         <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
                             Finish Order
