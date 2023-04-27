@@ -54,10 +54,11 @@ export default function CashierView(props) {
       const selectedCount = selectedStateTop.filter(Boolean).length;
       if (selectedCount >= 4) {
         const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)\
-        if(newSelectedState[index]==true){
+        if(newSelectedState[index]==true){//checks if they wanna press on a button already pressed
           newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
           setSelectedStateTop(newSelectedState);
-        }else{
+          changeCountTop(toppingCount - 1);//lowers the counter by one
+        }else{//if their trying to press a new button they arent allowed
           return;
         }
       }
