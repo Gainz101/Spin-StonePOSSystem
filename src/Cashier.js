@@ -44,20 +44,22 @@ export default function CashierView(props) {
       if (toppingCount < 1) {
         changeCountTop(toppingCount + 1);
       } 
+      const newSelectedState = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
+      newSelectedState[index] = true;//changes its value to the opposite
+      setSelectedStateTop(newSelectedState);
     }else if(pizzaState==3){
       if (toppingCount < 4) {
         changeCountTop(toppingCount + 1);
       } 
+      const selectedCount = selectedStateTop.filter(Boolean).length;
+      if (selectedCount >= 4) {
+        return;
+      }
+      // setButtonSelected(!buttonSelected);
+      const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
+      newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
+      setSelectedStateTop(newSelectedState);
     }
-    const selectedCount = selectedStateTop.filter(Boolean).length;
-    if (selectedCount >= 4) {
-      return;
-    }
-    // setButtonSelected(!buttonSelected);
-    const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
-    newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
-    setSelectedStateTop(newSelectedState);
-
   }
 
   function whenClickedCrust(index){
@@ -105,7 +107,7 @@ export default function CashierView(props) {
     changeCountSauce(0);
     changeCountDrizz(0);
     changeCountCrust(0);
-    
+
     const newSelectedState = Array(drizzleItems.length).fill(false);
     setSelectedStateDrizz(newSelectedState);  
     const newSelectedState2 = Array(sauceItems.length).fill(false);
