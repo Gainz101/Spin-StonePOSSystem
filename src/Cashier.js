@@ -53,7 +53,13 @@ export default function CashierView(props) {
       } 
       const selectedCount = selectedStateTop.filter(Boolean).length;
       if (selectedCount >= 4) {
-        return;
+        const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)\
+        if(newSelectedState[index]==true){
+          newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
+          setSelectedStateTop(newSelectedState);
+        }else{
+          return;
+        }
       }
       // setButtonSelected(!buttonSelected);
       const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
