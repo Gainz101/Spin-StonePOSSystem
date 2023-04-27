@@ -60,6 +60,11 @@ export default function ToppingTabs(props) {
                     <div class="card__container">
                         {listItemsCrust}
                     </div>
+                    <div class="finish_order">
+                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                            Next
+                        </button>
+                    </div>
                 </TabPanel>
                 <TabPanel>
                     {exit}
@@ -67,12 +72,22 @@ export default function ToppingTabs(props) {
                     <div class="card__container">
                         {listItemsSauce}
                     </div>
+                    <div class="finish_order">
+                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                            Next
+                        </button>
+                    </div>
                 </TabPanel>
                 { max_toppings > 0 ? <TabPanel>
                     {exit}
                     <h2>Choose your Meats & Veggies</h2>
                     <div class="card__container">
                         {[listItemsMeats,...listItemsVeggies]}
+                    </div>
+                    <div class="finish_order">
+                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                            Next
+                        </button>
                     </div>
                 </TabPanel> : null }
                 
