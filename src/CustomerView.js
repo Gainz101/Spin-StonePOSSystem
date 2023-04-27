@@ -4,6 +4,8 @@ import 'react-tabs/style/react-tabs.css';
 import './App.css'; // Tell webpack that App.js uses these styles
 import { BACKEND_IP } from "./BackendConnection";
 import ToppingTabs from "./ToppingTabs";
+import oneTop from "./assets/1top.jpg"
+import cheese from "./assets/cheese.jpg"
 
 
 
@@ -81,21 +83,24 @@ export default function CustomerView(props) {
 
         {((isBaseItemsLoaded) && (currentOrder !== null) && (itemTypes !== null)) ?
           (itemType == null ?
-            <div>               <h2>Choose your Main</h2>
-            {
-              baseItems.map(item => 
-            <div class="card__container">
-              <div class = "card">
-                <button class="cardContent" key={item.itemtype_id} onClick={()=>setItemType(item.itemtype_id)}> 
-                  {item.item_display_name}
-                </button>
-              </div>
-            </div>)} </div> :
-            <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch}></ToppingTabs>)
-          :
-          (<h1>
-            Loading...
-          </h1>)}
+            <div>               
+              <h2>Choose your Main</h2>
+              <div class="card__container">
+                {baseItems.map(item => 
+                    <div class = "card"> 
+                      <button class="cardContent" key={item.itemtype_id} onClick={()=>setItemType(item.itemtype_id)}> 
+                        {item.item_display_name}
+                        <img class="itemPic" src={cheese}/>
+                      </button>
+                    </div>
+                  )} 
+                </div>
+              </div> :
+              <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch}></ToppingTabs>)
+            :
+            (<h1>
+              Loading...
+            </h1>)}
       </div>
       <footer class="footer">
         <p>Copyright &copy; 2023 Yezen Hijazin</p>
