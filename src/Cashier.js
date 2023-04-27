@@ -102,6 +102,20 @@ export default function CashierView(props) {
     setState(newState);
     // Reset the topping count when the pizza state changes
     changeCountTop(0); 
+    changeCountSauce(0);
+    changeCountDrizz(0);
+    changeCountCrust(0);
+    
+    const newSelectedState = Array(drizzleItems.length).fill(false);
+    setSelectedStateDrizz(newSelectedState);  
+    const newSelectedState2 = Array(sauceItems.length).fill(false);
+    setSelectedStateSauce(newSelectedState2);  
+    const newSelectedState3 = Array(crustItems.length).fill(false);//restarts the array with false
+    setSelectedStateCrust(newSelectedState3);
+    const newSelectedState4 = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
+    setSelectedStateTop(newSelectedState4);
+
+
   }
   
   function createButton(baseItem, whenClick, buttonClass, selectedState, index){
