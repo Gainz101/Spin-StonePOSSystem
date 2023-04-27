@@ -4,6 +4,8 @@ import 'react-tabs/style/react-tabs.css';
 import './App.css'; // Tell webpack that App.js uses these styles
 import { BACKEND_IP } from "./BackendConnection";
 import ToppingTabs from "./ToppingTabs";
+import oneTop from "./assets/1top.jpg"
+import cheese from "./assets/cheese.jpg"
 
 
 
@@ -85,9 +87,10 @@ export default function CustomerView(props) {
               <h2>Choose your Main</h2>
               <div class="card__container">
                 {baseItems.map(item => 
-                    <div class = "card">
+                    <div class = "card"> 
                       <button class="cardContent" key={item.itemtype_id} onClick={()=>setItemType(item.itemtype_id)}> 
                         {item.item_display_name}
+                        <img class="itemPic" src={cheese}/>
                       </button>
                     </div>
                   )} 

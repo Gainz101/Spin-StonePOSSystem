@@ -149,6 +149,11 @@ footer{
       transform: scale(0.95);
   }
 
+  .itemPic{
+    width: 200px;
+    height: 200px;
+  }
+
 
 /* .custom-tabs .tabs-container {
     margin: 20px;

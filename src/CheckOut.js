@@ -15,7 +15,7 @@ export default function CheckOut(props){
                         <div class ="contentPrice">$2.00</div>
                     </div>
                     <div class ="itemBoxContentEditRemove">
-                        <a onClick={() => props.onFormSwitch("toppings_tabs")}>Edit </a><a>Remove</a>
+                        <a onClick={() => props.onFormSwitch("customer_view")}>Edit </a><a>Remove</a>
                         <div class ="itemBoxContentQTY"><strong>Qty 1</strong></div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@ export default function CheckOut(props){
                 </div>
             </div>
             <div class="finish_order">
-                <button class="finish_orderText" onClick={() => props.onFormSwitch("consumer_view")}>
+                <button class="finish_orderText" onClick={() => props.onFormSwitch("customer_view")}>
                     Pay
                 </button>
             </div>

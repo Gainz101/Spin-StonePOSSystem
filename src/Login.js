@@ -9,6 +9,7 @@ import MapContainer from './mapview';
 // import './assets/show-eye.svg';
 import './assets/btn_google_light_normal_ios.svg';
 import myImage from './assets/image.png';
+import maps from "./assets/google-maps.png"
 
 
 // import './assets/btn_google_light_normal_ios.eps';
@@ -115,15 +116,18 @@ export default function Login(props){
                     <p class="smallGreyText">
                         Don't have an account?
                         <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
-                        <br></br>Consumer Info:
-                        user: yeezy, pass: yezzy77; 
+                        <br></br>Consumer Info: (yeezy, yeezy77),(cash, cash123),(man, man000)<br></br>
+                        {/* user: yeezy, pass: yezzy77; 
                         user: cash, pass:cash123; 
-                        user: man, pass:man000;
+                        user: man, pass:man000; */}
+                        Google maps icons created by Freepik - Flaticon
                     </p> 
+                    <button class="google-signin" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps}></img>Google Maps</button>
                 </form>
-                {MapContainer()}
-                
             </div>
+            {/* <footer class="footer">
+                <a href="https://www.flaticon.com/free-icons/google-maps" title="google maps icons">Google maps icons created by Freepik - Flaticon</a>
+            </footer> */}
         </div>
     );
                 }
