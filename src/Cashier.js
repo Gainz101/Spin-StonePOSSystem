@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import React from "react";
 import './Cashier.css'; // Tell webpack that App.js uses these styles
 
+const PIZZA_STATE_CHEESE = 0;
+const PIZZA_STATE_ONE_TOPPING = 1;
+const PIZZA_STATE_TWOFOUR_TOPPING = 2;
+
+// Drink should not be part of pizza state
+const PIZZA_STATE_DRINK = 3;
 
 // Sort of array with all the current listed Items
 const baseItems = [{ "item_display_name": "Original Cheeze Pizza", "itemtype_id": 0}, { "item_display_name": "1 Topping Pizza", "itemtype_id": 1 },{ "item_display_name": "2-4 Topping Pizza", "itemtype_id": 2}]
@@ -17,7 +23,7 @@ export default function CashierView(props) {
   const [crustCount, changeCountCrust] = useState(0);
   const [drizzleCount, changeCountDrizz] = useState(0);
   const [sauceCount, changeCountSauce] = useState(0);
-  const [pizzaState, setState] = useState(1);
+  const [pizzaState, setPizzaState] = useState(0);
   const [buttonSelected, setButtonSelected] = useState(false);
   const [selectedStateCrust, setSelectedStateCrust] = useState(Array(crustItems.length).fill(false));
   const [selectedStateSauce, setSelectedStateSauce] = useState(Array(sauceItems.length).fill(false));
@@ -33,16 +39,16 @@ export default function CashierView(props) {
 
 
   function whenClickedTop(index) {
-    if (pizzaState == 1 || pizzaState == 4) {
+    if (pizzaState == PIZZA_STATE_CHEESE || pizzaState == PIZZA_STATE_DRINK) {
       null;
-    } else if (pizzaState == 2) {
+    } else if (pizzaState == PIZZA_STATE_ONE_TOPPING) {
       if (toppingCount < 1) {
         changeCountTop(toppingCount + 1);
       }
       const newSelectedState = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
       newSelectedState[index] = true;//changes its value to the opposite
       setSelectedStateTop(newSelectedState);
-    } else if (pizzaState == 3) {
+    } else if (pizzaState == PIZZA_STATE_TWOFOUR_TOPPING) {
       if (toppingCount < 4) {
         changeCountTop(toppingCount + 1);
       }
@@ -103,7 +109,7 @@ export default function CashierView(props) {
   }
 
   function returnID(newState) {
-    setState(newState);
+    setPizzaState(newState);
     // Reset the topping count when the pizza state changes
     changeCountTop(0);
     changeCountSauce(0);
@@ -127,11 +133,11 @@ export default function CashierView(props) {
   }
 
   function CountingFunction({ id }) {
-    if (id === 1) {
+    if (id === PIZZA_STATE_CHEESE) {
       return <div class="counter"><div class="red">Crust ({crustCount}/1)</div> <div class="orange">Sauce ({sauceCount}/1)</div> <div class="pink">Drizzle ({drizzleCount}/1)</div></div>;
-    } else if (id === 2) {
+    } else if (id === PIZZA_STATE_ONE_TOPPING) {
       return <div class="counter"><div class="red">Crust ({crustCount}/1)</div> <div class="orange">Sauce ({sauceCount}/1)</div> <div class="blue">Toppings ({toppingCount}/1)</div> <div class="pink">Drizzle ({drizzleCount}/1)</div></div>;
-    } else if (id === 3) {
+    } else if (id === PIZZA_STATE_TWOFOUR_TOPPING) {
       return <div class="counter"><div class="red">Crust ({crustCount}/1)</div> <div class="orange">Sauce ({sauceCount}/1)</div> <div class="blue">Toppings ({toppingCount}/4)</div> <div class="pink">Drizzle ({drizzleCount}/1)</div></div>;
     } else {
       return null;
