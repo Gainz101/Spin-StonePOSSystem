@@ -49,22 +49,21 @@ export default function CashierView(props) {
       newSelectedState[index] = true;//changes its value to the opposite
       setSelectedStateTop(newSelectedState);
     } else if (pizzaState == PIZZA_STATE_TWOFOUR_TOPPING) {
+      const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
       if (toppingCount < 4) {
         changeCountTop(toppingCount + 1);
+        if (newSelectedState[index] == true) {//checks if they wanna press on a button already pressed
+          changeCountTop(toppingCount - 1);//lowers the counter by one
+        }
       }
       const selectedCount = selectedStateTop.filter(Boolean).length;
       if (selectedCount >= 4) {
-        const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)\
         if (newSelectedState[index] == true) {//checks if they wanna press on a button already pressed
-          newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
-          setSelectedStateTop(newSelectedState);
           changeCountTop(toppingCount - 1);//lowers the counter by one
         } else {//if their trying to press a new button they arent allowed
           return;
         }
       }
-      // setButtonSelected(!buttonSelected);
-      const newSelectedState = [...selectedStateTop];//take into account the past array (copies it in)
       newSelectedState[index] = !newSelectedState[index];//changes its value to the opposite
       setSelectedStateTop(newSelectedState);
     }
@@ -74,8 +73,6 @@ export default function CashierView(props) {
     if (crustCount < 1) {
       changeCountCrust(crustCount + 1);
     }
-    // setButtonSelected(!buttonSelected);
-    // setSelectedStateCrust[index]=!setSelectedStateCrust[index];
 
     // Set the selected state of the clicked button to true
     const newSelectedState = Array(crustItems.length).fill(false);//restarts the array with false
@@ -87,8 +84,7 @@ export default function CashierView(props) {
     if (drizzleCount < 1) {
       changeCountDrizz(drizzleCount + 1);
     }
-    // setButtonSelected(!buttonSelected);
-    // setSelectedStateDrizz[index]=!setSelectedStateDrizz[index];  
+
 
     // Set the selected state of the clicked button to true
     const newSelectedState = Array(drizzleItems.length).fill(false);
@@ -99,8 +95,6 @@ export default function CashierView(props) {
     if (sauceCount < 1) {
       changeCountSauce(sauceCount + 1);
     }
-    // setButtonSelected(!buttonSelected);
-    // setSelectedStateSauce[index]=!setSelectedStateSauce[index];
 
     // Set the selected state of the clicked button to true
     const newSelectedState = Array(sauceItems.length).fill(false);
@@ -124,8 +118,6 @@ export default function CashierView(props) {
     setSelectedStateCrust(newSelectedState3);
     const newSelectedState4 = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
     setSelectedStateTop(newSelectedState4);
-
-
   }
 
   function createButton(baseItem, whenClick, buttonClass, selectedState, index) {
@@ -182,6 +174,9 @@ export default function CashierView(props) {
           </div>
           <div class="orderLog">
             <div class="box2"></div>
+            <button role="button" class="button-nameC"> Add to Order</button>
+            <button role="button" class="button-nameC">Delete Order</button>
+            <button role="button" class="button-nameC">Check out</button>
           </div>
         </div>
       </div>
