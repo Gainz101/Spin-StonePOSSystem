@@ -42,7 +42,7 @@ export default function ToppingTabs(props) {
     const drinks = [{ item: 'Gatorade', id: 1 }, { item: 'Pepsi', id: 2 }, { item: 'Montain Dew', id: 3 }, { item: 'Water', id: 4 }, { item: 'Dr. Pepper', id: 5 }, { item: 'Starry', id: 6 }];
     const listDrinks = drinks.map(item => createButton(item.id, item.item, ()=>{}));
 
-    const exit = <div class="exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+    const exit = <div class="exit"><button onClick={() => props.onFormSwitch("customer_view")} type="submit" class="exit_text">Exit</button></div>
 
 
     return (
