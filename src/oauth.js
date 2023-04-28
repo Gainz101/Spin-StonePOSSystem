@@ -1,5 +1,7 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import './Login.css'; // Tell webpack that Login.js uses these styles
+
 
 function oauth() {
     const responseMessage = (response) => {
@@ -9,11 +11,15 @@ function oauth() {
         console.log(error);
     };
     return (
-        <div>
-
-            <br />
-            <br />
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+        <div class="googleAuthButton">
+            <div >
+            {/* <button class="google-signin">
+                <div><SvgComponent /></div>
+                
+                <div class="centerr">Log in with Google</div>
+            </button>     */}
+                <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            </div>
         </div>
     )
 }

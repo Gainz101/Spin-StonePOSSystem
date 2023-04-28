@@ -115,11 +115,12 @@ export default function Login(props){
                             
 
                     <span>or</span>
-                    <button class="google-signin">
-                        <div><SvgComponent /></div>{oauth()}
+                    {/* <button class="google-signin">
+                        <div><SvgComponent /></div>
                         
-                        {/* <div class="centerr">Log in with Google</div> */}
-                    </button>           
+                        <div class="centerr">Log in with Google</div>
+                    </button>            */}
+                    {oauth()}
                     <p class="smallGreyText">
                         Don't have an account?
                         <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
