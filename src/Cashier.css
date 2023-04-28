@@ -68,7 +68,7 @@ h2{
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;
-  width: 70%;
+  width: 100%;
   /* margin: auto;
   background-color: rgb(255, 255, 255);
   padding: 5px;
@@ -103,7 +103,7 @@ h2{
 }
 .grid-containerToppings {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
   }
   
 .gridMoverToppings{
@@ -224,8 +224,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -269,8 +269,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -314,8 +314,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -358,8 +358,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -402,8 +402,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -446,8 +446,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
@@ -516,8 +516,8 @@ h3{
     line-height: 1;
     list-style: none;
     overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 57px;
+    padding-right: 57px;
     position: relative;
     text-align: left;
     text-decoration: none;
