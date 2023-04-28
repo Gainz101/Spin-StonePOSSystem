@@ -25,16 +25,16 @@ export default function ToppingTabs(props) {
 
     
     const crustItems = [{ item: 'Normal Crust', id: 1 }, { item: 'Cauliflower Crust', id: 2 }];
-    const listItemsCrust = crustItems.map(item => createButton(item.id, item.item, ()=>{setTabIndex(1)}));
+    const listItemsCrust = crustItems.map(item => createButton(item.id, item.item, null));
 
     const sauceItems = itemtypes.filter((itemtype)=>itemtype.is_sauce)
-    const listItemsSauce = sauceItems.map(item => createButton(item.itemtype_id, item.item_display_name, ()=>{setTabIndex(2)}));
+    const listItemsSauce = sauceItems.map(item => createButton(item.itemtype_id, item.item_display_name, null));
 
     const meatsItems = [{ item: 'Italian Sausage', id: 1 }, { item: 'Meatball', id: 2 }, { item: 'Pepperoni', id: 3 }, { item: 'Salami', id: 4 }, { item: 'Smoked Chicken', id: 5 }];
-    const listItemsMeats = meatsItems.map(item => createButton(item.id, item.item, ()=>{setTabIndex(3)}));
+    const listItemsMeats = meatsItems.map(item => createButton(item.id, item.item, null));
 
     const veggiesItems = [{ item: 'Green Peppers', id: 1 }, { item: 'Black Olives', id: 2 }, { item: 'Banana Peppers', id: 3 }, { item: 'Jalapenos', id: 4 }, { item: 'Mushrooms', id: 5 }, { item: 'Onions', id: 6 }];
-    const listItemsVeggies = veggiesItems.map(item => createButton(item.id, item.item, ()=>{setTabIndex(4)}));
+    const listItemsVeggies = veggiesItems.map(item => createButton(item.id, item.item, null));
 
     const drizzleItems = [{ item: 'BBQ Sauce', id: 1 }, { item: 'Olive Oil', id: 2 }, { item: 'Siracha', id: 3 }, { item: 'Ranch', id: 4 }, { item: 'Oregano', id: 5 }];
     const listItemsDrizzle = drizzleItems.map(item => createButton(item.id, item.item, ()=>{}));
@@ -65,7 +65,7 @@ export default function ToppingTabs(props) {
                         {listItemsCrust}
                     </div>
                     <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                        <button class="finish_orderText" onClick={()=>{setTabIndex(1)}}>
                             Next
                         </button>
                     </div>
@@ -77,7 +77,7 @@ export default function ToppingTabs(props) {
                         {listItemsSauce}
                     </div>
                     <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                        <button class="finish_orderText" onClick={()=>{setTabIndex(2)}}>
                             Next
                         </button>
                     </div>
@@ -89,7 +89,7 @@ export default function ToppingTabs(props) {
                         {[listItemsMeats,...listItemsVeggies]}
                     </div>
                     <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                        <button class="finish_orderText" onClick={()=>{setTabIndex(3)}}>
                             Next
                         </button>
                     </div>
@@ -102,7 +102,7 @@ export default function ToppingTabs(props) {
                         {listItemsDrizzle}
                     </div>
                     <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => props.onFormSwitch("checkout_view")}>
+                        <button class="finish_orderText" onClick={()=>{setTabIndex(4)}}>
                             Next
                         </button>
                     </div>
