@@ -196,13 +196,13 @@ export default function CashierView(props) {
     // })
   }
 
-  const listItems = baseItems.map(baseItems => <button onClick={() => returnID(baseItems.itemtype_id)} role="button" class="button-nameBase" key={baseItems.itemtype_id}> {baseItems.item_display_name}</button>);
+  const listItems = baseItems.map(baseItem => <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
 
-  const listItemsCrust = crustItems.map(baseItem => createButton(baseItem, whenClickedCrust, "button-nameC", selectedStateCrust, baseItem.itemtype_id));
+  const listItemsCrust = crustItems.map(crustItem => createButton(crustItem, whenClickedCrust, "button-nameC", selectedStateCrust, crustItem.itemtype_id));
 
-  const listItemsSauce = sauceItems.map(baseItem => createButton(baseItem, whenClickedSauce, "button-name2", selectedStateSauce, baseItem.itemtype_id));
+  const listItemsSauce = sauceItems.map(sauceItem => createButton(sauceItem, whenClickedSauce, "button-name2", selectedStateSauce, sauceItem.itemtype_id));
 
-  const listItemsTop = topItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name4", selectedStateTop, baseItem.itemtype_id));
+  const listItemsTop = topItems.map(topItem => createButton(topItem, whenClickedTop, "button-name4", selectedStateTop, topItem.itemtype_id));
 
   // const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateMeats, baseItem.itemtype_id));
 
@@ -240,6 +240,7 @@ export default function CashierView(props) {
             </div>
           </div>
           <div class="orderLog">
+          <div class="payButtonsContainer">
             <div class="box2">{
               //JSON.stringify(currentOrder)
               // Map the order items into 
@@ -261,11 +262,14 @@ export default function CashierView(props) {
                   )}
                 </div>
               })
-}</div>
-            <button role="button" class="button-nameC" onClick={AddToOrder}>Add to Order</button>
-            <button role="button" class="button-nameC">Delete Order</button>
-            <button role="button" class="button-nameC">Check out</button>
+}</div>   <div class="buttonsLayout">
+            <button role="button" class="button-namePay">Delete Item</button>
+            <button role="button" class="button-namePay">Delete Order</button>
+            <button role="button" class="button-namePay" onClick={AddToOrder}>Add to Order</button>
+            <button role="button" class="button-namePay">Check out</button>
           </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
