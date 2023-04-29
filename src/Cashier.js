@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from "react";
 import './Cashier.css'; // Tell webpack that App.js uses these styles
+import { BACKEND_IP } from './BackendConnection.js';
 
 const PIZZA_STATE_CHEESE = 0;
 const PIZZA_STATE_ONE_TOPPING = 1;
@@ -18,6 +19,10 @@ const drizzleItems = [{ "itemtype_id": 19, "item_display_name": "BBQ Sauce", "it
 // const topItems = new Map(meatsItems,veggiesItems);
 const topItems = [{ "itemtype_id": 3, "item_display_name": "Diced Ham", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 4, "item_display_name": "Italian Sausage", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 5, "item_display_name": "Meatball", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 6, "item_display_name": "Pepperoni", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 7, "item_display_name": "Salami", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 8, "item_display_name": "Smoked Chicken", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 9, "item_display_name": "Banana Peppers", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 10, "item_display_name": "Black Olives", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 11, "item_display_name": "Green Peppers", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 12, "item_display_name": "Jalapenos", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 13, "item_display_name": "Mushrooms", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 14, "item_display_name": "Onions", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 15, "item_display_name": "Pineapple", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 16, "item_display_name": "Roasted Garlic", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 17, "item_display_name": "Spinach", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 18, "item_display_name": "Tomatoes", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }]
 
+const itemTypes = [
+  ...baseItems, ...crustItems, ...sauceItems, ...drizzleItems, ...topItems
+]
+
 export default function CashierView(props) {
   const [toppingCount, changeCountTop] = useState(0);
   const [crustCount, changeCountCrust] = useState(0);
@@ -32,11 +37,20 @@ export default function CashierView(props) {
   const [selectedStateDrizz, setSelectedStateDrizz] = useState(Array(drizzleItems.length).fill(false));
   const [selectedStateTop, setSelectedStateTop] = useState(Array(topItems.length).fill(false));
 
+  const [currentOrder, setCurrentOrder] = useState(null)
 
 
 
+  /* Use effect makes it so that this code is only run once when the CashierView is shown */
+  useEffect(()=>{
+    // This code is only run once
+    // Create a new order for the backend
+    fetch(BACKEND_IP + "/order/new").then((res)=>res.json()).then(order=>{ 
+      // Update the current order state
+      setCurrentOrder(order)
+    }, alert)
 
-
+  }, []) // You need the brackets at the end so it doesn't do it multiple times
 
   function whenClickedTop(index) {
     if (pizzaState == PIZZA_STATE_CHEESE || pizzaState == PIZZA_STATE_DRINK) {
@@ -136,6 +150,51 @@ export default function CashierView(props) {
     }
   }
 
+  function ExtractItemIds(boolArray) {
+    let ret = [];
+  
+    // Expected output: Array [0, "a"]
+    for (const [itemId, itemSelected] of boolArray.entries()) {
+      if(itemSelected) {
+        ret.push(itemId)
+      }
+      
+    }
+    return ret;
+  }
+
+  function AddToOrder() {
+    // For each item selected button, do XYZ
+    const PizzaId = pizzaState
+    const PizzaModifiers = ExtractItemIds([...selectedStateCrust, ...selectedStateDrizz, ...selectedStateSauce, ...selectedStateTop])
+  
+      // Destructure the order_id from currentOrder into it's own varaible
+    const {
+      order_id
+    } = currentOrder;
+
+    // First add the Pizza to the order
+    fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaId}`).then((res=>res.json())).then((new_order_state1)=>{
+      /// new order state1 is the 
+      const { new_items } = new_order_state1;
+      // new items is an array of the item ids that were just added
+      // its length is only 1 because we only added the base pizza
+      const pizza_item_id = new_items[0];
+
+      return pizza_item_id
+    }).then((pizza_item_id)=>{
+      fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaModifiers.join(",")}&root_item_id=${pizza_item_id}`).then((newOrderState)=>{
+        setCurrentOrder(newOrderState)
+      })
+    })
+    // console.log()
+    // fetch(backend/order/item?add=).then((res)=>{
+    //  
+    //  res.json()
+    //}).then((order)=>{
+    //    setCurrentOrder(order)
+    // })
+  }
 
   const listItems = baseItems.map(baseItems => <button onClick={() => returnID(baseItems.itemtype_id)} role="button" class="button-nameBase" key={baseItems.itemtype_id}> {baseItems.item_display_name}</button>);
 
@@ -148,12 +207,20 @@ export default function CashierView(props) {
   // const listItemsMeats = meatsItems.map(baseItem => createButton(baseItem, whenClickedTop, "button-name3", selectedStateMeats, baseItem.itemtype_id));
 
   // const listItemsVeggies = veggiesItems.map(baseItem => createButton(baseItem, whenClickedTop,"button-name4", selectedStateVeggies, baseItem.itemtype_id));
-  1
+
   const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5", selectedStateDrizz, baseItem.itemtype_id));
 
   const exit = <div class="exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+
+
+
+
   return (
     //Parent Element
+    currentOrder == null ?
+      // Show "loading" if current order is null
+      <h1> Loading... </h1>
+    :
     <div>
       <div class="backgroundBland">
         {exit}
@@ -173,8 +240,29 @@ export default function CashierView(props) {
             </div>
           </div>
           <div class="orderLog">
-            <div class="box2"></div>
-            <button role="button" class="button-nameC"> Add to Order</button>
+            <div class="box2">{
+              //JSON.stringify(currentOrder)
+              // Map the order items into 
+              currentOrder.items.map(({item_display_name, item_price, modifiers})=>{
+                return <div class="item">{
+                // Item name
+                item_display_name}
+                  {modifiers.map(({item_display_name: modifier_name, item_price: modifier_price})=>
+                  
+                    <div class="modifier">
+                    {/* Modifier name */}
+                    Modifier: {
+                    modifier_name} 
+                    {/* Modifier price */}
+                    {modifier_price == 0 ? "" : modifier_price.toString()}</div>
+
+                    // Add remove item button
+                    
+                  )}
+                </div>
+              })
+}</div>
+            <button role="button" class="button-nameC" onClick={AddToOrder}>Add to Order</button>
             <button role="button" class="button-nameC">Delete Order</button>
             <button role="button" class="button-nameC">Check out</button>
           </div>

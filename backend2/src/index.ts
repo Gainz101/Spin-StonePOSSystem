@@ -143,7 +143,11 @@ function startHosting(dbConn: dbConnection) {
         /* Promise.all waits for all items to be added first, then executes the 'then' function */
         Promise.all(itemtype_ids.map((itemtype_id)=>dbAddItemToOrder(dbConn, order_id, itemtype_id, root_item_id)))
             .then(
-                () => dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send(entire_order)),
+                (result) => dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send({
+                    entire_order,
+                    // Send new item ids with order query
+                    new_items: result
+                })),
                 createSQLErrorHandler(response)
             )
     })

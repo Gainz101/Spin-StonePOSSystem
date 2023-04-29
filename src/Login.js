@@ -79,7 +79,7 @@ export default function Login(props){
                 {/* **** Login bypass *****/}
                 <img src={myImage} alt="My image" />
                 
-                
+
 
                 {/***** End login bypass **** */}
 
