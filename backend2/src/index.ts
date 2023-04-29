@@ -139,8 +139,9 @@ function startHosting(dbConn: dbConnection) {
                 itemtype_ids: parseIntListStrict, // Required param
                 root_item_id: parseIntStrictOptional // Optional
             });
-
+    
         /* Promise.all waits for all items to be added first, then executes the 'then' function */
+        
         Promise.all(itemtype_ids.map((itemtype_id)=>dbAddItemToOrder(dbConn, order_id, itemtype_id, root_item_id)))
             .then(
                 (result) => dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send({

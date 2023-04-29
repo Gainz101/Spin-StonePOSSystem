@@ -183,7 +183,9 @@ export default function CashierView(props) {
 
       return pizza_item_id
     }).then((pizza_item_id)=>{
-      fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaModifiers.join(",")}&root_item_id=${pizza_item_id}`).then((newOrderState)=>{
+      fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaModifiers.join(",")}&root_item_id=${pizza_item_id}`)
+      .then((res)=>res.json())
+      .then((newOrderState)=>{
         setCurrentOrder(newOrderState)
       })
     })

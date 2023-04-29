@@ -1,6 +1,7 @@
 import { SQL_Item, SQL_ItemType, SQL_Order } from "./SQL_Schema";
 import { dbApplyStockCosts } from "./Stock";
 import { dbConnection } from "./dbConnection";
+import { randomId } from "./random"
 
 function roundCents(x: number) {
     return Math.ceil(x * 100) / 100
@@ -51,9 +52,10 @@ export async function dbGetEntireOrder(dbConn: dbConnection, order_id: number) {
 }
 
 export async function dbCreateNewOrder(dbConn: dbConnection) {
-    const {new_order_id} = (await dbConn.sqlQuery<{
-        new_order_id: number
-    }>('SELECT MAX(order_id)+1 AS new_order_id FROM orders', []))[0]
+    // const {new_order_id} = (await dbConn.sqlQuery<{
+    //     new_order_id: number
+    // }>('SELECT MAX(order_id)+1 AS new_order_id FROM orders', []))[0]
+    const new_order_id = randomId();
 
     await dbConn.sqlUpdate(`INSERT INTO orders VALUES ($1, 'NOW', false)`, [new_order_id]);
 
@@ -61,11 +63,14 @@ export async function dbCreateNewOrder(dbConn: dbConnection) {
 }
 
 export async function dbAddItemToOrder(dbConn: dbConnection, order_id: number, itemtype_id: number, root_item_id?: number) {
-    const {
-        new_item_id: item_id
-    } = (await dbConn.sqlQuery<{
-        new_item_id: number
-    }>(`SELECT MAX(item_id)+1 AS new_item_id FROM items`, []))[0]
+    // Just create GUID instead of sequential orders
+    // const {
+    //     new_item_id: item_id
+    // } = (await dbConn.sqlQuery<{
+    //     new_item_id: number
+    // }>(`SELECT MAX(item_id)+1 AS new_item_id FROM items`, []))[0]
+
+    const item_id = randomId();
 
     /** Run an SQL query that combines items from an order with their item types */
     await dbConn.sqlUpdate(`INSERT INTO items (order_id, item_id, itemtype_id, root_item_id) VALUES ($1, $2, $3, $4)`, 
