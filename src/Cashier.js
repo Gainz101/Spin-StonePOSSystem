@@ -7,6 +7,7 @@ const PIZZA_STATE_CHEESE = 0;
 const PIZZA_STATE_ONE_TOPPING = 1;
 const PIZZA_STATE_TWOFOUR_TOPPING = 2;
 
+
 // Drink should not be part of pizza state
 const PIZZA_STATE_DRINK = 3;
 
@@ -138,14 +139,14 @@ export default function CashierView(props) {
     // <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
     newSelectedStateBase[newState] = true;
     setSelectedStateBase(newSelectedStateBase);
-    }
-    
-    function createButton(baseItem, whenClick, buttonClass, selectedState, index) {
+  }
+  
+  function createButton(baseItem, whenClick, buttonClass, selectedState, index) {
     return <button onClick={() => whenClick(index - 1)} role="button" class={selectedState[index - 1] ? 'selected' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>
-    }
-    function createButtonBase(baseItem, whenClick, buttonClass, selectedState, index) {
+  }
+  function createButtonBase(baseItem, whenClick, buttonClass, selectedState, index) {
     return <button onClick={() => whenClick(index)} role="button" class={selectedState[index] ? 'selectedBase' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>
-    }
+  }
     
   function CountingFunction({ id }) {
     if (id === PIZZA_STATE_CHEESE) {
@@ -269,23 +270,7 @@ export default function CashierView(props) {
 
                 {/* Item price */}
                 {item_price == 0 ? "" : item_price.toString()}
-              
-                {/* Delete item */}
-                {
-
-                              <button role="button" class="button-namePay" onClick={
-                                ()=>{
-                                  fetch(`${BACKEND_IP}/order/removeItem?order_id=${currentOrder.order_id}&item_id=${item_id}`)
-                                  .then((res)=>res.json())  
-                                  .then((responseJSON)=>{
-                                    // Refresh the component with the new order items by setting the order state
-                                    setCurrentOrder(responseJSON)
-                                  })
-                                  
-                                }
-                              }>Delete Item</button>
-
-                }
+            
 
                   {modifiers.map(({item_display_name: modifier_name, item_price: modifier_price})=>
                   
@@ -302,12 +287,24 @@ export default function CashierView(props) {
 
 
 
-              {"Subtotal = " + currentOrder.subtotal}
-              {"Taxes = " + currentOrder.taxes}
-              {"Total = " + currentOrder.total}
+              
+              <button role="button" class="button-namePay" onClick={
+                                ()=>{
+                                  fetch(`${BACKEND_IP}/order/removeItem?order_id=${currentOrder.order_id}&item_id=${item_id}`)
+                                  .then((res)=>res.json())  
+                                  .then((responseJSON)=>{
+                                    // Refresh the component with the new order items by setting the order state
+                                    setCurrentOrder(responseJSON)
+                                  })
+                                  
+                                }
+                              }>Delete Item</button>
                 </div>
               })
-}</div>   <div class="buttonsLayout">
+}</div>
+{"Subtotal = " + currentOrder.subtotal}
+              {"Taxes = " + currentOrder.taxes}
+              {"Total = " + currentOrder.total}   <div class="buttonsLayout">
             <button role="button" class="button-namePay">Delete Order</button>
             <button role="button" class="button-namePay" onClick={AddToOrder}>Add to Order</button>
             <button role="button" class="button-namePay" onClick={

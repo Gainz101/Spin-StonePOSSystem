@@ -12,7 +12,9 @@ import cheese from "./assets/cheese.jpg"
 
 
 
+
 export default function CustomerView(props) {
+  const [pizzaState, setPizzaState] = useState(0);
   // const [countNum, changeCount] = useState(0);
   const [isBaseItemsLoaded, setIsOrderLoaded] = useState(false);
   const [currentOrder, setOrder] = useState(null);
@@ -21,6 +23,7 @@ export default function CustomerView(props) {
   const [baseItems, setItems] = useState([]);
 
   const [itemType, setItemType] = useState(null);
+  
 
   //   const baseItems = [{item: 'Cheese Pizza', id: 1},
   //   {item:'1 Topping Pizza', id: 2},
@@ -72,6 +75,29 @@ export default function CustomerView(props) {
         })
   }, [])
 
+  function returnID(newState) {
+    setPizzaState(newState);
+    // Reset the topping count when the pizza state changes
+    // changeCountTop(0);
+    // changeCountSauce(0);
+    // changeCountDrizz(0);
+    // changeCountCrust(0);
+
+    // const newSelectedState = Array(drizzleItems.length).fill(false);
+    // setSelectedStateDrizz(newSelectedState);
+    // const newSelectedState2 = Array(sauceItems.length).fill(false);
+    // setSelectedStateSauce(newSelectedState2);
+    // const newSelectedState3 = Array(crustItems.length).fill(false);//restarts the array with false
+    // setSelectedStateCrust(newSelectedState3);
+    // const newSelectedState4 = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
+    // setSelectedStateTop(newSelectedState4);
+    
+    // const newSelectedStateBase = Array(baseItems.length).fill(false);
+    // // <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
+    // newSelectedStateBase[newState] = true;
+    // setSelectedStateBase(newSelectedStateBase);
+  }
+
 
 
 
@@ -88,15 +114,15 @@ export default function CustomerView(props) {
               <div class="card__container">
                 {baseItems.map(item => 
                     <div class = "card"> 
-                      <button class="cardContent" key={item.itemtype_id} onClick={()=>setItemType(item.itemtype_id)}> 
+                      <button class="cardContent" key={item.itemtype_id} onClick={()=>{setItemType(item.itemtype_id);returnID(item.itemtype_id)}}> 
                         {item.item_display_name}
-                        <img class="itemPic" src={cheese}/>
+                        {/* <img class="itemPic" src={cheese}/> */}
                       </button>
                     </div>
                   )} 
                 </div>
               </div> :
-              <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch}></ToppingTabs>)
+              <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch} pizzaState={pizzaState}></ToppingTabs>)
             :
             (<h1>
               Loading...
