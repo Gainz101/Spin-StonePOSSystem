@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, TextField, Typography, Grid, Paper} from '@material-ui/core';
+import './Inventory.css';
 
 const XZReport = (props) => {
   const OnCurrentXReportButtonPressed = () => {
@@ -23,38 +24,34 @@ const XZReport = (props) => {
 
   return (
 
-    <body style={{background: "#e9dac4", height: "100vh", width: "100%", padding: "20px", }}>
+    <body class = "background">
     {exit}
     
      <Grid container rowSpacing={1} columnSpacing={{ xs: 1}}>
       
      <Grid item xs={6}>
  
-      <Typography variant="h2" align='justify'>X Report</Typography>
-      <div style={{display: 'block', width: "100%", marginTop: "2rem", marginBottom:"1rem", alignItems: 'left'}}>
-        <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
+      <div style={{display: 'block', width: "100%", marginTop: "2rem", marginBottom:"1rem", alignItems: 'left', marginLeft: "50px"}}>
+        <Typography variant="h2" align='justify'>X Report</Typography>
+        <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%" }} >
           <p style={{padding: '2%'}}> X - Report </p>
         </Paper>
-        <Button onClick={OnCurrentXReportButtonPressed} variant="contained" color="primary" style={{ marginTop: '16px' }}>
-          Current X Report
-        </Button>
+        <button class =  "newitem" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current X Report</button>
       </div>
+      
       </Grid>
 
       <Grid item xs={6}>
       <Typography variant="h2" align='justify'>Z Report</Typography>
-        <div style={{display: 'block', width: "100%", marginTop: "2rem", marginBottom:"1rem", justifyContent: 'center', alignItems: 'center'}}>
-        <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
+        <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%"}} >
           <p style={{padding: '2%'}}> Z - Report </p>
         </Paper>
-        <Button onClick={OnCurrentZReportButtonPressed} variant="contained" color="primary" style={{ marginTop: '64px' }}>
-          Current Z Report
-        </Button>
+        <button class =  "newitem" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current Z Report</button>
         <TextField id="ZDateTextBox" label="Date" placeholder="MM-DD-YYYY" style={{ marginTop: '95px', marginLeft: '18px' }} />
-        </div>
+      
       </Grid>
-
     </Grid>  
+    
     </body>
   );
 };

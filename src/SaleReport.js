@@ -2,7 +2,7 @@ import {useState} from 'react';
 import React from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { blueGrey, red } from '@material-ui/core/colors';
-import './ManagerView.css'; // Tell webpack that App.js uses these styles
+import './Inventory.css'; 
 
 function SalesReport(props) {
   // useStates in order 
@@ -21,10 +21,10 @@ function SalesReport(props) {
 
   return (
     
-    <body style={{background: "#e9dac4", height: "100vh", width: "100%", padding: "20px", }}>
+    <body class = "background">
     {exit}
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
-      <Typography variant="h3">Sales Report</Typography>
+    <Typography variant="h2" align='center' style={{marginBottom:"3%", color:"#f7ca28"}}>Sale Report</Typography>
    
       <div style={{display: 'flex', width: "100%", marginTop: "1rem", marginBottom:"1rem", justifyContent: 'center', alignItems: 'center'}}>
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
@@ -38,6 +38,7 @@ function SalesReport(props) {
           label="Start Date"
           variant="filled"
           size="small"
+          placeholder='MM-DD-YYYY'
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
@@ -47,15 +48,13 @@ function SalesReport(props) {
           variant="filled"
           size="small"
           value={endDate}
+          placeholder='MM-DD-YYYY'
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      
-      <div style={{ marginTop: "2rem" }}>
-        <Button variant="contained" color="grey" onClick={handleOkButton}>
-          OK
-        </Button>
-      </div>
+   
+        <button class =  "newitem" onClick={handleOkButton}>Enter</button>
+   
       
     </div>
     </body>

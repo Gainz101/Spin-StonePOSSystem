@@ -8,6 +8,7 @@ import Inventory from './Inventory';
 import OrderHistory from './OrderHistory';
 
 
+
 const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {item:'Inventory', id: 3}, {item:'Order History', id: 4}];
 
 

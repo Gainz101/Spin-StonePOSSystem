@@ -2,6 +2,7 @@ import {useState} from 'react';
 import React from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import './ManagerView.css'; // Tell webpack that App.js uses these styles
+import './Inventory.css';
 
 function OrderHistory(props) {
 
@@ -12,7 +13,7 @@ function OrderHistory(props) {
 
   return (
     
-    <body style={{background: "#e9dac4", height: "100vh", width: "100%", padding: "20px", }}>
+    <body class = "background">
     {exit}
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
       <Typography variant="h2">Order History</Typography>
@@ -22,7 +23,7 @@ function OrderHistory(props) {
           <p> {textBox} </p>
         </Paper>
       </div>
-      
+    
     </div>
     </body>
   );
