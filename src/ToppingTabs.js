@@ -138,6 +138,10 @@ export default function ToppingTabs(props) {
         return <div class="card"><button onClick={() => whenClick(index - 1)} class={selectedState[index - 1] ? 'selected2' : buttonClass} key={baseItem.id}> {baseItem.item}</button></div>
 
     }
+    function createButtonSauce(baseItem, whenClick, buttonClass, selectedState, index) {
+        return <div class="card"><button onClick={() => whenClick(index - 1)} class={selectedState[index - 1] ? 'selected2' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button></div>
+
+    }
     // function createButton(key, text, onClick) {
     //     return <div class="card"><button class="cardContent" key={key} onClick={onClick}> {text}</button></div>
     // }
@@ -146,7 +150,7 @@ export default function ToppingTabs(props) {
     //   }
     const listItemsCrust = crustItems.map(item => createButton(item, whenClickedCrust, "cardContent", selectedStateCrust, item.id));
 
-    const listItemsSauce = sauceItems.map(item => createButton(item, whenClickedSauce, "cardContent", selectedStateSauce, item.itemtype_id));
+    const listItemsSauce = sauceItems.map(item => createButtonSauce(item, whenClickedSauce, "cardContent", selectedStateSauce, item.itemtype_id));
 
     const listItemsTop = topItems.map(topItem => createButton(topItem, whenClickedTop, "cardContent", selectedStateTop, topItem.id));
 
