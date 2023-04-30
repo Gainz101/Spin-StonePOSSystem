@@ -11,10 +11,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-<<<<<<< HEAD
-        "@emotion/react": "^11.10.8",
-=======
->>>>>>> cf5745ff90a69fddc16b54a6e1e9cdac06001440
         "@emotion/styled": "^11.10.8",
         "@material-ui/core": "^4.12.4",
         "@mui/material": "^5.12.2",
