@@ -6,11 +6,15 @@ import './App.css'; // Tell webpack that App.js uses these styles
 
 const crustItems = [{ item: 'Normal Crust', id: 1 }, { item: 'Cauliflower Crust', id: 2 }];
 // const sauceItems = itemtypes.filter((itemtype)=>itemtype.is_sauce);
+const sauceItems = [{ "itemtype_id": 30, "item_display_name": "Alfredo", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": true, "is_crust": false }, { "itemtype_id": 31, "item_display_name": "Traditional Red", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": true, "is_crust": false }, { "itemtype_id": 32, "item_display_name": "Zesty Red", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": true, "is_crust": false }]
+
 const meatsItems = [{ item: 'Italian Sausage', id: 1 }, { item: 'Meatball', id: 2 }, { item: 'Pepperoni', id: 3 }, { item: 'Salami', id: 4 }, { item: 'Smoked Chicken', id: 5 }];
 const veggiesItems = [{ item: 'Green Peppers', id: 1 }, { item: 'Black Olives', id: 2 }, { item: 'Banana Peppers', id: 3 }, { item: 'Jalapenos', id: 4 }, { item: 'Mushrooms', id: 5 }, { item: 'Onions', id: 6 }];
 const drizzleItems = [{ item: 'BBQ Sauce', id: 1 }, { item: 'Olive Oil', id: 2 }, { item: 'Siracha', id: 3 }, { item: 'Ranch', id: 4 }, { item: 'Oregano', id: 5 }];
 const drinks = [{ item: 'Gatorade', id: 1 }, { item: 'Pepsi', id: 2 }, { item: 'Montain Dew', id: 3 }, { item: 'Water', id: 4 }, { item: 'Dr. Pepper', id: 5 }, { item: 'Starry', id: 6 }];
-const topItems = [...meatsItems,...veggiesItems];
+// const topItems = [...meatsItems,...veggiesItems];
+const topItems =[{item: 'Italian Sausage', id: 1}, {item:'Meatball', id: 2}, {item:'Pepperoni', id: 3}, {item:'Salami', id: 4}, {item:'Smoked Chicken', id: 5},{item: 'Green Peppers', id: 6}, {item:'Black Olives', id: 7}, {item:'Banana Peppers', id: 8}, {item:'Jalapenos', id: 9}, {item:'Mushrooms', id: 10}, {item:'Onions', id: 11}];
+
 
 const PIZZA_STATE_CHEESE = 0;
 const PIZZA_STATE_ONE_TOPPING = 1;
@@ -24,7 +28,7 @@ export default function ToppingTabs(props) {
     const [drizzleCount, changeCountDrizz] = useState(0);
     const [sauceCount, changeCountSauce] = useState(0);
     const [selectedStateCrust, setSelectedStateCrust] = useState(Array(crustItems.length).fill(false));
-    // const [selectedStateSauce, setSelectedStateSauce] = useState(Array(sauceItems.length).fill(false));
+    const [selectedStateSauce, setSelectedStateSauce] = useState(Array(sauceItems.length).fill(false));
     // const [selectedStateMeats,setSelectedStateMeats]=useState(Array(meatsItems.length).fill(false));
     // const [selectedStateVeggies,setSelectedStateVeggies]=useState(Array(veggiesItems.length).fill(false));
     const [selectedStateDrizz, setSelectedStateDrizz] = useState(Array(drizzleItems.length).fill(false));
@@ -96,14 +100,14 @@ export default function ToppingTabs(props) {
         newSelectedState[index] = true;
         setSelectedStateDrizz(newSelectedState);
       }
-    //   function whenClickedSauce(index) {
+      function whenClickedSauce(index) {
 
     
-    //     // Set the selected state of the clicked button to true
-    //     const newSelectedState = Array(sauceItems.length).fill(false);
-    //     newSelectedState[index] = true;
-    //     setSelectedStateSauce(newSelectedState);
-    //   }
+        // Set the selected state of the clicked button to true
+        const newSelectedState = Array(sauceItems.length).fill(false);
+        newSelectedState[index] = true;
+        setSelectedStateSauce(newSelectedState);
+      }
       function whenClickedDrinks(index) {
 
     
@@ -142,7 +146,7 @@ export default function ToppingTabs(props) {
     //   }
     const listItemsCrust = crustItems.map(item => createButton(item, whenClickedCrust, "cardContent", selectedStateCrust, item.id));
 
-    // const listItemsSauce = sauceItems.map(item => createButton(item, whenClickedSauce, "cardContent", selectedStateSauce, item.itemtype_id));
+    const listItemsSauce = sauceItems.map(item => createButton(item, whenClickedSauce, "cardContent", selectedStateSauce, item.itemtype_id));
 
     const listItemsTop = topItems.map(topItem => createButton(topItem, whenClickedTop, "cardContent", selectedStateTop, topItem.id));
 
@@ -187,7 +191,7 @@ export default function ToppingTabs(props) {
                     {exit}
                     <h2>Choose your Sauce</h2>
                     <div class="card__container">
-                        {/* {listItemsSauce} */}
+                        {listItemsSauce}
                     </div>
                     <div class="finish_order">
                         <button class="finish_orderText" onClick={()=>{setTabIndex(2)}}>
