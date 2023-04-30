@@ -15,6 +15,10 @@ import './Inventory.css';
 
 
 function Inventory(props) {
+  //For Excess Stock 
+  const [excessStock, setExcessStock] = useState("");
+
+
   /// useState for Stock 
   const [stockRowIndex, stockSetRowIndex] = useState(-1);
   const [stockColumnIndex, stockSetColumnIndex] = useState(-1);
@@ -54,8 +58,6 @@ function Inventory(props) {
     menuSetRowIndex(-1);
     menuSetColumnIndex(-1);
   }
-
-
 
   // not working exit button
   const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
@@ -190,6 +192,22 @@ function Inventory(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    <button class =  "newitem">Show Stocks</button>
+    <button class =  "newitem">Show Low Stocks</button>
+    <TextField
+          style={{backgroundColor:"white", marginLeft:"2%", color: "#ffd000"}}
+          label="Show Excess Stock"
+          variant="filled"
+          size="medium"
+          value={excessStock}
+          placeholder='MM-DD-YYYY'
+          onChange={(e) => setExcessStock(e.target.value)}
+          sx={{
+            "& .MuiInputBase-root": {
+                color: '#ffd000'
+            }
+        }}
+        />
     </Grid>
 
     </Grid>
