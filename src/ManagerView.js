@@ -44,9 +44,9 @@ const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {i
 
     //Mapping of buttons
     const listItems = baseItems.map(baseItems => 
-      <div class="card__container">
-        <div class = "card">
-            <button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch(handleItemClick(baseItems.id))}> 
+      <div class="card__containerMan">
+        <div class = "cardMan">
+            <button class="cardContentMan" key={baseItems.id} onClick={() => props.onFormSwitch(handleItemClick(baseItems.id))}> 
                 {baseItems.item}
             </button>
         </div>
