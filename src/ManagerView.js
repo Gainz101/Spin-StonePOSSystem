@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import React from "react";
 import './ManagerView.css'; // Tell webpack that App.js uses these styles
+import {Button} from "@material-ui/core";
 import SalesView from './SaleReport';
 import XZReport from './XZReport';
 import Inventory from './Inventory';
@@ -29,17 +30,27 @@ const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {i
         return "order_view";
       }
     };
-
-
-    //Mapping of buttons
-    const listItems = baseItems.map(baseItems => 
-    <div class="card__container">
+   
+    /**
+     * <div class="card__container">
         <div class = "card">
             <button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch(handleItemClick(baseItems.id))}> 
                 {baseItems.item}
             </button>
         </div>
-    </div>);
+    </div>
+     */
+
+    //Mapping of buttons
+    const listItems = baseItems.map(baseItems => 
+      <div class="card__container">
+        <div class = "card">
+            <button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch(handleItemClick(baseItems.id))}> 
+                {baseItems.item}
+            </button>
+        </div>
+    </div>
+    );
 
     return (
       //Parent Element

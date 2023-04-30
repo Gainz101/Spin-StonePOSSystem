@@ -1,9 +1,17 @@
 import {useState} from 'react';
 import * as React from 'react';
-import { TextField, Button, Typography, Paper, Table, TableBody, TableCell, TableHead, TableRow, TableContainer, Grid } from "@material-ui/core";
-import './ManagerView.css'; // Tell webpack that App.js uses these styles
-
-
+import { TextField, Button, 
+        Typography, Paper, 
+        Table, TableBody, 
+        TableCell, TableHead, 
+        TableRow, TableContainer, Grid
+      } from "@material-ui/core";
+import './Inventory.css';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 function Inventory(props) {
@@ -54,9 +62,9 @@ function Inventory(props) {
 
   return (
     //&nbsp; is a character entity that denotes a non-breaking or fixed space
-    <body style={{background: "#e9dac4", height: "100vh", width: "98%", padding: "20px", }}>
+    <body class = "background">
     {exit}
-    <Typography variant="h2" align='center' style={{marginBottom:"3%", color:"#8458B3"}}>Inventory</Typography>
+    <Typography variant="h2" align='center' style={{marginBottom:"3%", color:"#f7ca28"}}>Inventory</Typography>
     
     <Grid container columnSpacing={{ xs: 1}}>
 
@@ -65,7 +73,7 @@ function Inventory(props) {
     <Grid item xs={6}>
     <TableContainer component={Paper} style={{margin: '10px', width:700}}>
     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead style={{backgroundColor:"#8458B3", fontFamily: 'monospace'}}>
+        <TableHead style={{backgroundColor:"#f7ca28", fontFamily: 'monospace'}}>
           <TableRow>
             <TableCell>Menu Item</TableCell>
             <TableCell sx={{width: 100}}>Price&nbsp;($)</TableCell>
@@ -106,13 +114,14 @@ function Inventory(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    <button class =  "newitem">New Season Item</button>
     </Grid>
 
     {/*Stock Table */}
     <Grid item xs={6}>
     <TableContainer component={Paper} style={{margin: '10px', width:700}}>
     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead style={{backgroundColor:"#8458B3", fontFamily: 'monospace'}}>
+        <TableHead style={{backgroundColor:"#f7ca28", fontFamily: 'nunito'}}>
           <TableRow>
             <TableCell>Stock Item</TableCell>
             <TableCell sx={{width: 100}}>Quantity</TableCell>
