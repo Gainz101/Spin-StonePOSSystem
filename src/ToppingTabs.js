@@ -163,7 +163,7 @@ export default function ToppingTabs(props) {
 
     const listDrinks = drinks.map(item => createButton(item, whenClickedDrinks, "cardContent", selectedStateDrinks, item.id));
 
-    const exit = <div class="exit"><button onClick={() => props.onFormSwitch("customer_view")} type="submit" class="exit_text">Exit</button></div>
+    const exit = <div class="exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
 
 
     return (
