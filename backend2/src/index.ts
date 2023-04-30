@@ -261,7 +261,7 @@ function startHosting(dbConn: dbConnection) {
         stock_units - (optional string) the new stock units for this stock
         minimum_amount - (optional number) the new minimum amount for this stock
 
-    Returns new JSON of an order
+    Returns new JSON of stocks
     */
     app.use('/stocks/update', (request, response) => {
         request; // surpress error message

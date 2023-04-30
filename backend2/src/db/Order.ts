@@ -73,18 +73,18 @@ export async function dbAddItemToOrder(dbConn: dbConnection, order_id: number, i
     const item_id = randomId();
 
     /** Run an SQL query that combines items from an order with their item types */
-    await dbConn.sqlUpdate(`INSERT INTO items (order_id, item_id, itemtype_id, root_item_id) VALUES ($1, $2, $3, $4)`, 
-     [order_id, item_id, itemtype_id, root_item_id === undefined ? item_id : root_item_id])
-     
-     return item_id;
+    await dbConn.sqlUpdate(`INSERT INTO items (order_id, item_id, itemtype_id, root_item_id) VALUES ($1, $2, $3, $4)`,
+        [order_id, item_id, itemtype_id, root_item_id === undefined ? item_id : root_item_id])
+
+    return item_id;
 }
 
 export async function dbRemoveItemFromOrder(dbConn: dbConnection, order_id: number, item_id: number) {
     order_id; // Surpress error
 
     /** Run an SQL query that combines items from an order with their item types */
-    await dbConn.sqlUpdate(`DELETE FROM items WHERE root_item_id = $1 OR item_id = $1`, 
-     [item_id])
+    await dbConn.sqlUpdate(`DELETE FROM items WHERE root_item_id = $1 OR item_id = $1`,
+        [item_id])
 }
 
 export async function dbCompleteOrder(dbConn: dbConnection, order_id: number) {
@@ -92,11 +92,22 @@ export async function dbCompleteOrder(dbConn: dbConnection, order_id: number) {
         completed
     } = (await dbConn.sqlQuery<SQL_Order>(`SELECT * FROM orders WHERE order_id = $1`, [order_id]))[0]
 
-    if(completed) {
-        throw `Error: Order ${order_id} is already complete`
+    if (completed) {
+        throw new Error(`Error: Order ${order_id} is already complete`)
     }
-    
+
     await dbConn.sqlUpdate(`UPDATE orders SET completed = true WHERE order_id = ${order_id}`)
-    
+
+    // Update inventory stocks
+    await dbConn.sqlUpdate(`UPDATE inventory SET stock_amount = stock_amount - stock_cost 
+    FROM (SELECT stock_id, SUM(stock_cost) AS stock_cost FROM ( 
+      inventory_costs 
+      INNER JOIN 
+      (SELECT itemtype_id FROM items WHERE order_id = $1) AS order_items 
+      ON order_items.itemtype_id = inventory_costs.itemtype_id 
+  ) GROUP BY inventory_costs.stock_id) AS stock_costs WHERE stock_costs.stock_id = inventory.stock_id
+  
+   RETURNING inventory.stock_id, stock_amount;`, [order_id]);
+
     return await dbApplyStockCosts(dbConn, order_id)
 }
