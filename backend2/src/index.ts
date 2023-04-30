@@ -40,6 +40,15 @@ function createOptionalParser<T, D extends T>(parser: StringParser<T>, defaultVa
     }
 }
 
+function parseStockId(stock_id: string) {
+    if (stock_id.length != 2) {
+        throw `expected 2 letter stock ID, got ${stock_id}`
+    }
+    return stock_id.toUpperCase();
+}
+
+// const parseStockIdOptional = createOptionalParser(parseStockId);
+
 function parseIntStrict(str: string): number {
     const result = parseInt(Number(str).toString())
     if (Number.isNaN(result)) {
@@ -48,16 +57,35 @@ function parseIntStrict(str: string): number {
     return result;
 }
 
+const parseIntStrictOptional = createOptionalParser(parseIntStrict)
 
-const parseIntStrictOptional = createOptionalParser(parseIntStrict);
+function parseDoubleStrict(str: string): number {
+    const result = Number(str)
+    if (Number.isNaN(result)) {
+        throw `expected an integer, got "${str}"`
+    }
+    return result;
+}
+
+const parseDoubleStrictOptional = createOptionalParser(parseDoubleStrict)
+
 
 function parseIntListStrict(str: string): number[] {
     const results = [];
-    for(let number_string of str.split(",")) {
+    for (let number_string of str.split(",")) {
         results.push(parseIntStrict(number_string));
     }
     return results;
 }
+
+function parseString(str: string) {
+    return str;
+}
+
+const parseStringOptional = createOptionalParser(parseString);
+
+
+
 
 // const parseStockCode = (s: string) => (s.length == 2) && s.match(/[A-Za-z][A-Za-z]/)
 // const parseStockCodeOptional = createOptionalParser(parseStockCode)
@@ -78,6 +106,14 @@ function parseQuery<T extends ParserMap>(obj: Record<string, string>, parseArray
         }
     }
     return converted
+}
+
+function escapeSQL(value: any) {
+    if (typeof (value) == 'string') {
+        return `'${value.replace('\'', '\'\'')}'`
+    } else {
+        return value.toString()
+    }
 }
 
 
@@ -139,10 +175,10 @@ function startHosting(dbConn: dbConnection) {
                 itemtype_ids: parseIntListStrict, // Required param
                 root_item_id: parseIntStrictOptional // Optional
             });
-    
+
         /* Promise.all waits for all items to be added first, then executes the 'then' function */
-        
-        Promise.all(itemtype_ids.map((itemtype_id)=>dbAddItemToOrder(dbConn, order_id, itemtype_id, root_item_id)))
+
+        Promise.all(itemtype_ids.map((itemtype_id) => dbAddItemToOrder(dbConn, order_id, itemtype_id, root_item_id)))
             .then(
                 (result) => dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send({
                     entire_order,
@@ -166,20 +202,20 @@ function startHosting(dbConn: dbConnection) {
         )
     })
 
-    app.use('/order/complete', (request, response)=>{
+    app.use('/order/complete', (request, response) => {
         const { order_id } = parseQuery(request.query as any, {
             order_id: parseIntStrict, // Required param                
         });
 
         dbCompleteOrder(dbConn, order_id)
-            .then(()=>dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send(entire_order)), createSQLErrorHandler(response));
+            .then(() => dbGetEntireOrder(dbConn, order_id).then(entire_order => response.send(entire_order)), createSQLErrorHandler(response));
     })
 
-    app.use('/order/new', (request, response)=>{
+    app.use('/order/new', (request, response) => {
         request; // Surpress error message
 
         dbCreateNewOrder(dbConn).then(
-            (new_order)=>response.send(new_order),
+            (new_order) => response.send(new_order),
             createSQLErrorHandler(response)
         )
     })
@@ -202,35 +238,54 @@ function startHosting(dbConn: dbConnection) {
                 createSQLErrorHandler(response))
     })
 
-    app.use('/stocks', (request, response)=>{
+    app.use('/stocks/load', (request, response) => {
         request; // surpress error message
 
-        dbGetStocks(dbConn).then((stocks)=>{
+        dbGetStocks(dbConn).then((stocks) => {
             response.send(stocks)
         }, createSQLErrorHandler(response))
     })
 
-    // app.use('/stocks/update', (request, response)=>{
-    //     const queryParams = parseQuery(request.query as any, {
-    //         actual_stock_id: parseStockCode,
-    //         stock_id: parseStockCodeOptional, // Required param
-    //         stock_display_name: parseString,
-    //         stock_amount: parseIntStrictOptional,
-    //         stock_units: parseString,
-    //         minimum_amount: 
-    //     });
 
-    //     const updateParams = {
-    //         ...queryParams,
-    //         actual_stock_id: undefined
-    //     }
-        
 
-    //     dbGetStocks(dbConn).then((stocks)=>{
-    //         response.send(stocks)
-    //     }, createSQLErrorHandler(response))
-    // })
+    /*
+    Example: http://zeta.ddns.net/stocks/update?stock_id=PP&stock_display_name=Pepperoni
+    Updates a stock with the optional paramaters. 
+    *HOWEVER*, stock_id is required
+    Returns new stock JSON or an error
 
+    Parameters:
+        stock_id - the id of the dbGetStocks
+        stock_display_name - (optional string) a new display name for this stock
+        stock_amount - (optional number) the new stock amount for this stock
+        stock_units - (optional string) the new stock units for this stock
+        minimum_amount - (optional number) the new minimum amount for this stock
+
+    Returns new JSON of stocks
+    */
+    app.use('/stocks/update', (request, response) => {
+        request; // surpress error message
+
+        const update_result = parseQuery(request.query as any, {
+            stock_id: parseStockId, // Required param                
+            stock_display_name: parseStringOptional,
+            stock_amount: parseDoubleStrictOptional,
+            stock_units: parseStringOptional,
+            minimum_amount: parseDoubleStrictOptional,
+        });
+
+        const update_pairs = Object.entries(update_result).filter((([key, value]) => key != 'stock_id' && value != undefined))
+
+        const update_list = update_pairs.map(([key, value]) => {
+            return `${key} = ${escapeSQL(value)}`
+        });
+
+
+        const query = `UPDATE inventory SET ${update_list.join(', ')} WHERE stock_id = '${update_result.stock_id}';`
+        dbConn.sqlUpdate(query).then(() => dbGetStocks(dbConn)).then((stocks) => {
+            response.send(stocks)
+        }, createSQLErrorHandler(response))
+    })
 
     // Start hosting the server on PORT
     app.listen(PORT, () => {
