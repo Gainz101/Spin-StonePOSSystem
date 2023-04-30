@@ -27,21 +27,44 @@ const stock_column_names = Object.entries(stock_column_name_map).map(([sql_colum
 const stock_column_names_sql = Object.entries(stock_column_name_map).map(([sql_column, display_name]) => sql_column)
 
 
+const itemtype_column_name_map = {
+  itemtype_id: "ID",
+  item_display_name: "Name",
+  item_price: "Price",
+}
+
+const itemtype_column_names = Object.entries(itemtype_column_name_map).map(([sql_column, display_name]) => display_name)
+const itemtype_column_names_sql = Object.entries(itemtype_column_name_map).map(([sql_column, display_name]) => sql_column)
+
+
+
+
 function Inventory(props) {
+  //For Excess Stock 
+  const [excessStock, setExcessStock] = useState("");
+
+
   /// useState for Stock 
   const [stockState, setStockState] = useState(null);
+  const [itemState, setItemState] = useState(null);
+
 
   function loadStocks() {
     fetch(`${BACKEND_IP}/stocks/load`).then((res) => res.json()).then((stockState) => {
       setStockState(stockState)
     }, alert)
   }
+
+  function loadItems() {
+    fetch(`${BACKEND_IP}/itemtypes`).then((res) => res.json()).then((itemState) => {
+      setItemState(itemState)
+    }, alert)
+  }
   // load the stocks first
   useEffect(() => {
     loadStocks()
+    loadItems()
   }, [])
-
-
 
   // not working exit button
   const exit = <div class="exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
@@ -53,9 +76,67 @@ function Inventory(props) {
     {exit}
     <Typography variant="h2" align='center' style={{ marginBottom: "3%", color: "#f7ca28" }}>Inventory</Typography>
     {
-      stockState == null ?
+      (stockState == null || itemState == null) ?
         <h1> loading </h1> : <div>
+          {/*Menu table */}
+          {          < Grid item xs={6}>
+            <TableContainer component={Paper} style={{ margin: '10px', width: 700 }}>
+              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                <TableHead style={{ backgroundColor: "#f7ca28", fontFamily: 'nunito' }}>
+                  <TableRow>
+                    {itemtype_column_names.map((column_name) => {
+                      return <TableCell sx={{ width: 100 }}>{column_name}</TableCell>
+                    })}
+                  </TableRow>
+                </TableHead>
+                <TableBody> {
+                  itemState.toSorted((a,b)=>a.itemtype_id > b.itemtype_id).map((row, index) => {
 
+
+                    return (<TableRow key={
+                      row.itemtype_id
+                      }>
+                      {
+                        itemtype_column_names_sql.map((sql_name) => {
+                          const valueString = '' + (row[sql_name])
+                          console.log(sql_name, valueString)
+                          return (<TableCell>
+                            <TextField defaultValue={valueString}
+                            onKeyPress={(event)=>{
+                              if(event.key === "Enter") {
+                              // Update table
+
+                                // Show loading...
+                                setItemState(null)
+                                
+                                // Then fetch update
+                                fetch(`${BACKEND_IP}/updateItems?itemtype_id=${row.itemtype_id}&${sql_name}=${event.target.value}`).then((res)=>{
+                                  if(res.status != 200) {
+                                    throw Error(res.text())
+                                  }
+                                  return res.json()
+                                }).then((new_items)=>{
+                                  setItemState(new_items)
+                                }, (err)=>{
+                                  // Show error
+                                  console.log(err)
+                                  // Reload stocks
+                                  loadItems()
+                                })
+                              }
+                            }}>
+
+                            </TextField>
+                          </TableCell>)
+                        })
+                      }
+                    </TableRow>)
+                  })
+                }
+                </TableBody>
+              </Table>
+            </TableContainer>
+            </Grid>}
           {/*Stock Table */}
           < Grid item xs={6}>
             <TableContainer component={Paper} style={{ margin: '10px', width: 700 }}>
@@ -114,8 +195,25 @@ function Inventory(props) {
                 </TableBody>
               </Table>
             </TableContainer>
+            <button class =  "newitem" onClick={()=>{
+              setStockState(null);
+              loadStocks()}}>Show Stocks</button>
+    <button class =  "newitem" >Show Low Stocks</button>
+    <TextField
+          style={{backgroundColor:"white", marginLeft:"2%", color: "#ffd000"}}
+          label="Show Excess Stock"
+          variant="filled"
+          size="medium"
+          value={excessStock}
+          placeholder='MM-DD-YYYY'
+          onChange={(e) => setExcessStock(e.target.value)}
+          sx={{
+            "& .MuiInputBase-root": {
+                color: '#ffd000'
+            }
+        }}
+        />
           </Grid>
-          {JSON.stringify(stockState)}
         </div>
     }
   </div >
