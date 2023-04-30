@@ -35,6 +35,8 @@ export default function CashierView(props) {
   // const [selectedStateVeggies,setSelectedStateVeggies] = useState(Array(veggiesItems.length).fill(false));
   const [selectedStateDrizz, setSelectedStateDrizz] = useState(Array(drizzleItems.length).fill(false));
   const [selectedStateTop, setSelectedStateTop] = useState(Array(topItems.length).fill(false));
+  const [selectedStateBase, setSelectedStateBase] = useState(Array(baseItems.length).fill(false));
+
 
   const [currentOrder, setCurrentOrder] = useState(null)
 
@@ -131,12 +133,20 @@ export default function CashierView(props) {
     setSelectedStateCrust(newSelectedState3);
     const newSelectedState4 = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
     setSelectedStateTop(newSelectedState4);
-  }
-
-  function createButton(baseItem, whenClick, buttonClass, selectedState, index) {
+    
+    const newSelectedStateBase = Array(baseItems.length).fill(false);
+    // <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
+    newSelectedStateBase[newState] = true;
+    setSelectedStateBase(newSelectedStateBase);
+    }
+    
+    function createButton(baseItem, whenClick, buttonClass, selectedState, index) {
     return <button onClick={() => whenClick(index - 1)} role="button" class={selectedState[index - 1] ? 'selected' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>
-  }
-
+    }
+    function createButtonBase(baseItem, whenClick, buttonClass, selectedState, index) {
+    return <button onClick={() => whenClick(index)} role="button" class={selectedState[index] ? 'selectedBase' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>
+    }
+    
   function CountingFunction({ id }) {
     if (id === PIZZA_STATE_CHEESE) {
       return <div class="counter"><div class="red">Crust ({crustCount}/1)</div> <div class="orange">Sauce ({sauceCount}/1)</div> <div class="pink">Drizzle ({drizzleCount}/1)</div></div>;
@@ -164,7 +174,7 @@ export default function CashierView(props) {
 
   
 
-  const listItems = baseItems.map(baseItem => <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
+  const listItems = baseItems.map(baseItem =>createButtonBase(baseItem,returnID, "button-nameBase", selectedStateBase,baseItem.itemtype_id));
 
   const listItemsCrust = crustItems.map(crustItem => createButton(crustItem, whenClickedCrust, "button-nameC", selectedStateCrust, crustItem.itemtype_id));
 
