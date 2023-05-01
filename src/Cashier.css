@@ -6,11 +6,16 @@
     
 }
 :root{
-  --red:#ee2a2a;
-  --orange:#f47f09;
-  --green:#9ef155;
-  --blue:#00f7ff;
-  --pink:#ff0099;
+  --red:#D1D7E0;
+  --orange:#e67d1b;
+  --green:#178684;
+  --blue:rgb(21, 213, 220);
+  --pink:#a511c6;
+  /* --red:#D1D7E0;
+  --orange:#4C495D;
+  --green:#564F6F;
+  --blue:#564F6F;
+  --pink:#802BB1; */
 }
 
 main {
@@ -178,7 +183,7 @@ h3{
 
 .exit_text{
     background-clip: text;
-    background: rgb(127, 45, 45);
+    background: rgb(203, 41, 41);
     color: #fff;
     padding: 15px;
     cursor: pointer;
@@ -500,7 +505,7 @@ h3{
     color: var(--pink);
    }
    .selected{
-    background-color: grey;
+    background-color: rgb(111, 119, 126);
     align-items: center;
     appearance: none;
     border-radius: 4px;
@@ -528,6 +533,19 @@ h3{
     white-space: nowrap;
     will-change: box-shadow,transform;
     font-size: 18px;
+   }
+   .selected:focus {
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+   }
+   
+   .selected:hover {
+    box-shadow: rgba(45, 35, 66, 0.3) 0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+   }
+   
+   .selected:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
    }
 
    .button-namePay {
@@ -591,7 +609,7 @@ h3{
   .selectedBase{
     align-items: center;
     appearance: none;
-    background-color: grey;
+    background-color: rgb(111, 119, 126);
     border-radius: 4px;
     border-width: 0;
     box-shadow: rgba(45, 35, 66, 0.2) 0 2px 4px,rgba(45, 35, 66, 0.15) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
