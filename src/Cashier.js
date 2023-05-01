@@ -240,8 +240,13 @@ export default function CashierView(props) {
     :
     <div>
       <div class="backgroundBland">
-        {exit}
+
+        <div class ="titleContainer">
+          {exit}
+
+        </div>
         <h3>Cashier's Window</h3>
+
         <CountingFunction id={pizzaState} />
         <div class="baseSection">
           <div class="gridMover">

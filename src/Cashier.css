@@ -123,6 +123,7 @@ h3{
   text-align: center;
   font-size: 64px;
   font-weight: 100;
+  margin: 0;
 }
 .backgroundBland{
   background-color: #ffffff;
@@ -181,22 +182,6 @@ h3{
     transform: scale(0.95);
 }
 
-.exit_text{
-    background-clip: text;
-    background: rgb(203, 41, 41);
-    color: #fff;
-    padding: 15px;
-    cursor: pointer;
-    width: 15%;
-    border-radius: 25px;
-}
-.exit {
-    line-height: 100%;
-    text-align: right;
-    font-size: 8pt;
-    font-family: tahoma;
-    margin-right: 10px;
-  }
   .orderLog{
     display: flex;
     align-items: right;
@@ -650,3 +635,26 @@ h3{
     box-shadow: #D6D6E7 0 3px 7px inset;
     transform: translateY(2px);
    }
+
+  .titleContainer{
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+  }
+
+  .exit_text{
+    background-clip: text;
+    background: rgb(203, 41, 41);
+    color: #fff;
+    padding: 15px;
+    cursor: pointer;
+    width: 15%;
+    border-radius: 25px;
+}
+.exit {
+    line-height: 100%;
+    text-align: right;
+    font-size: 8pt;
+    font-family: tahoma;
+    margin-right: 10px;
+  }
