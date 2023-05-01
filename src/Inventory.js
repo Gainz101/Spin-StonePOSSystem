@@ -5,13 +5,18 @@ import {
   Typography, Paper,
   Table, TableBody,
   TableCell, TableHead,
-  TableRow, TableContainer, Grid
+  TableRow, TableContainer, 
+  Grid
 } from "@material-ui/core";
+import {orange} from '@mui/material/colors'; 
 import Dialog from '@mui/material/Dialog';
-
-
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import './Inventory.css';
+
 import { BACKEND_IP } from './BackendConnection';
 
 
@@ -40,9 +45,25 @@ const itemtype_column_names_sql = Object.entries(itemtype_column_name_map).map((
 
 
 function Inventory(props) {
+  // New Seasonal Item Popup Window Functions
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    //doesnt save text fields
+    setOpen(false);
+  };
+
+  const handleOkClose = () => {
+    //saves text field
+    setOpen(false);
+  };
+
   //For Excess Stock 
   const [excessStock, setExcessStock] = useState("");
-
 
   /// useState for Stock 
   const [stockState, setStockState] = useState(null);
@@ -95,7 +116,6 @@ function Inventory(props) {
                 <TableBody> {
                   itemState.toSorted((a,b)=>a.itemtype_id > b.itemtype_id).map((row, index) => {
 
-
                     return (<TableRow key={
                       row.itemtype_id
                       }>
@@ -139,7 +159,51 @@ function Inventory(props) {
                 </TableBody>
               </Table>
             </TableContainer>
-            <button class =  "newitem" style = {{marginLeft:"9%"}}>New Season Item</button>
+            <div  style = {{marginLeft:"9%"}}>
+            <button class =  "newitem" onClick={handleClickOpen}>
+              New Season Item
+            </button>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle style={{background:'#9e9e9e', opacity:"60%", color:"black", marginBottom:"5%"}}>New Seasonal Item</DialogTitle>
+              <DialogContent>
+                <TextField
+                autoFocus
+                margin="dense"
+                id="id"
+                label="ID"
+                placeholder='#'
+                variant="standard"
+                focused
+                style={{marginRight: "20px", width:"10%"}}
+                />
+                <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Name"
+                placeholder='Item Name'
+                variant="standard"
+                focused
+                style={{marginRight: "20px", width:"40%"}}
+                />
+                <TextField
+                autoFocus
+                margin="dense"
+                placeholder='$0.00'
+                id="Price"
+                label="Price"
+                variant='standard'
+                focused 
+                style={{marginRight: "20px", width:"30%"}}
+                />
+              </DialogContent>
+              <DialogActions>
+                <button onClick={handleOkClose}>OK</button>
+                <button onClick={handleClose}>Close</button>
+              </DialogActions>
+            </Dialog>
+            </div>
+
             </Grid>}
 
           {/*Stock Table */}
