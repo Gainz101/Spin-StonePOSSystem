@@ -78,10 +78,13 @@ function Inventory(props) {
     {
       (stockState == null || itemState == null) ?
         <h1> loading </h1> : <div>
+
+          <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {/*Menu table */}
-          {          < Grid item xs={6}>
-            <TableContainer component={Paper} style={{ margin: '10px', width: 700 }}>
-              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          {          
+          < Grid item xs={6}>
+            <TableContainer component={Paper} style={{ margin: '10px', width: 550, marginLeft: '10%' }}>
+              <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
                 <TableHead style={{ backgroundColor: "#f7ca28", fontFamily: 'nunito' }}>
                   <TableRow>
                     {itemtype_column_names.map((column_name) => {
@@ -136,10 +139,12 @@ function Inventory(props) {
                 </TableBody>
               </Table>
             </TableContainer>
+            <button class =  "newitem" style = {{marginLeft:"9%"}}>New Season Item</button>
             </Grid>}
+
           {/*Stock Table */}
           < Grid item xs={6}>
-            <TableContainer component={Paper} style={{ margin: '10px', width: 700 }}>
+            <TableContainer component={Paper} style={{ margin: '10px', width: 560, marginLeft: "9%" }}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead style={{ backgroundColor: "#f7ca28", fontFamily: 'nunito' }}>
                   <TableRow>
@@ -195,27 +200,67 @@ function Inventory(props) {
                 </TableBody>
               </Table>
             </TableContainer>
+            <div style={{marginLeft: "8%"}}>
             <button class =  "newitem" onClick={()=>{
               setStockState(null);
               loadStocks()}}>Show Stocks</button>
-    <button class =  "newitem" >Show Low Stocks</button>
+    <button class =  "newitem" onClick={()=>{
+          // Show loading...
+          setStockState(null)
+          
+          // Then fetch update
+          fetch(`${BACKEND_IP}/stocks/getLowStocks`).then((res)=>{
+            if(res.status != 200) {
+              throw Error(res.text())
+            }
+            return res.json()
+          }).then((low_stocks)=>{
+            setStockState(low_stocks)
+          }, (err)=>{
+            // Show error
+            alert(err)
+            // Reload stocks
+            loadStocks()
+          })
+    }} >Show Low Stocks</button>
     <TextField
           style={{backgroundColor:"white", marginLeft:"2%", color: "#ffd000"}}
           label="Show Excess Stock"
           variant="filled"
           size="medium"
-          value={excessStock}
+          
           placeholder='MM-DD-YYYY'
-          onChange={(e) => setExcessStock(e.target.value)}
+          onKeyPress={(e)=>{
+            if(e.key == "Enter") {
+              fetch(`${BACKEND_IP}/stocks/getExcessStocksSince?date=${e.target.value}`).then((res)=>{
+                if(res.status != 200) {
+                  throw Error(res.text())
+                }
+                return res.json()
+              }).then((excess_stocks)=>{
+                setStockState(excess_stocks)
+              }, (err)=>{
+                // Show error
+                err.then((e)=>alert(e))
+                // Reload stocks
+                loadStocks()
+              })
+            }
+          }}
+          onChange={(e)=>{}}
           sx={{
             "& .MuiInputBase-root": {
                 color: '#ffd000'
             }
         }}
         />
+        </div>
+          </Grid>
           </Grid>
         </div>
+        
     }
+    
   </div >
 }
 export default Inventory;
