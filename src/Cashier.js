@@ -189,7 +189,7 @@ export default function CashierView(props) {
 
   const listItemsDrizzle = drizzleItems.map(baseItem => createButton(baseItem, whenClickedDrizz, "button-name5", selectedStateDrizz, baseItem.itemtype_id));
 
-  const exit = <div class="exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
+  const exit = <div class="exitC"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_textC">Exit</button></div>
 
   
   function AddToOrder() {

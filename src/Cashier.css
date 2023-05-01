@@ -545,7 +545,7 @@ h3{
     cursor: pointer;
     display: inline-flex;
     font-family: "JetBrains Mono",monospace;
-    height: 100px;
+    height: 50px;
     justify-content: center;
     line-height: 1;
     list-style: none;
@@ -642,7 +642,7 @@ h3{
     justify-content: center; */
   }
 
-  .exit_text{
+  .exit_textC{
     background-clip: text;
     background: rgb(203, 41, 41);
     color: #fff;
@@ -650,11 +650,30 @@ h3{
     cursor: pointer;
     width: 15%;
     border-radius: 25px;
+    font-size: 22px;
+    margin-top: 10px;
 }
-.exit {
+.exitC {
     line-height: 100%;
-    text-align: right;
-    font-size: 8pt;
     font-family: tahoma;
     margin-right: 10px;
+    margin-top: 10px;
+    /* font-size: 8pt; */
+    text-align: right;
+  }
+
+  .exit_textC:hover {
+    font-size: 25px;
+    font-family: tahoma;
+    background: #fff;
+    color: rgb(203, 41, 41);
+    border: 2px solid #000;
+
+
+  }
+  .exit_textC:active {
+    transform:scale(0.8);
+    background: #fff;
+    color: rgb(203, 41, 41);
+    border: 3px solid #000;
   }
