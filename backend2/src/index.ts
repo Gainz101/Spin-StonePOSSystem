@@ -148,6 +148,38 @@ function startHosting(dbConn: dbConnection) {
                 createSQLErrorHandler(response))
     })
 
+    /*
+    zeta.ddns.net/updateItems?itemtype_id=12
+
+    Takes in two optional parameters
+    item_display_name - (string)
+    item_price (number)
+
+    Returns new itemTypes JSON
+    */
+    app.use('/updateItems', (request, response) => {
+        request; // surpress error message
+
+        const update_params = parseQuery(request.query as any, {
+            itemtype_id: parseIntStrict, // Required param                
+            item_display_name: parseStringOptional,
+            item_price: parseDoubleStrictOptional,
+            // item_hidden - maybe for deleting items
+        });
+
+        const update_pairs = Object.entries(update_params).filter((([key, value]) => key != 'itemtype_id' && value != undefined))
+
+        const update_list = update_pairs.map(([key, value]) => {
+            return `${key} = ${escapeSQL(value)}`
+        });
+
+        const query = `UPDATE itemtypes SET ${update_list.join(', ')} WHERE itemtype_id = '${update_params.itemtype_id}';`
+        dbConn.sqlUpdate(query).then(() => dbGetItemTypes(dbConn)).then((stocks) => {
+            response.send(stocks)
+        }, createSQLErrorHandler(response))
+    })
+
+
     app.use('/order/load', (request, response) => {
         const { order_id } = parseQuery(request.query as any, {
             order_id: parseIntStrict
@@ -285,6 +317,41 @@ function startHosting(dbConn: dbConnection) {
         dbConn.sqlUpdate(query).then(() => dbGetStocks(dbConn)).then((stocks) => {
             response.send(stocks)
         }, createSQLErrorHandler(response))
+    })
+
+    /* http://zeta.ddns.net/stocks/getExcessStocksSince?date=4/29/2023
+
+    Performs the 'get excess stocks' operation
+
+    Takes in a date
+
+    Returns excess stocks JSON
+    */
+    app.use('/stocks/getExcessStockSince', (request, response)=>{
+            request; // surpress error message
+        const params = parseQuery(request.query as any, {
+            date: parseString, // Required param                
+        });
+        
+        dbConn.sqlQuery(`SELECT inventory.stock_id, stock_display_name, stock_amount, minimum_amount, stock_units FROM  
+                        inventory  
+                        RIGHT JOIN  
+                        (SELECT stock_id, sum(stock_amount) AS original_stock_amount FROM  
+                        (SELECT inventory.stock_id, inventory.stock_amount FROM  
+                        inventory  
+                        UNION ALL  
+                        (SELECT stock_id, SUM(stock_cost) AS stock_amount FROM (  
+                           inventory_costs  
+                           INNER JOIN  
+                           (SELECT itemtype_id FROM items WHERE order_id IN (SELECT order_id FROM orders WHERE creation_time >
+                         '${params.date.replace('\'','\'\'')}')) AS order_items 
+                        
+                           ON order_items.itemtype_id = inventory_costs.itemtype_id  
+                        ) GROUP BY inventory_costs.stock_id)) AS combined_costs GROUP BY stock_id) AS original_stock ON inventory.stock_id = original_stock.stock_id 
+                        
+                        WHERE stock_amount > original_stock_amount*0.9; `, []).then((stocks)=>{
+                            response.send(stocks)
+                        }, createSQLErrorHandler(response))
     })
 
     // Start hosting the server on PORT
