@@ -279,6 +279,21 @@ function startHosting(dbConn: dbConnection) {
     })
 
 
+    /*
+        zeta.ddns.net/stocks/getLowStocks
+
+        Returns stocks [that are lower than their minimum amount] as JSON
+    */
+        app.use('/stocks/getLowStocks', (request, response) => {
+            request; // surpress error message
+    
+            dbConn.sqlQuery(`SELECT * FROM inventory WHERE stock_amount < minimum_amount;`).then((stocks) => {
+                console.log(stocks)
+                response.send(stocks)
+            }, createSQLErrorHandler(response))
+        })
+    
+
 
     /*
     Example: http://zeta.ddns.net/stocks/update?stock_id=PP&stock_display_name=Pepperoni
@@ -327,7 +342,7 @@ function startHosting(dbConn: dbConnection) {
 
     Returns excess stocks JSON
     */
-    app.use('/stocks/getExcessStockSince', (request, response)=>{
+    app.use('/stocks/getExcessStocksSince', (request, response)=>{
             request; // surpress error message
         const params = parseQuery(request.query as any, {
             date: parseString, // Required param                
