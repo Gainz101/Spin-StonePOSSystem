@@ -143,6 +143,7 @@ footer{
   .cardContent:hover {
       background-color: white;
       color: black;
+      cursor: pointer;
   }
     
   .card:active {
