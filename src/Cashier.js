@@ -336,7 +336,9 @@ export default function CashierView(props) {
               }, alert)}} 
             >Delete Order</button>
             <button role="button" class="button-namePay" onClick={AddToOrder}>Add to Order</button>
-            <button role="button" class="button-namePay" onClick={
+            </div>
+
+            <button role="button" class="button-namePayCheckout" onClick={
                 ()=>{
                   // This code is only run once
                   // Create a new order for the backend
@@ -351,8 +353,7 @@ export default function CashierView(props) {
                   })
 
                 }
-            }>Check out</button>
-          </div>
+            }>Checkout</button>
           </div>
         </div>
         </div>
