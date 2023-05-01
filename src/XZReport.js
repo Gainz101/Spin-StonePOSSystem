@@ -24,20 +24,18 @@ const XZReport = (props) => {
 
   return (
 
-    <body class = "background">
+    <body class = "background" style={{padding:"5%"}}>
     {exit}
-    
-     <Grid container rowSpacing={1} columnSpacing={{ xs: 1}}>
+     <div style={{marginLeft:"15%"}}>
+     <Grid container columnSpacing={{ xs: 1}}>
       
      <Grid item xs={6}>
- 
-      <div style={{display: 'block', width: "100%", marginTop: "2rem", marginBottom:"1rem", alignItems: 'left', marginLeft: "50px"}}>
+      
         <Typography variant="h2" align='justify'>X Report</Typography>
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%" }} >
           <p style={{padding: '2%'}}> X - Report </p>
         </Paper>
         <button class =  "newitem" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current X Report</button>
-      </div>
       
       </Grid>
 
@@ -51,7 +49,7 @@ const XZReport = (props) => {
       
       </Grid>
     </Grid>  
-    
+    </div>
     </body>
   );
 };
