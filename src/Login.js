@@ -120,7 +120,9 @@ export default function Login(props){
                         
                         <div class="centerr">Log in with Google</div>
                     </button>            */}
-                    {oauth()}
+                    <div class="googleContainer">
+                        {oauth()}                   
+                    </div>
                     <p class="smallGreyText">
                         Don't have an account?
                         <a onClick={() => props.onFormSwitch("signup")}> Sign up here</a>
@@ -130,7 +132,8 @@ export default function Login(props){
                         user: man, pass:man000; */}
                         Google maps icons created by Freepik - Flaticon
                     </p> 
-                    <button class="google-signin" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps}></img>Google Maps</button>
+                    <button class="google-maps" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps}></img>Google Maps</button>
+
                 </form>
             </div>
             {/* <footer class="footer">
