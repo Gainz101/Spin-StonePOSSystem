@@ -313,9 +313,9 @@ export default function CashierView(props) {
                 </div>
               })
 }</div>
-{"Subtotal = " + currentOrder.subtotal}
-              {"Taxes = " + currentOrder.taxes}
-              {"Total = " + currentOrder.total}   <div class="buttonsLayout">
+{"Subtotal = " + currentOrder.subtotal.toFixed(2)}
+              {"Taxes = " + currentOrder.taxes.toFixed(2)}
+              {"Total = " + currentOrder.total.toFixed(2)}   <div class="buttonsLayout">
             <button role="button" class="button-namePay">Delete Order</button>
             <button role="button" class="button-namePay" onClick={AddToOrder}>Add to Order</button>
             <button role="button" class="button-namePay" onClick={
