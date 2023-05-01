@@ -105,11 +105,11 @@ export default function CustomerView(props) {
   return (
     //Parent Element
     <div>
-      <div class="background">
+      <div>
         {/* <div class="buttonSelection"> */}
         {((isBaseItemsLoaded) && (currentOrder !== null) && (itemTypes !== null)) ?
           (itemType == null ?
-            <div>               
+            <div class="background">               
               <h2>Choose your Main</h2>
               <div class="card__container">
                 {baseItems.map(item => 
@@ -120,8 +120,8 @@ export default function CustomerView(props) {
                       </button>
                     </div>
                   )} 
-                </div>
-              </div> :
+              </div>
+            </div> :
               <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch} pizzaState={pizzaState}></ToppingTabs>)
             :
             (<h1>

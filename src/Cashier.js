@@ -203,33 +203,39 @@ export default function CashierView(props) {
     const {
       order_id
     } = currentOrder;
+    if (PizzaModifiers.length === 0) {
+      alert("Add more toppings");
+      return;
+    }else{
+      // First do a query to add the Pizza to the order
+      // Then do query to add the modifiers to the order
+      fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaId}`).then((res=>res.json())).then((new_order_state1)=>{
+        /// new order state1 is the response when we add 
+        const { new_items } = new_order_state1;
+        // new items is an array of the item ids that were just added
+        // its length is only 1 because we only added the base pizza
+        const pizza_item_id = new_items[0];
 
-    // First do a query to add the Pizza to the order
-    // Then do query to add the modifiers to the order
-    fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaId}`).then((res=>res.json())).then((new_order_state1)=>{
-      /// new order state1 is the response when we add 
-      const { new_items } = new_order_state1;
-      // new items is an array of the item ids that were just added
-      // its length is only 1 because we only added the base pizza
-      const pizza_item_id = new_items[0];
-
-      return pizza_item_id
-    }).then((pizza_item_id)=>{
-      fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaModifiers.join(",")}&root_item_id=${pizza_item_id}`)
-      .then((res)=>res.json())
-      .then((responseJSON)=>{
-        // Refresh the component with the new order items by setting the order state
-        setCurrentOrder(responseJSON.entire_order)
+        return pizza_item_id
+      }).then((pizza_item_id)=>{
+        fetch(`${BACKEND_IP}/order/addItem?order_id=${order_id}&itemtype_ids=${PizzaModifiers.join(",")}&root_item_id=${pizza_item_id}`)
+        .then((res)=>res.json())
+        .then((responseJSON)=>{
+          // Refresh the component with the new order items by setting the order state
+          setCurrentOrder(responseJSON.entire_order)
+        })
       })
-    })
-    // console.log()
-    // fetch(backend/order/item?add=).then((res)=>{
-    //  
-    //  res.json()
-    //}).then((order)=>{
-    //    setCurrentOrder(order)
-    // })
+      // console.log()
+      // fetch(backend/order/item?add=).then((res)=>{
+      //  
+      //  res.json()
+      //}).then((order)=>{
+      //    setCurrentOrder(order)
+      // })
+    }
+    
   }
+
 
 
   return (
