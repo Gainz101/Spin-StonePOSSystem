@@ -69,22 +69,27 @@ h2{
   } 
 
 
+
   .exit_text{
     background-clip: text;
     background: rgb(203, 41, 41);
     color: #fff;
-    padding: 25px;
+    padding: 22px;
     cursor: pointer;
-    width: 10%;
+    width: 15%;
     border-radius: 25px;
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 22px;
+    margin-top: 25px;
+    margin-right: 25px;
+    /* cursor: pointer; */
 }
 .exit {
     line-height: 100%;
     font-family: tahoma;
     margin-right: 10px;
     margin-top: 10px;
+    /* font-size: 8pt; */
+    text-align: right;
   }
 
   .exit_text:hover {
@@ -92,9 +97,15 @@ h2{
     font-family: tahoma;
     background: #fff;
     color: rgb(203, 41, 41);
+    border: 2px solid #000;
+    /* cursor: pointer; */
   }
   .exit_text:active {
+    /* cursor: pointer; */
     transform:scale(0.8);
+    background: #fff;
+    color: rgb(203, 41, 41);
+    border: 3px solid #000;
   }
 
 
