@@ -207,7 +207,9 @@ footer{
 }
   
 .finish_orderText:hover {
-    transform: scale(1.1);
+    transform: scale(1.085);
+    transition: 30ms;
+    cursor: pointer;
 }
 .itemBoxContainer{
     width: 50%;
@@ -368,3 +370,38 @@ footer{
     font-size:37px;
   }
   
+  .exit_textApp{
+    background-clip: text;
+    background: rgb(203, 41, 41);
+    color: #fff;
+    padding: 15px;
+    cursor: pointer;
+    width: 15%;
+    border-radius: 25px;
+    font-size: 22px;
+    margin-top: 10px;
+}
+.exitApp {
+    line-height: 100%;
+    font-family: tahoma;
+    margin-right: 10px;
+    margin-top: 10px;
+    /* font-size: 8pt; */
+    text-align: right;
+  }
+
+  .exit_textApp:hover {
+    font-size: 25px;
+    font-family: tahoma;
+    background: #fff;
+    color: rgb(203, 41, 41);
+    border: 2px solid #000;
+
+
+  }
+  .exit_textApp:active {
+    transform:scale(0.8);
+    background: #fff;
+    color: rgb(203, 41, 41);
+    border: 3px solid #000;
+  }
