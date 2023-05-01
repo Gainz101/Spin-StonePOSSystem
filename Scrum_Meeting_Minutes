@@ -18,3 +18,6 @@ Last meeting we decided to swap from using flask to using typescript and that ha
 
 Scrum Meeting #7: [4/19] 4:30 PM - 4:50 PM
 During our last meeting we discussed what is left for our frontend development and decided that we were  on the final stretch for the front-end. We also decided that we wanted to use google cloud instead of AWS to host our server because we felt like we have had previous practice with that service. Finally, we talked about how we wanted to start to fix our layout for our cashier view so we could focus mainly on our backend.
+
+Scrum Meeting #8: [4/26] 4:25 PM - 4:45 PM
+During our last meetings we talked about how we are going to connect our buttons to the backend and we decided that we needed to finnish up our queries so we could begin to connect them. We also decided to start to finnish our API incorporation and OAuth so we can finnish the project on time.
