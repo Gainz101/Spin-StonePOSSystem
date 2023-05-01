@@ -224,7 +224,7 @@ export default function ToppingTabs(props) {
                         {listItemsDrizzle}
                     </div>
                     <div class="finish_order">
-                        <button class="finish_orderText" onClick={()=>{setTabIndex(4)}}>
+                        <button class="finish_orderText" onClick={()=>{setTabIndex( max_toppings > 0 ? 4 : 3)}}>
                             Next
                         </button>
                     </div>
