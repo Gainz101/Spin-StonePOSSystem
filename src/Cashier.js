@@ -39,7 +39,7 @@ export default function CashierView(props) {
   const [selectedStateBase, setSelectedStateBase] = useState(Array(baseItems.length).fill(false));
 
 
-  const [currentOrder, setCurrentOrder] = useState(null)
+  const [currentOrder, setCurrentOrder] = useState(null);
 
 
 
@@ -236,6 +236,18 @@ export default function CashierView(props) {
     
   }
 
+  function DeleteOrder(){
+     /* Use effect makes it so that this code is only run once when the CashierView is shown */
+  useEffect(()=>{
+    // This code is only run once
+    // Create a new order for the backend
+    fetch(BACKEND_IP + "/order/new").then((res)=>res.json()).then(order=>{ 
+      // Update the current order state
+      setCurrentOrder(order)
+    }, alert)
+
+  }, []) // You need the brackets at the end so it doesn't do it multiple times
+  }
 
 
   return (
@@ -312,11 +324,17 @@ export default function CashierView(props) {
                               }>Delete Item</button>
                 </div>
               })
-}</div>
-{"Subtotal = " + currentOrder.subtotal}
+      }</div>
+              {"Subtotal = " + currentOrder.subtotal}
               {"Taxes = " + currentOrder.taxes}
               {"Total = " + currentOrder.total}   <div class="buttonsLayout">
-            <button role="button" class="button-namePay">Delete Order</button>
+            <button role="button" class="button-namePay" onClick={()=>{
+              setCurrentOrder(null)
+              fetch(BACKEND_IP + "/order/new").then((res)=>res.json()).then(order=>{ 
+              // Update the current order state
+              setCurrentOrder(order)
+              }, alert)}} 
+            >Delete Order</button>
             <button role="button" class="button-namePay" onClick={AddToOrder}>Add to Order</button>
             <button role="button" class="button-namePay" onClick={
                 ()=>{
