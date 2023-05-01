@@ -27,7 +27,6 @@ h2{
     background-color: #000000;
     opacity: 1;
     padding-bottom: 40%;
-
 }
 
 /* Buttons*/
@@ -106,7 +105,14 @@ footer{
     background-image: linear-gradient(144deg,#f57c19, #f7ca28 50%,#ebff0b);
     margin: auto;
 } */
-
+.card__container2 {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 70%;
+    margin: auto;
+    grid-gap: 20px;
+}
 .card__container {
     padding: 10px;
     display: grid;
