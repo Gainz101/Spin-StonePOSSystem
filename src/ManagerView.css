@@ -98,3 +98,38 @@ h2{
   }
 
 
+  .yellowbtn{
+    background: linear-gradient(144deg,#ffd000, #ffcc13 50%,#e6cf1d);
+    border: 1px solid  linear-gradient(144deg,#ffd000, #f7ca28 50%,#e6cf1d);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #1a1a1a;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 3% 4%;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    margin-left: 2%;
+}
+
+
+.yellowbtn:hover,
+.yellowbtn:active {
+  background-color: white;
+  background-position: 0 0;
+  color: #505050;
+}
+
+

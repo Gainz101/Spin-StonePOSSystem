@@ -12,19 +12,29 @@ import OrderHistory from './OrderHistory';
 const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {item:'Inventory', id: 3}, {item:'Order History', id: 4}];
 
 
-
+  /**
+   * Manager Select View to click through 
+   * The 4 different Views
+   * @param {*} props 
+   * @returns React/JS View for the Manager Select
+   */
   export default function ManagerSelect(props) {
     const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_text">Exit</button></div>
     
+    /**
+     * 
+     * @param {*} itemId 
+     * @returns  itemId that corresponds to the correct
+     *           form switch name 
+     */
     const handleItemClick = (itemId) => {
-      // itemId will switch to the correct onFormSwitch
       if(itemId == 1){
         return "sales_view";
       }
-      else if(itemId == 2){ // X-Z Report
+      else if(itemId == 2){ 
         return "xz_view";
       }
-      else if(itemId == 3){ // 3 - inventory view
+      else if(itemId == 3){ 
         return "inventory_view";
       }
       else{ // 4
@@ -32,16 +42,6 @@ const baseItems = [{item: 'Sales Report', id: 1}, {item:'X-Z Report', id: 2}, {i
       }
     };
    
-    /**
-     * <div class="card__container">
-        <div class = "card">
-            <button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch(handleItemClick(baseItems.id))}> 
-                {baseItems.item}
-            </button>
-        </div>
-    </div>
-     */
-
     //Mapping of buttons
     const listItems = baseItems.map(baseItems => 
       <div class="card__containerMan">

@@ -7,10 +7,6 @@ const XZReport = (props) => {
     // handle current X report button press
   };
 
-  const GoBackToMainWindow = () => {
-    // handle back button press
-  };
-
   const OnOKButtonPressed = () => {
     // handle OK button press
   };
@@ -19,7 +15,7 @@ const XZReport = (props) => {
     // handle current Z report button press
   };
   
-  // not working exit button
+  // exit button
   const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
 
   return (
@@ -35,7 +31,7 @@ const XZReport = (props) => {
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%" }} >
           <p style={{padding: '2%'}}> X - Report </p>
         </Paper>
-        <button class =  "newitem" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current X Report</button>
+        <button class =  "yellowbtn" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current X Report</button>
       
       </Grid>
 
@@ -44,7 +40,7 @@ const XZReport = (props) => {
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%"}} >
           <p style={{padding: '2%'}}> Z - Report </p>
         </Paper>
-        <button class =  "newitem" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current Z Report</button>
+        <button class =  "yellowbtn" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current Z Report</button>
         <TextField id="ZDateTextBox" label="Date" placeholder="MM-DD-YYYY" style={{ marginTop: '95px', marginLeft: '18px' }} />
       
       </Grid>
