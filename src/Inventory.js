@@ -39,6 +39,7 @@ const itemtype_column_name_map = {
   itemtype_id: "ID",
   item_display_name: "Name",
   item_price: "Price",
+  is_hidden: "Delete"
 }
 
 const itemtype_column_names = Object.entries(itemtype_column_name_map).map(([sql_column, display_name]) => display_name)
@@ -90,7 +91,7 @@ function Inventory(props) {
    * @returns Loads items into our table from the backend
    */
   function loadItems() {
-    fetch(`${BACKEND_IP}/itemtypes`).then((res) => res.json()).then((itemState) => {
+    fetch(`${BACKEND_IP}/itemtypes?exclude_hidden=1`).then((res) => res.json()).then((itemState) => {
       setItemState(itemState)
     }, alert)
   }
