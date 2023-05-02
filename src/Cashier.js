@@ -14,15 +14,18 @@ const PIZZA_STATE_DRINK = 3;
 /* Note: Normal crust isn't a real item */
 const crustItems = [{ item_display_name: 'Normal Crust', itemtype_id: -1 }, { "itemtype_id": 33, "item_display_name": "Cauliflower Crust", "item_price": 2.99, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": true }];
 
+// Drinks defined
+
+
 /**
  * @param props
  * @returns the Cashier view
  */
 export default function CashierView(props) {
-    //Left Side Seasonal Item drop down
+    //Left Side Drink Item drop down
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = (event) => {
+    const handleDrinkClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
   
@@ -309,17 +312,19 @@ export default function CashierView(props) {
               <div class="grid-container">
                 {listItems}
                 {/*DRINKS */}
-                <button onClick={handleClick}>Drink</button>
+                <button onClick={handleDrinkClick}>Drink</button>
                 <Menu
-                  id="simple-menu"
+                  id="demo-simple-select-outlined"
                   anchorEl={anchorEl}
                   keepMounted
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
+                  <div style = {{width: "220px"}}>
                   <MenuItem onClick={handleClose}>Pepsi</MenuItem>
                   <MenuItem onClick={handleClose}>Starry</MenuItem>
                   <MenuItem onClick={handleClose}>Mountain Dew</MenuItem>
+                  </div>
                 </Menu>
       
                 {/** Seasonal Item*/}
