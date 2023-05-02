@@ -146,7 +146,6 @@ export default function Login(props){
                         Google maps icons created by Freepik - Flaticon
                     </p> 
                     <button class="google-maps" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps}></img>Google Maps</button>
-
                 </form>
             </div>
             {/* <footer class="footer">

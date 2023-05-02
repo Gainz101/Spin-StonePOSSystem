@@ -310,21 +310,21 @@ export default function CashierView(props) {
                   //JSON.stringify(currentOrder)
                   // Map the order items into 
                   currentOrder.items.map(({ item_display_name, item_price, modifiers, item_id }) => {
-                    return <div class="item">
-                      {/* Item name */}
-                      {item_display_name}
+                    return <div>
+                      <div>
+                        <div class="item-name">{item_display_name}</div>
+                        <div class="item-price">{item_price == 0 ? "" : item_price.toFixed(2)}</div>
+                      </div>
 
-                      {/* Item price */}
-                      {item_price == 0 ? "" : item_price.toString()}
 
                       {modifiers.map(({ item_display_name: modifier_name, item_price: modifier_price }) =>
 
                         <div class="modifier">
                           {/* Modifier name */}
-                          Modifier: {
-                            modifier_name}
+                          Modifier: {modifier_name}
                           {/* Modifier price */}
-                          {modifier_price == 0 ? "" : modifier_price.toString()}</div>
+                          {modifier_price == 0 ? "" : modifier_price.toString()}
+                        </div>
 
                         // Add remove item button
                       )}
@@ -339,6 +339,8 @@ export default function CashierView(props) {
 
                         }
                       }>Delete Item</button>
+                      <br></br>
+                      <br></br>
                     </div>
                   })
                 }

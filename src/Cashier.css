@@ -755,3 +755,21 @@ hr {
   width: 100%;
   
 }
+
+.item-name {
+  float: left;
+  /* margin-right: 10px; */
+}
+
+.item-price {
+  float: right;
+  margin-right: 7px;
+}
+
+.modifier {
+  clear: both;
+}
+
+
+
+
