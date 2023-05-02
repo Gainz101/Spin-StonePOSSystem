@@ -77,13 +77,18 @@ function Inventory(props) {
   const [stockState, setStockState] = useState(null);
   const [itemState, setItemState] = useState(null);
 
-
+  /**
+   * @returns Loads stocks into our table from the backend
+   */
   function loadStocks() {
     fetch(`${BACKEND_IP}/stocks/load`).then((res) => res.json()).then((stockState) => {
       setStockState(stockState)
     }, alert)
   }
 
+  /**
+   * @returns Loads items into our table from the backend
+   */
   function loadItems() {
     fetch(`${BACKEND_IP}/itemtypes`).then((res) => res.json()).then((itemState) => {
       setItemState(itemState)
