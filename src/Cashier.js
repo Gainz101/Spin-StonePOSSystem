@@ -15,36 +15,44 @@ const PIZZA_STATE_DRINK = 3;
 const crustItems = [{ item_display_name: 'Normal Crust', itemtype_id: -1 }, { "itemtype_id": 33, "item_display_name": "Cauliflower Crust", "item_price": 2.99, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": true }];
 
 // Drinks defined
+const drinks = ['Pepsi', 'Starry', 'Mountain Dew'];
 
+// Seasonal Item Defined
+const seasonalItem = ['Christma Pizza', 'New Item', 'New Item #2'];
 
 /**
  * @param props
  * @returns the Cashier view
  */
 export default function CashierView(props) {
-    ///Drink Item Drop Down
-  const [anchorEl, setAnchorEl] = useState(null);
+  ///Drink Button with Drop Down
+  const [showDrinkMenu, setShowDrinkMenu] = useState(false);
+  const [selectedDrink, setSelectedDrink] = useState('');
 
-  const handleDrinkClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-  
-  const handleDrinkClose = () => {
-      setAnchorEl(null);
-    };
+  const handleDrinkClick = () => {
+    setShowDrinkMenu(!showDrinkMenu);
+  };
 
-    ///Seasonal Item Drop Down
-  const [anchorSeasonalEl, setAnchorSeasonalEl] = useState(null);
+  const handleDrinkSelect = (drink) => {
+    setSelectedDrink(drink);
+    setShowDrinkMenu(false);
+  };
 
-  const handleSeasonalClick = (event) => {
-      setAnchorSeasonalEl(event.currentTarget);
-    };
-  
-  const handleSeasonalClose = () => {
-      setAnchorSeasonalEl(null);
-    };
+  ///Seasonal Item with Drop Down
+  const [showMenu, setShowMenu] = useState(false);
+  const [selectedSeasonal, setSelectedSeasonal] = useState('');
 
-    // Items Modifiers
+  const handleSeasonalClick = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const handleSeasonalSelect = (seasonalItem) => {
+    setSelectedSeasonal(seasonalItem);
+    setShowMenu(false);
+  };
+
+   
+  // Items Modifiers
   const [itemtypes, setItemtypes] = useState([])
 
   const sauceItems = itemtypes.filter((item) => item.is_sauce)
@@ -322,41 +330,34 @@ export default function CashierView(props) {
             <div class="gridMover">
               <div class="grid-container">
                 {listItems}
+                <div>
                 {/*DRINKS */}
-                <div>
-                <button class = "button-nameBase" onClick={handleDrinkClick}>Drink</button>
-                <Menu
-                  id="demo-simple-select-outlined"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleDrinkClose}
-                >
-                  <div style = {{width: "220px"}}>
-                  <MenuItem onClick={handleDrinkClose}>Pepsi</MenuItem>
-                  <MenuItem onClick={handleDrinkClose}>Starry</MenuItem>
-                  <MenuItem onClick={handleDrinkClose}>Mountain Dew</MenuItem>
-                  </div>
-                </Menu>
+                <button onClick={handleDrinkClick} class = "button-nameBase">Drink</button>
+                {showDrinkMenu && (
+                  <ul className="menu">
+                    {drinks.map((drink) => (
+                      <li key={drink} onClick={() => handleDrinkSelect(drink)}>
+                        {drink}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 </div>
-      
-                {/** Seasonal Item*/}
+ 
+                {/* Seasonal Item */}
                 <div>
-                <button class = "button-nameBase" onClick={handleSeasonalClick}>Seasonal Items</button>
-                <Menu
-                  id="demo-simple-select-outlined"
-                  anchorEl={anchorSeasonalEl}
-                  keepMounted
-                  open={Boolean(anchorSeasonalEl)}
-                  onClose={handleSeasonalClose}
-                >
-                  <div style = {{width: "220px"}}>
-                  <MenuItem onClick={handleSeasonalClose}>Christmas Pizza</MenuItem>
-                  <MenuItem onClick={handleSeasonalClose}>New Item</MenuItem>
-                  <MenuItem onClick={handleSeasonalClose}>New Item #2</MenuItem>
-                  </div>
-                </Menu>
+                <button onClick={handleSeasonalClick } class = "button-nameBase">Seasonal Item</button>
+                {showMenu && (
+                  <ul className="menu">
+                    {seasonalItem.map((seasonal) => (
+                      <li key={seasonal} onClick={() => handleSeasonalSelect(seasonal)}>
+                        {seasonal}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 </div>
+
                 
 
               </div>

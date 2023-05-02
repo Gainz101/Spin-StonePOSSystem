@@ -773,6 +773,21 @@ hr {
   clear: both;
 }
 
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 223px;
+}
 
+.menu li {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #D1D7E0;
+}
+
+.menu li:hover {
+  background-color: #eee;
+}
 
 
