@@ -13,7 +13,10 @@ const PIZZA_STATE_DRINK = 3;
 /* Note: Normal crust isn't a real item */
 const crustItems = [{ item_display_name: 'Normal Crust', itemtype_id: -1 }, { "itemtype_id": 33, "item_display_name": "Cauliflower Crust", "item_price": 2.99, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": true }];
 
-
+/**
+ * @param props
+ * @returns the Cashier view
+ */
 export default function CashierView(props) {
   const [itemtypes, setItemtypes] = useState([])
 
@@ -60,7 +63,10 @@ export default function CashierView(props) {
       })
 
   }, []) // You need the brackets at the end so it doesn't do it multiple times
-
+/**
+ * @param index which is the item.id
+ * @returns nothing but it keep the counter in check and updates the arrays for the buttons
+ */
   function whenClickedTop(index) {
     if (pizzaState == PIZZA_STATE_CHEESE || pizzaState == PIZZA_STATE_DRINK) {
       null;
@@ -91,7 +97,10 @@ export default function CashierView(props) {
       setSelectedStateTop(newSelectedState);
     }
   }
-
+  /**
+ * @param index which is the item.id
+ * @returns nothing but it keep the counter in check and updates the arrays for the buttons
+ */
   function whenClickedCrust(index) {
     if (crustCount < 1) {
       changeCountCrust(crustCount + 1);
@@ -103,6 +112,11 @@ export default function CashierView(props) {
     setSelectedStateCrust(newSelectedState);
 
   }
+
+  /**
+ * @param index which is the item.id
+ * @returns nothing but it keep the counter in check and updates the arrays for the buttons
+ */
   function whenClickedDrizz(index) {
     if (drizzleCount < 1) {
       changeCountDrizz(drizzleCount + 1);
@@ -114,6 +128,11 @@ export default function CashierView(props) {
     newSelectedState[index] = true;
     setSelectedStateDrizz(newSelectedState);
   }
+
+  /**
+ * @param index which is the item.id
+ * @returns nothing but it keep the counter in check and updates the arrays for the buttons
+ */
   function whenClickedSauce(index) {
     if (sauceCount < 1) {
       changeCountSauce(sauceCount + 1);
@@ -125,6 +144,10 @@ export default function CashierView(props) {
     setSelectedStateSauce(newSelectedState);
   }
 
+  /**
+ * @param newState which is the item.id
+ * @returns nothing but it updates the pizza state, resets the counts, and resets the button arrays
+ */
   function returnID(newState) {
     setPizzaState(newState);
     // Reset the topping count when the pizza state changes
@@ -148,13 +171,34 @@ export default function CashierView(props) {
     setSelectedStateBase(newSelectedStateBase);
   }
 
+  /**
+ * @param baseItem
+ * @param whenClick
+ * @param buttonClass
+ * @param selectedState
+ * @param index 
+ * @returns A button
+ */
   function createButton(baseItem, whenClick, buttonClass, selectedState, index) {
     return <button onClick={() => whenClick(index - 1)} role="button" class={selectedState[index - 1] ? 'selected' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>
   }
+
+  /**
+ * @param baseItem
+ * @param whenClick
+ * @param buttonClass
+ * @param selectedState
+ * @param index 
+ * @returns A button
+ */
   function createButtonBase(baseItem, whenClick, buttonClass, selectedState, index) {
     return <button onClick={() => whenClick(index)} role="button" class={selectedState[index] ? 'selectedBase' : buttonClass} key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>
   }
 
+  /**
+ * @param id 
+ * @returns The counter seen at the top of the cashier page
+ */
   function CountingFunction({ id }) {
     if (id === PIZZA_STATE_CHEESE) {
       return <div class="counter"><div class="red">Crust ({crustCount}/1)</div> <div class="orange">Sauce ({sauceCount}/1)</div> <div class="pink">Drizzle ({drizzleCount}/1)</div></div>;
@@ -185,10 +229,10 @@ export default function CashierView(props) {
 
   const exit = <div class="exitC"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_textC">Exit</button></div>
 
-
+  /**
+ * @returns pizza item id and set the current order
+ */
   function AddToOrder() {
-
-
     // For each item selected button, get it's itemtypeId
     const PizzaId = pizzaState
     const PizzaModifiers = [listItemsCrust, listItemsDrizzle, listItemsSauce, listItemsTop]
@@ -233,20 +277,6 @@ export default function CashierView(props) {
     }
 
   }
-
-  function DeleteOrder() {
-    /* Use effect makes it so that this code is only run once when the CashierView is shown */
-    useEffect(() => {
-      // This code is only run once
-      // Create a new order for the backend
-      fetch(BACKEND_IP + "/order/new").then((res) => res.json()).then(order => {
-        // Update the current order state
-        setCurrentOrder(order)
-      }, alert)
-
-    }, []) // You need the brackets at the end so it doesn't do it multiple times
-  }
-
 
   return (
     //Parent Element

@@ -25,6 +25,10 @@ import oauth from './oauth';
 e.g.
 
 */
+
+/**
+ * @returns urlParams
+ */
 function getURLParams() {
     // source: https://www.sitepoint.com/get-url-parameters-with-javascript/
     const queryString = window.location.search
@@ -32,7 +36,10 @@ function getURLParams() {
     return urlParams
 }
 
-
+/**
+ * @param props
+ * @returns the Login view
+ */
 export default function Login(props){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -48,7 +55,10 @@ export default function Login(props){
     
 
 
-
+    /**
+     * @param e for event
+     * @returns nothing
+     */
     const handleSubmit = (e) =>{
         e.preventDefault();
         console.log(username);
@@ -56,19 +66,22 @@ export default function Login(props){
 
    
    
-
-      function LoginFail(){
+    /**
+     * 
+     * @returns the text when you login fails below the sign up button
+     */
+    function LoginFail(){
         return(
             <p class="loginFailedText">
                 This username and password combo is invalid. Please try again.
             </p>
         );
-      }
+    }
       
-      function navigateTo(url) {
-        window.location.href = url;
+    //   function navigateTo(url) {
+    //     window.location.href = url;
         
-      }
+    //   }
 
 
 
@@ -141,5 +154,5 @@ export default function Login(props){
             </footer> */}
         </div>
     );
-                }
+}
             

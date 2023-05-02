@@ -13,7 +13,10 @@ import CheckOut from './CheckOut'
 
 
 
-
+/**
+ * @param props
+ * @returns the Customer view
+ */
 export default function CustomerView(props) {
   const [pizzaState, setPizzaState] = useState(0);
   // const [countNum, changeCount] = useState(0);
@@ -44,6 +47,9 @@ export default function CustomerView(props) {
         })
   }, [])
 
+    /**
+ * @returns the Backend ip for a new order
+ */
   function setNewOrder() {
     return fetch(BACKEND_IP + "/order/new")
     .then((res) => res.json())
@@ -76,6 +82,10 @@ export default function CustomerView(props) {
         })
   }, [])
 
+  /**
+  * @param newState which is item.id
+ * @returns nothing but ti sets the pizza state and sets the current form since once your done with choosing your base item you need to move to topping tabs
+ */
   function returnID(newState) {
     setPizzaState(newState);
     setCurrentForm("topping_tabs")
