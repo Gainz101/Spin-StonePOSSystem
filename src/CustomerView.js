@@ -6,30 +6,30 @@ import { BACKEND_IP } from "./BackendConnection";
 import ToppingTabs from "./ToppingTabs";
 import oneTop from "./assets/1top.jpg"
 import cheese from "./assets/cheese.jpg"
+import CheckOut from './CheckOut'
 
 
 
 
 
 
-
+/**
+ * @param props
+ * @returns the Customer view
+ */
 export default function CustomerView(props) {
   const [pizzaState, setPizzaState] = useState(0);
   // const [countNum, changeCount] = useState(0);
   const [isBaseItemsLoaded, setIsOrderLoaded] = useState(false);
-  const [currentOrder, setOrder] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState(null);
   const [itemTypes, setItemTypes] = useState(null);
 
-  const [baseItems, setItems] = useState([]);
+  const [baseItems, setBaseItems] = useState([]);
 
   const [itemType, setItemType] = useState(null);
-  
 
-  //   const baseItems = [{item: 'Cheese Pizza', id: 1},
-  //   {item:'1 Topping Pizza', id: 2},
-  //   {item:'2-4 Topping Pizza', id: 3},
-  //   {item:'Drink', id: 4}];
-  // const listItems = baseItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch("toppings_tabs")}> {baseItems.item}</button></div></div>);
+  const [currentForm, setCurrentForm] = useState("topping_tabs")
+  
 
   //from https://legacy.reactjs.org/docs/faq-ajax.html
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function CustomerView(props) {
       .then((jsonItems) => {
         console.log(jsonItems)
         setIsOrderLoaded(true);
-        setItems(jsonItems);
+        setBaseItems(jsonItems);
       },
         (error) => {
           setIsOrderLoaded(false);
@@ -47,18 +47,25 @@ export default function CustomerView(props) {
         })
   }, [])
 
-  useEffect(() => {
-    fetch(BACKEND_IP + "/order/new")
-      .then((res) => res.json())
-      .then((jsonItems) => {
-        console.log(jsonItems)
+    /**
+ * @returns the Backend ip for a new order
+ */
+  function setNewOrder() {
+    return fetch(BACKEND_IP + "/order/new")
+    .then((res) => res.json())
+    .then((jsonItems) => {
+      console.log(jsonItems)
 
-        setOrder(jsonItems)
-      },
-        (error) => {
-          console.log("error:", error)
-          alert(error);
-        })
+      setCurrentOrder(jsonItems)
+    },
+      (error) => {
+        console.log("error:", error)
+        alert(error);
+      })
+
+  }
+  useEffect(() => {
+    setNewOrder()
   }, [])
 
   useEffect(() => {
@@ -75,27 +82,13 @@ export default function CustomerView(props) {
         })
   }, [])
 
+  /**
+  * @param newState which is item.id
+ * @returns nothing but ti sets the pizza state and sets the current form since once your done with choosing your base item you need to move to topping tabs
+ */
   function returnID(newState) {
     setPizzaState(newState);
-    // Reset the topping count when the pizza state changes
-    // changeCountTop(0);
-    // changeCountSauce(0);
-    // changeCountDrizz(0);
-    // changeCountCrust(0);
-
-    // const newSelectedState = Array(drizzleItems.length).fill(false);
-    // setSelectedStateDrizz(newSelectedState);
-    // const newSelectedState2 = Array(sauceItems.length).fill(false);
-    // setSelectedStateSauce(newSelectedState2);
-    // const newSelectedState3 = Array(crustItems.length).fill(false);//restarts the array with false
-    // setSelectedStateCrust(newSelectedState3);
-    // const newSelectedState4 = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
-    // setSelectedStateTop(newSelectedState4);
-    
-    // const newSelectedStateBase = Array(baseItems.length).fill(false);
-    // // <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
-    // newSelectedStateBase[newState] = true;
-    // setSelectedStateBase(newSelectedStateBase);
+    setCurrentForm("topping_tabs")
   }
 
 
@@ -122,7 +115,10 @@ export default function CustomerView(props) {
                   )} 
               </div>
             </div> :
-              <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch} pizzaState={pizzaState}></ToppingTabs>)
+              ( currentForm === "topping_tabs" ? 
+                  <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} onFormSwitch={setCurrentForm} pizzaState={pizzaState}></ToppingTabs> :
+              currentForm === "checkout_view" ? <CheckOut onFormSwitch={setCurrentForm} setItemType={setItemType} setCurrentOrder={setCurrentOrder} currentOrder={currentOrder} setNewOrder={setNewOrder}/> : null )
+              )
             :
             (<h1>
               Loading...
