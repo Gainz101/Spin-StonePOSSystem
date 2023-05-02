@@ -191,10 +191,36 @@ footer{
 
 
 /* Toppings File */
-.finish_order{
+.next_tab{
     width: 40%;
     height: 110px;
     margin: auto;
+    padding: 50px;
+}
+.next_tab:active {
+    transform: scale(0.9);
+}
+.next_tabText{
+    width: 100%;
+    height: 100%;
+    border-radius: 17px;
+    font-size:30px;
+    color: #fff;
+    background-color: #000;
+    border: #fff 5px solid;
+}
+.next_tabText.selected {
+}
+.next_tabText:hover {
+    transform: scale(1.085);
+    transition: 30ms;
+    cursor: pointer;
+}
+
+.finish_order{
+    width: 40%;
+    height: 110px;
+    /*margin: auto;*/
     padding: 50px;
 }
 .finish_order:active {
@@ -209,16 +235,42 @@ footer{
     background-color: #000;
     border: #fff 5px solid;
 }
-
-
 .finish_orderText.selected {
 }
-  
 .finish_orderText:hover {
     transform: scale(1.085);
     transition: 30ms;
     cursor: pointer;
 }
+
+.order_more{
+    width: 40%;
+    height: 110px;
+    /*margin: auto;*/
+    margin-left: 300px;
+    margin-top: -210px;
+    padding: 50px;
+}
+.order_more:active {
+    transform: scale(0.9);
+}
+.order_moreText{
+    width: 100%;
+    height: 100%;
+    border-radius: 17px;
+    font-size:30px;
+    color: #fff;
+    background-color: #000;
+    border: #fff 5px solid;
+}
+.order_moreText.selected {
+}
+.order_moreText:hover {
+    transform: scale(1.085);
+    transition: 30ms;
+    cursor: pointer;
+}
+
 .itemBoxContainer{
     width: 50%;
     height: 120px;

@@ -45,15 +45,15 @@ export default function CheckOut({
                     <div class="subtotalBox">
                         <div class="contentName">
                             <strong>Subtotal</strong>
-                            <div class="contentPrice">${currentOrder.subtotal}</div>
+                            <div class="contentPrice">${currentOrder.subtotal.toFixed(2)}</div>
                         </div>
                         <div class="contentName">
                             <strong>Taxes</strong>
-                            <div class="contentPrice">${currentOrder.taxes}</div>
+                            <div class="contentPrice">${currentOrder.taxes.toFixed(2)}</div>
                         </div>
                         <div class="contentName">
                             <strong>Total</strong>
-                            <div class="contentPrice">${currentOrder.total}</div>
+                            <div class="contentPrice">${currentOrder.total.toFixed(2)}</div>
                         </div>
                     </div>
                 </div>
@@ -65,19 +65,19 @@ export default function CheckOut({
                             onFormSwitch("topping_tabs")
                         })
                     }}>
-                        Pay
+                        Check Out
                     </button>
                 </div>
 
 
-                <div class="finish_order"> {/*Todo: change CSS class? */}
-                    <button class="finish_orderText" onClick={() => {
+                <div class="order_more"> {/*Todo: change CSS class? */}
+                    <button class="order_moreText" onClick={() => {
                         /* Todo: actually complete order */
                         setItemType(null)
                         onFormSwitch("topping_tabs")
                     }}>
                         {/* Rename this? */}
-                        Order more
+                        Order More
                     </button>
                 </div>
             </div>
