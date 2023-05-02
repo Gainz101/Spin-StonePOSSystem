@@ -132,7 +132,8 @@ function startHosting(dbConn: dbConnection) {
         // Enable Cross origin resource sharing
         // https://web.dev/cross-origin-resource-sharing/
         response.setHeader('Access-Control-Allow-Origin', '*')
-
+        response.setHeader('Referrer-Policy','no-referrer-when-downgrade')
+        response.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
         next();
     });
 
@@ -164,7 +165,7 @@ function startHosting(dbConn: dbConnection) {
             itemtype_id: parseIntStrict, // Required param                
             item_display_name: parseStringOptional,
             item_price: parseDoubleStrictOptional,
-            // item_hidden - maybe for deleting items
+            // item_hidden - maybe for deleting itemsgi
         });
 
         const update_pairs = Object.entries(update_params).filter((([key, value]) => key != 'itemtype_id' && value != undefined))
@@ -188,6 +189,12 @@ function startHosting(dbConn: dbConnection) {
         dbGetEntireOrder(dbConn, order_id)
             .then(entire_order => response.send(entire_order),
                 createSQLErrorHandler(response))
+    })
+
+    app.use('/order/getRecentOrders', (_, response)=>{
+        dbConn.sqlQuery<{order_id:number}>("SELECT order_id FROM orders ORDER BY creation_time DESC LIMIT 20;").then((order_objs)=>{
+            Promise.all(order_objs.map(({order_id})=>dbGetEntireOrder(dbConn, order_id))).then((orders)=>response.send(orders))
+        })
     })
 
     /*
