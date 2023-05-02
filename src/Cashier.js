@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from "react";
 import './Cashier.css'; // Tell webpack that App.js uses these styles
 import { BACKEND_IP } from './BackendConnection.js';
+import {Menu, MenuItem } from '@material-ui/core';
 
 const PIZZA_STATE_CHEESE = 0;
 const PIZZA_STATE_ONE_TOPPING = 1;
@@ -25,6 +26,19 @@ const itemTypes = [
 ]
 
 export default function CashierView(props) {
+  //Left Side Seasonal Item drop down
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
+
+  // Right Button useStates
   const [toppingCount, changeCountTop] = useState(0);
   const [crustCount, changeCountCrust] = useState(0);
   const [drizzleCount, changeCountDrizz] = useState(0);
@@ -258,6 +272,21 @@ export default function CashierView(props) {
           <div class="gridMover">
             <div class="grid-container">
               {listItems}
+              {/** NEED TO ADD SEAONAL ITEM DROP DOWN AND DRINK DROP DOWN*/}
+              <div class="grid-container">
+              <button onClick={handleClick}>Seasonal Item</button>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Christma Pizza</MenuItem>
+                <MenuItem onClick={handleClose}>New Item</MenuItem>
+                <MenuItem onClick={handleClose}>New Item</MenuItem>
+              </Menu>
+              </div>
             </div>
           </div>
           <div class="toppingsSection">

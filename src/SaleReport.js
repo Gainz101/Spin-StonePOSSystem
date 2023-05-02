@@ -5,6 +5,19 @@ import { blueGrey, red } from '@material-ui/core/colors';
 import './ManagerView.css'; 
 
 function SalesReport(props) {
+  // Implementation of Backend Sale Report
+  const [salesState, updateSalesState] = useState(null);
+
+  //ordersJSON holds all of the JSON with the orders 
+  /*
+  UseEffect(()=>fetch("http://zeta.ddns.net/order/getRecentOrders")
+  .then((res)=>res.json())
+  .then((ordersJSON)=>{
+    updateSalesState(ordersJSON.map((order)=>{total:order.total}))}),[])
+    */
+ // return salesState == null ? <h1> loading </h1> : salesState.map((orderInfo)=>(<p>turn sales state into sales data<p>))
+
+
   // useStates in order 
   const [salesReport, setSalesReport] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -23,16 +36,16 @@ function SalesReport(props) {
     
     <body class = "background">
     {exit}
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+    <div class = "saleComponents">
     <Typography variant="h2" align='center' style={{marginBottom:"3%", color:"#f7ca28"}}>Sale Report</Typography>
    
-      <div style={{display: 'flex', width: "100%", marginTop: "1rem", marginBottom:"1rem", justifyContent: 'center', alignItems: 'center'}}>
+      <div class = "salePaperFormat">
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
           <p> {textBox} </p>
         </Paper>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", width: "80%" }}>
+      <div class = "saleTextFormat">
         <TextField
           style={{backgroundColor:"white"}}
           label="Start Date"
@@ -52,10 +65,9 @@ function SalesReport(props) {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-   
-        <button class =  "newitem" onClick={handleOkButton}>Enter</button>
-   
       
+        <button class = "yellowbtn" onClick={handleOkButton}>Enter</button>
+   
     </div>
     </body>
   );

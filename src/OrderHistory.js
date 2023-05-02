@@ -21,15 +21,15 @@ function OrderHistory(props) {
     
     <body class = "background">
     {exit}
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
+    <div class = "orderHistoryDiv">
       <Typography variant="h2">Order History</Typography>
    
-      <div style={{display: 'flex', width: "100%", marginTop: "1rem", marginBottom:"1rem", justifyContent: 'center', alignItems: 'center'}}>
+      <div class = "orderPaperFormat">
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
           <p> {textBox} </p>
         </Paper>
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "30%" }}>
+      <div class = "orderBTN">
       <button class = "yellowbtn">Back</button>
       <button class = "yellowbtn">Next</button>
       </div>

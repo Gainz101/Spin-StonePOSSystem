@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, TextField, Typography, Grid, Paper} from '@material-ui/core';
-import './Inventory.css';
+import './ManagerView.css';
 
 const XZReport = (props) => {
   const OnCurrentXReportButtonPressed = () => {
@@ -20,7 +20,7 @@ const XZReport = (props) => {
 
   return (
 
-    <body class = "background" style={{padding:"5%"}}>
+    <body class = "xzBackground">
     {exit}
      <div style={{marginLeft:"15%"}}>
      <Grid container columnSpacing={{ xs: 1}}>
@@ -29,7 +29,7 @@ const XZReport = (props) => {
       
         <Typography variant="h2" align='justify'>X Report</Typography>
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%" }} >
-          <p style={{padding: '2%'}}> X - Report </p>
+          <p class = "xzPaper"> X - Report </p>
         </Paper>
         <button class =  "yellowbtn" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current X Report</button>
       
@@ -38,10 +38,15 @@ const XZReport = (props) => {
       <Grid item xs={6}>
       <Typography variant="h2" align='justify'>Z Report</Typography>
         <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto", marginTop:"1%"}} >
-          <p style={{padding: '2%'}}> Z - Report </p>
+          <p class = "xzPaper"> Z - Report </p>
         </Paper>
-        <button class =  "yellowbtn" onClick={OnCurrentXReportButtonPressed} style={{marginTop: "3%"}}>Current Z Report</button>
-        <TextField id="ZDateTextBox" label="Date" placeholder="MM-DD-YYYY" style={{ marginTop: '95px', marginLeft: '18px' }} />
+        <button class =  "yellowbtn" onClick={OnCurrentZReportButtonPressed} style={{marginTop: "3%"}}>Current Z Report</button>
+        <TextField
+        id="ZDateTextBox" 
+        label="Date" 
+        placeholder="MM-DD-YYYY" 
+        style={{marginTop: "18px", marginLeft: '18px', backgroundColor:"white"}} 
+        />
       
       </Grid>
     </Grid>  
