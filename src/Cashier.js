@@ -256,13 +256,10 @@ export default function CashierView(props) {
       :
       <div>
         <div class="backgroundBland">
-
           <div class="titleContainer">
             {exit}
-
           </div>
           <h3>Cashier's Window</h3>
-
           <CountingFunction id={pizzaState} />
           <div class="baseSection">
             <div class="gridMover">
@@ -275,8 +272,6 @@ export default function CashierView(props) {
                 <div class="grid-containerToppings">
                   {listItemsCrust}{listItemsSauce}{listItemsTop}{listItemsDrizzle}
                 </div>
-
-
               </div>
             </div>
             <div class="orderLog">
@@ -292,7 +287,6 @@ export default function CashierView(props) {
                       {/* Item price */}
                       {item_price == 0 ? "" : item_price.toString()}
 
-
                       {modifiers.map(({ item_display_name: modifier_name, item_price: modifier_price }) =>
 
                         <div class="modifier">
@@ -303,12 +297,7 @@ export default function CashierView(props) {
                           {modifier_price == 0 ? "" : modifier_price.toString()}</div>
 
                         // Add remove item button
-
                       )}
-
-
-
-
                       <button role="button" class="button-namePay" onClick={
                         () => {
                           fetch(`${BACKEND_IP}/order/removeItem?order_id=${currentOrder.order_id}&item_id=${item_id}`)
@@ -322,10 +311,19 @@ export default function CashierView(props) {
                       }>Delete Item</button>
                     </div>
                   })
-                }</div>
-                {"Subtotal = " + currentOrder.subtotal} <br />
-                {"Taxes = " + currentOrder.taxes} <br />
-                {"Total = " + currentOrder.total}   <div class="buttonsLayout">
+                }
+                <div class="total">
+                {currentOrder.subtotal===0?
+                  null:
+                  <><hr></hr></>
+                }
+                
+                {"Subtotal = " + currentOrder.subtotal.toFixed(2)} 
+                {" Taxes = " + currentOrder.taxes.toFixed(2)} 
+                {" Total = " + currentOrder.total.toFixed(2)}   
+                </div></div>
+                
+                <div class="buttonsLayout">
                   <button role="button" class="button-namePay" onClick={() => {
                     setCurrentOrder(null)
                     fetch(BACKEND_IP + "/order/new").then((res) => res.json()).then(order => {
