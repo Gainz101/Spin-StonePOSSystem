@@ -25,15 +25,15 @@ export default function CheckOut({
                                 </div>
                                 <div class="itemBoxContentEditRemove">
                                     {/* <a onClick={() => props.onFormSwitch("customer_view")}>Edit </a> */}
-                                    <a onClick={()=>{
+                                    <a onClick={() => {
                                         fetch(`${BACKEND_IP}/order/removeItem?order_id=${currentOrder.order_id}&item_id=${item_id}`)
-                                        .then((res) => res.json())
-                                        .then((responseJSON) => {
-                                          // Refresh the component with the new order items by setting the order state
-                                          setCurrentOrder(responseJSON)
-                                        })
+                                            .then((res) => res.json())
+                                            .then((responseJSON) => {
+                                                // Refresh the component with the new order items by setting the order state
+                                                setCurrentOrder(responseJSON)
+                                            })
                                     }}>Remove</a>
-                                    
+
                                     {/* Don't show quantities */}
                                     {/* <div class="itemBoxContentQTY"><strong>Qty 1</strong></div> */}
                                 </div>
@@ -59,16 +59,17 @@ export default function CheckOut({
                 </div>
                 <div class="finish_order">
                     <button class="finish_orderText" onClick={() => {
-                        /* Todo: actually complete order */
-                        setNewOrder().then(()=>{
-                            onFormSwitch("topping_tabs")    
+                        // Completing order
+                        fetch(BACKEND_IP + "/order/complete?order_id=" + currentOrder.order_id).then(order => {
+                        }, alert).then(() => {
+                            onFormSwitch("topping_tabs")
                         })
                     }}>
                         Pay
                     </button>
                 </div>
 
-                
+
                 <div class="finish_order"> {/*Todo: change CSS class? */}
                     <button class="finish_orderText" onClick={() => {
                         /* Todo: actually complete order */
