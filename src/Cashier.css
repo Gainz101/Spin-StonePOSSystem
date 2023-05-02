@@ -471,6 +471,9 @@ h3{
     background: rgb(0, 0, 0);
     color: #ffffff;
     justify-content: space-evenly;
+    border-radius: 7000000px;
+    width: 97%;
+    margin: auto;
    }
 
 
