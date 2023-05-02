@@ -90,8 +90,7 @@ export default function Login(props){
             <div class="box">
 
                 {/* **** Login bypass *****/}
-                <img src={myImage} alt="My image" />
-                
+                <img src={myImage} alt="Spin and Stone Logo" />                
 
 
                 {/***** End login bypass **** */}
@@ -145,8 +144,7 @@ export default function Login(props){
                         user: man, pass:man000; */}
                         Google maps icons created by Freepik - Flaticon
                     </p> 
-                    <button class="google-maps" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps}></img>Google Maps</button>
-                </form>
+                    <button class="google-maps" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps} alt="Google Maps Logo"></img>Google Maps</button>                </form>
             </div>
             {/* <footer class="footer">
                 <a href="https://www.flaticon.com/free-icons/google-maps" title="google maps icons">Google maps icons created by Freepik - Flaticon</a>
