@@ -6,6 +6,7 @@ import { BACKEND_IP } from "./BackendConnection";
 import ToppingTabs from "./ToppingTabs";
 import oneTop from "./assets/1top.jpg"
 import cheese from "./assets/cheese.jpg"
+import CheckOut from './CheckOut'
 
 
 
@@ -17,12 +18,15 @@ export default function CustomerView(props) {
   const [pizzaState, setPizzaState] = useState(0);
   // const [countNum, changeCount] = useState(0);
   const [isBaseItemsLoaded, setIsOrderLoaded] = useState(false);
-  const [currentOrder, setOrder] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState(null);
   const [itemTypes, setItemTypes] = useState(null);
 
   const [baseItems, setItems] = useState([]);
 
   const [itemType, setItemType] = useState(null);
+
+  const [currentForm, setCurrentForm] = useState("topping_tabs")
+  
   
 
   //   const baseItems = [{item: 'Cheese Pizza', id: 1},
@@ -47,18 +51,22 @@ export default function CustomerView(props) {
         })
   }, [])
 
-  useEffect(() => {
-    fetch(BACKEND_IP + "/order/new")
-      .then((res) => res.json())
-      .then((jsonItems) => {
-        console.log(jsonItems)
+  function setNewOrder() {
+    return fetch(BACKEND_IP + "/order/new")
+    .then((res) => res.json())
+    .then((jsonItems) => {
+      console.log(jsonItems)
 
-        setOrder(jsonItems)
-      },
-        (error) => {
-          console.log("error:", error)
-          alert(error);
-        })
+      setCurrentOrder(jsonItems)
+    },
+      (error) => {
+        console.log("error:", error)
+        alert(error);
+      })
+
+  }
+  useEffect(() => {
+    setNewOrder()
   }, [])
 
   useEffect(() => {
@@ -77,25 +85,7 @@ export default function CustomerView(props) {
 
   function returnID(newState) {
     setPizzaState(newState);
-    // Reset the topping count when the pizza state changes
-    // changeCountTop(0);
-    // changeCountSauce(0);
-    // changeCountDrizz(0);
-    // changeCountCrust(0);
-
-    // const newSelectedState = Array(drizzleItems.length).fill(false);
-    // setSelectedStateDrizz(newSelectedState);
-    // const newSelectedState2 = Array(sauceItems.length).fill(false);
-    // setSelectedStateSauce(newSelectedState2);
-    // const newSelectedState3 = Array(crustItems.length).fill(false);//restarts the array with false
-    // setSelectedStateCrust(newSelectedState3);
-    // const newSelectedState4 = Array(topItems.length).fill(false);;//take into account the past array (copies it in)
-    // setSelectedStateTop(newSelectedState4);
-    
-    // const newSelectedStateBase = Array(baseItems.length).fill(false);
-    // // <button onClick={() => returnID(baseItem.itemtype_id)} role="button" class="button-nameBase" key={baseItem.itemtype_id}> {baseItem.item_display_name}</button>);
-    // newSelectedStateBase[newState] = true;
-    // setSelectedStateBase(newSelectedStateBase);
+    setCurrentForm("topping_tabs")
   }
 
 
@@ -122,7 +112,10 @@ export default function CustomerView(props) {
                   )} 
               </div>
             </div> :
-              <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentorder={currentOrder} setorder={setOrder} onFormSwitch={props.onFormSwitch} pizzaState={pizzaState}></ToppingTabs>)
+              ( currentForm === "topping_tabs" ? 
+                  <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} onFormSwitch={setCurrentForm} pizzaState={pizzaState}></ToppingTabs> :
+              currentForm === "checkout_view" ? <CheckOut onFormSwitch={setCurrentForm} setItemType={setItemType} setCurrentOrder={setCurrentOrder} currentOrder={currentOrder} setNewOrder={setNewOrder}/> : null )
+              )
             :
             (<h1>
               Loading...
