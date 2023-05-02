@@ -4,6 +4,13 @@ import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { blueGrey, red } from '@material-ui/core/colors';
 import './ManagerView.css'; 
 
+/**
+ *  Returns the Sales Report that
+ *  contains 2 textbox for start and end 
+ *  dates
+ * @param {*} props 
+ * @returns Sale Report Window
+ */
 function SalesReport(props) {
   // Implementation of Backend Sale Report
   const [salesState, updateSalesState] = useState(null);

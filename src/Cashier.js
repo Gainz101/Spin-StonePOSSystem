@@ -19,6 +19,18 @@ const crustItems = [{ item_display_name: 'Normal Crust', itemtype_id: -1 }, { "i
  * @returns the Cashier view
  */
 export default function CashierView(props) {
+    //Left Side Seasonal Item drop down
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    //
   const [itemtypes, setItemtypes] = useState([])
 
   const sauceItems = itemtypes.filter((item) => item.is_sauce)
@@ -296,6 +308,23 @@ export default function CashierView(props) {
             <div class="gridMover">
               <div class="grid-container">
                 {listItems}
+                {/*DRINKS */}
+                <button onClick={handleClick}>Drink</button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Pepsi</MenuItem>
+                  <MenuItem onClick={handleClose}>Starry</MenuItem>
+                  <MenuItem onClick={handleClose}>Mountain Dew</MenuItem>
+                </Menu>
+      
+                {/** Seasonal Item*/}
+                
+
               </div>
             </div>
             <div class="toppingsSection">

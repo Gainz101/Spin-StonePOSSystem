@@ -2,6 +2,13 @@ import React from 'react';
 import { Button, TextField, Typography, Grid, Paper} from '@material-ui/core';
 import './ManagerView.css';
 
+
+/**
+ * The X Table contains all the past orders of the day
+ * The Z Table contains 
+ * @param {*} props 
+ * @returns Returns the XZ Report Table 
+ */
 const XZReport = (props) => {
   const OnCurrentXReportButtonPressed = () => {
     // handle current X report button press
