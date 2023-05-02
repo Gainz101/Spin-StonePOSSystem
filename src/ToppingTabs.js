@@ -275,6 +275,7 @@ export default function ToppingTabs(props) {
                     <div class="finish_order">
                         <button class="finish_orderText" onClick={() => {
                             setBlockCheckout(true)
+                            if(!blockCheckout)
                             AddPizzaToOrder(()=>{props.onFormSwitch("checkout_view"); setBlockCheckout(false)})
 
                         }}>
