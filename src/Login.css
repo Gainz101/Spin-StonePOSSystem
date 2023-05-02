@@ -31,7 +31,7 @@ h1{
 
 
 .smallGreyText{
-    color: var(--blueMain);
+    color: var(--greyAccessabile);
     font-size: .9rem;
     text-align: center;
 }
@@ -61,6 +61,7 @@ h1{
 :root{
     --blueMain:#004DB3;
     --grey:#808080;
+    --greyAccessabile:#525151;
     --white:#fff;
 }
 
@@ -217,7 +218,7 @@ background-position: 0 0,35px 35px;
 
 .input-field label{
     position: absolute;
-    color: var(--blueMain);
+    color: var(--greyAccessabile);
     left: 15px;
     top: 16px;
     transition: .3s ease;
