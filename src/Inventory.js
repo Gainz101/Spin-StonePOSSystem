@@ -39,6 +39,7 @@ const itemtype_column_name_map = {
   itemtype_id: "ID",
   item_display_name: "Name",
   item_price: "Price",
+  is_hidden: "Delete"
 }
 
 const itemtype_column_names = Object.entries(itemtype_column_name_map).map(([sql_column, display_name]) => display_name)
@@ -56,6 +57,10 @@ function Inventory(props) {
   // New Seasonal Item Popup Window Functions
   const [open, setOpen] = useState(false);
 
+  // For seasonal item
+  const [itemName, setItemName] = useState(undefined);
+  const [itemPrice, setItemPrice] = useState(undefined);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -67,8 +72,17 @@ function Inventory(props) {
 
   const handleOkClose = () => {
     //saves text field
+    console.log(itemName, itemPrice)
     setOpen(false);
   };
+
+  function onItemNameChange(event) {
+    setItemName(event.target.value)
+  }
+
+  function onItemPriceChange(event) {
+    setItemPrice(event.target.value)
+  }
 
   //For Excess Stock 
   const [excessStock, setExcessStock] = useState("");
@@ -90,7 +104,7 @@ function Inventory(props) {
    * @returns Loads items into our table from the backend
    */
   function loadItems() {
-    fetch(`${BACKEND_IP}/itemtypes`).then((res) => res.json()).then((itemState) => {
+    fetch(`${BACKEND_IP}/itemtypes?exclude_hidden=1`).then((res) => res.json()).then((itemState) => {
       setItemState(itemState)
     }, alert)
   }
@@ -119,7 +133,7 @@ function Inventory(props) {
           < Grid item xs={6}>
             <div  class = "divLeft">
             <button class =  "yellowbtn" onClick={handleClickOpen}>
-              New Season Item
+              New Seasonal Item
             </button>
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle style={{background:'#9e9e9e', opacity:"60%", color:"black", marginBottom:"5%"}}>New Seasonal Item</DialogTitle>
@@ -133,6 +147,7 @@ function Inventory(props) {
                 variant="standard"
                 focused
                 style={{marginRight: "20px", width:"50%"}}
+                onChange={onItemNameChange}  
                 />
                 <TextField
                 autoFocus
@@ -143,6 +158,7 @@ function Inventory(props) {
                 variant='standard'
                 focused 
                 style={{marginRight: "20px", width:"30%"}}
+                onChange={onItemPriceChange}
                 />
               </DialogContent>
               <DialogActions>
