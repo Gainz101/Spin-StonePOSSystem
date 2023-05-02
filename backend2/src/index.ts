@@ -87,13 +87,14 @@ function parseString(str: string) {
 }
 
 function parseBoolStrictOptional(str: string) {
+    if(str==undefined) return undefined;
     str = str.toLowerCase();
     if(str=='y' || str=='1' || str=='true' || str=='t') {
         return true;
     } else if (str=='n' || str=='f' || str=='false' || str=='0') {
         return false;
     } else {
-        throw `expected boolean, got ${str}`
+        return undefined;
     }
 }
 
@@ -160,14 +161,11 @@ function startHosting(dbConn: dbConnection) {
         request; // surpress error message
         const { exclude_hidden } = parseQuery(request.query as any, {
             exclude_hidden: parseIntStrictOptional,
-            // item_hidden - maybe for deleting itemsgi
         });
-        console.log(exclude_hidden)
 
         dbGetItemTypes(dbConn)
             .then(itemTypes => {
                 if (exclude_hidden) {
-                    console.log("hide")
                     response.send(itemTypes.filter((item) => !(item as any).is_hidden))
                 } else {
                     response.send(itemTypes)
@@ -204,8 +202,8 @@ function startHosting(dbConn: dbConnection) {
         });
 
         const query = `UPDATE itemtypes SET ${update_list.join(', ')} WHERE itemtype_id = '${update_params.itemtype_id}';`
-        dbConn.sqlUpdate(query).then(() => dbGetItemTypes(dbConn)).then((stocks) => {
-            response.send(stocks)
+        dbConn.sqlUpdate(query).then(() => dbGetItemTypes(dbConn)).then((itemtypes) => {
+            response.send(itemtypes.filter(itemtype=>(!(itemtype as any).is_hidden)))
         }, createSQLErrorHandler(response))
     })
 
@@ -217,7 +215,7 @@ function startHosting(dbConn: dbConnection) {
         const id = randomId();
 
         dbConn.sqlQuery(`INSERT INTO itemtypes (itemtype_id, item_display_name, item_price, is_seasonal_item) VALUES ($1, $2, $3, true);`, [id, name, price]).then(() => {
-            response.send(id);
+            response.send({new_item_id:id});
         }, createSQLErrorHandler(response))
         //
     })
@@ -352,7 +350,6 @@ function startHosting(dbConn: dbConnection) {
         request; // surpress error message
 
         dbConn.sqlQuery(`SELECT * FROM inventory WHERE stock_amount < minimum_amount;`).then((stocks) => {
-            console.log(stocks)
             response.send(stocks)
         }, createSQLErrorHandler(response))
     })
