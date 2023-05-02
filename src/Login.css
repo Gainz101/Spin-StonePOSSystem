@@ -31,7 +31,7 @@ h1{
 
 
 .smallGreyText{
-    color: var(--grey);
+    color: var(--blueMain);
     font-size: .9rem;
     text-align: center;
 }
@@ -217,7 +217,7 @@ background-position: 0 0,35px 35px;
 
 .input-field label{
     position: absolute;
-    color: var(--grey);
+    color: var(--blueMain);
     left: 15px;
     top: 16px;
     transition: .3s ease;
