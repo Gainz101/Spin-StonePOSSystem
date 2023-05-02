@@ -16,6 +16,11 @@ const PIZZA_STATE_ONE_TOPPING = 1;
 const PIZZA_STATE_TWOFOUR_TOPPING = 2;
 const PIZZA_STATE_DRINK = 3;
 
+/**
+ * 
+ * @param {*} props 
+ * @returns 
+ */
 export default function ToppingTabs(props) {
     const sauceItems = props.itemtypes.filter((item) => item.is_sauce)
     const drizzleItems = props.itemtypes.filter((item) => item.is_drizzle)
@@ -37,6 +42,11 @@ export default function ToppingTabs(props) {
         max_toppings
     } = props.itemtypes.filter((itemtype) => itemtype.itemtype_id == props.pizzaState)[0]
 
+    /**
+     * 
+     * @param {*} index 
+     * @returns Shows how many toppings have been selected
+     */
     function whenClickedTop(index) {
         if (props.pizzaState == PIZZA_STATE_CHEESE || props.pizzaState == PIZZA_STATE_DRINK) {
             null;
@@ -68,6 +78,11 @@ export default function ToppingTabs(props) {
         }
     }
 
+    /**
+     * 
+     * @param {*} index
+     * @returns this will set the selected state of the clicked button to true for crusts
+     */
     function whenClickedCrust(index) {
         // Set the selected state of the clicked button to true
         const newSelectedState = Array(crustItems.length).fill(false);//restarts the array with false
@@ -75,6 +90,11 @@ export default function ToppingTabs(props) {
         setSelectedStateCrust(newSelectedState);
     }
 
+    /**
+     * 
+     * @param {*} index 
+     * @returns this will set the selected state of the clicked button to true for drizzle
+     */
     function whenClickedDrizz(index) {
         // Set the selected state of the clicked button to true
         const newSelectedState = Array(drizzleItems.length).fill(false);
@@ -82,6 +102,10 @@ export default function ToppingTabs(props) {
         setSelectedStateDrizz(newSelectedState);
     }
 
+    /**
+     * @param {*} index
+     * @returns this will set the selected state of the clicked button to true for sauce
+     */
     function whenClickedSauce(index) {
         // Set the selected state of the clicked button to true
         const newSelectedState = Array(sauceItems.length).fill(false);
@@ -89,6 +113,11 @@ export default function ToppingTabs(props) {
         setSelectedStateSauce(newSelectedState);
     }
 
+    /**
+     * 
+     * @param {*} index
+     * @returns this will set the selected state of the clicked button to true for drinks 
+     */
     function whenClickedDrinks(index) {
         // Set the selected state of the clicked button to true
         const newSelectedState = Array(drinkItems.length).fill(false);
@@ -96,6 +125,15 @@ export default function ToppingTabs(props) {
         setSelectedStateDrinks(newSelectedState);
     }
 
+    /**
+     * 
+     * @param {*} item 
+     * @param {*} whenClick 
+     * @param {*} buttonClass 
+     * @param {*} selectedState 
+     * @param {*} itemtype_id 
+     * @returns a button that can be clicked
+     */
     function createButton(item, whenClick, buttonClass, selectedState, itemtype_id) {
         return <div class="card">
             <button onClick={() => whenClick(itemtype_id - 1)} class={selectedState[itemtype_id - 1] ? 'selected2' : buttonClass} key={item.itemtype_id}>
@@ -112,6 +150,11 @@ export default function ToppingTabs(props) {
 
     const exit = <div class="exitApp"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_textApp">Exit</button></div>
 
+    /**
+     * 
+     * @param {*} finishCallback 
+     * @returns adds pizza to the checkout order of the selected buttons
+     */
     function AddPizzaToOrder(finishCallback) {
         const PizzaId = props.pizzaState
         const PizzaModifiers = [listItemsCrust, listItemsDrizzle, listItemsSauce, listItemsTop]

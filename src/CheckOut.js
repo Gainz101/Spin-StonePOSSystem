@@ -4,6 +4,11 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './App.css'; // Tell webpack that App.js uses these styles
 
+/**
+ * 
+ * @param {*} props 
+ * @returns Creates a checkout cart menu for our customer side
+ */
 export default function CheckOut(props){
     return(
     <div class="background">
