@@ -84,7 +84,7 @@ export default function CustomerView(props) {
 
   /**
   * @param newState which is item.id
- * @returns nothing but ti sets the pizza state and sets the current form since once your done with choosing your base item you need to move to topping tabs
+ * @returns nothing but it sets the pizza state and sets the current form since once your done with choosing your base item you need to move to topping tabs
  */
   function returnID(newState) {
     setPizzaState(newState);
