@@ -62,6 +62,7 @@ export default function CheckOut({
                         // Completing order
                         fetch(BACKEND_IP + "/order/complete?order_id=" + currentOrder.order_id).then(order => {
                         }, alert).then(() => {
+                            setNewOrder()
                             onFormSwitch("topping_tabs")
                         })
                     }}>
