@@ -69,22 +69,27 @@ h2{
   } 
 
 
+
   .exit_text{
     background-clip: text;
     background: rgb(203, 41, 41);
     color: #fff;
-    padding: 25px;
+    padding: 22px;
     cursor: pointer;
-    width: 10%;
+    width: 15%;
     border-radius: 25px;
-    font-size: 20px;
-    margin-top: 10px;
+    font-size: 22px;
+    margin-top: 25px;
+    margin-right: 25px;
+    /* cursor: pointer; */
 }
 .exit {
     line-height: 100%;
     font-family: tahoma;
     margin-right: 10px;
     margin-top: 10px;
+    /* font-size: 8pt; */
+    text-align: right;
   }
 
   .exit_text:hover {
@@ -92,9 +97,50 @@ h2{
     font-family: tahoma;
     background: #fff;
     color: rgb(203, 41, 41);
+    border: 2px solid #000;
+    /* cursor: pointer; */
   }
   .exit_text:active {
+    /* cursor: pointer; */
     transform:scale(0.8);
+    background: #fff;
+    color: rgb(203, 41, 41);
+    border: 3px solid #000;
   }
+
+
+  .yellowbtn{
+    background: linear-gradient(144deg,#ffd000, #ffcc13 50%,#e6cf1d);
+    border: 1px solid  linear-gradient(144deg,#ffd000, #f7ca28 50%,#e6cf1d);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #1a1a1a;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 3% 4%;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    margin-left: 2%;
+}
+
+
+.yellowbtn:hover,
+.yellowbtn:active {
+  background-color: white;
+  background-position: 0 0;
+  color: #505050;
+}
 
 

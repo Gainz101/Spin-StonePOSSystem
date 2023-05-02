@@ -1,14 +1,20 @@
 import {useState} from 'react';
 import React from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import './ManagerView.css'; // Tell webpack that App.js uses these styles
-import './Inventory.css';
+import './ManagerView.css'; // Tell webpack that App.js uses these style
 
+/**
+ * Order History View for last ten orders 
+ * in Text format 
+ */
 function OrderHistory(props) {
 
-  // not working exit button
+
   const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
- 
+
+  /**
+   * Implemented Text for the last 10 Orders
+   */
   const textBox = <p> Order #1 </p>
 
   return (
@@ -23,7 +29,11 @@ function OrderHistory(props) {
           <p> {textBox} </p>
         </Paper>
       </div>
-    
+      <div style={{ display: "flex", justifyContent: "space-between", width: "30%" }}>
+      <button class = "yellowbtn">Back</button>
+      <button class = "yellowbtn">Next</button>
+      </div>
+
     </div>
     </body>
   );

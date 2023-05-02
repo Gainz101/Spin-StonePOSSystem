@@ -2,7 +2,7 @@ import {useState} from 'react';
 import React from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { blueGrey, red } from '@material-ui/core/colors';
-import './Inventory.css'; 
+import './ManagerView.css'; 
 
 function SalesReport(props) {
   // useStates in order 
