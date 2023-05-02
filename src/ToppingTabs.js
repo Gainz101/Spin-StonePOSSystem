@@ -37,6 +37,8 @@ export default function ToppingTabs(props) {
     const [selectedStateDrinks, setSelectedStateDrinks] = useState(Array(drinkItems.length).fill(false));
     const [tabIndex, setTabIndex] = useState(0);
 
+    const [blockCheckout, setBlockCheckout] = useState(false)
+
     const {
         min_toppings,
         max_toppings
@@ -272,7 +274,8 @@ export default function ToppingTabs(props) {
                     </div>
                     <div class="finish_order">
                         <button class="finish_orderText" onClick={() => {
-                            AddPizzaToOrder(()=>props.onFormSwitch("checkout_view"))
+                            setBlockCheckout(true)
+                            AddPizzaToOrder(()=>{props.onFormSwitch("checkout_view"); setBlockCheckout(false)})
 
                         }}>
                             Finish Order

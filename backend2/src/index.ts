@@ -9,6 +9,7 @@ import { dbConnection } from './db/dbConnection';
 import { dbGetItemTypes } from './db/ItemType'
 import { dbAddItemToOrder, dbCompleteOrder, dbCreateNewOrder, dbGetEntireOrder, dbRemoveItemFromOrder } from './db/Order';
 import { dbGetStocks } from './db/Stock';
+import { randomId } from './db/random';
 
 
 // Constants
@@ -79,7 +80,21 @@ function parseIntListStrict(str: string): number[] {
 }
 
 function parseString(str: string) {
+    if (str == undefined) {
+        throw `expected a string, got ${str}`
+    }
     return str;
+}
+
+function parseBoolStrictOptional(str: string) {
+    str = str.toLowerCase();
+    if(str=='y' || str=='1' || str=='true' || str=='t') {
+        return true;
+    } else if (str=='n' || str=='f' || str=='false' || str=='0') {
+        return false;
+    } else {
+        throw `expected boolean, got ${str}`
+    }
 }
 
 const parseStringOptional = createOptionalParser(parseString);
@@ -132,7 +147,7 @@ function startHosting(dbConn: dbConnection) {
         // Enable Cross origin resource sharing
         // https://web.dev/cross-origin-resource-sharing/
         response.setHeader('Access-Control-Allow-Origin', '*')
-        response.setHeader('Referrer-Policy','no-referrer-when-downgrade')
+        response.setHeader('Referrer-Policy', 'no-referrer-when-downgrade')
         response.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups')
         next();
     });
@@ -143,11 +158,24 @@ function startHosting(dbConn: dbConnection) {
     // API endpoint for ItemTypes
     app.use('/itemTypes', (request, response) => {
         request; // surpress error message
+        const { exclude_hidden } = parseQuery(request.query as any, {
+            exclude_hidden: parseIntStrictOptional,
+            // item_hidden - maybe for deleting itemsgi
+        });
+        console.log(exclude_hidden)
 
         dbGetItemTypes(dbConn)
-            .then(itemTypes => response.send(itemTypes),
+            .then(itemTypes => {
+                if (exclude_hidden) {
+                    console.log("hide")
+                    response.send(itemTypes.filter((item) => !(item as any).is_hidden))
+                } else {
+                    response.send(itemTypes)
+                }
+            },
                 createSQLErrorHandler(response))
     })
+
 
     /*
     zeta.ddns.net/updateItems?itemtype_id=12
@@ -165,6 +193,7 @@ function startHosting(dbConn: dbConnection) {
             itemtype_id: parseIntStrict, // Required param                
             item_display_name: parseStringOptional,
             item_price: parseDoubleStrictOptional,
+            is_hidden: parseBoolStrictOptional
             // item_hidden - maybe for deleting itemsgi
         });
 
@@ -180,6 +209,18 @@ function startHosting(dbConn: dbConnection) {
         }, createSQLErrorHandler(response))
     })
 
+    app.use('/newSeasonalItem', (request, response) => {
+        const { name, price } = parseQuery(request.query as any, {
+            name: parseString, // Required param                
+            price: parseDoubleStrict,
+        });
+        const id = randomId();
+
+        dbConn.sqlQuery(`INSERT INTO itemtypes (itemtype_id, item_display_name, item_price, is_seasonal_item) VALUES ($1, $2, $3, true);`, [id, name, price]).then(() => {
+            response.send(id);
+        }, createSQLErrorHandler(response))
+        //
+    })
 
     app.use('/order/load', (request, response) => {
         const { order_id } = parseQuery(request.query as any, {
@@ -191,12 +232,28 @@ function startHosting(dbConn: dbConnection) {
                 createSQLErrorHandler(response))
     })
 
-    app.use('/order/getRecentOrders', (_, response)=>{
-        dbConn.sqlQuery<{order_id:number}>("SELECT order_id FROM orders ORDER BY creation_time DESC LIMIT 20;").then((order_objs)=>{
-            Promise.all(order_objs.map(({order_id})=>dbGetEntireOrder(dbConn, order_id))).then((orders)=>response.send(orders))
+    app.use('/order/getRecentOrders', (_, response) => {
+        dbConn.sqlQuery<{ order_id: number }>("SELECT order_id FROM orders WHERE completed = true ORDER BY creation_time DESC LIMIT 20;").then((order_objs) => {
+            Promise.all(order_objs.map(({ order_id }) => dbGetEntireOrder(dbConn, order_id))).then((orders) => response.send(orders))
         })
     })
 
+    app.use('/salesReport', (request, response) => {
+        request; // surpress error message
+        const { startDate, endDate } = parseQuery(request.query as any, {
+            startDate: parseString, // Required param
+            endDate: parseString
+        });
+        dbConn.sqlQuery<any>(`SELECT * FROM (SELECT itemtypes.itemtype_id, itemtypes.item_display_name, sum(item_price) as amount_sold_dollars FROM itemtypes   
+            RIGHT JOIN 
+            (SELECT itemtype_id FROM items 
+            WHERE order_id IN  
+            (SELECT order_id FROM orders WHERE creation_time BETWEEN TIMESTAMP '${startDate}'
+            AND TIMESTAMP '${endDate}')) 
+            AS order_items  
+            ON itemtypes.itemtype_id = order_items.itemtype_id 
+            GROUP BY itemtypes.itemtype_id) AS t WHERE t.amount_sold_dollars > 0;`, []).then((resp) => response.send(resp), createSQLErrorHandler(response))
+    })
     /*
     /order/addItem?order_id=12345&itemtype_id=5
     /order/addItem?order_id=12345&itemtype_id=3001&root_item_id=3000
@@ -291,15 +348,15 @@ function startHosting(dbConn: dbConnection) {
 
         Returns stocks [that are lower than their minimum amount] as JSON
     */
-        app.use('/stocks/getLowStocks', (request, response) => {
-            request; // surpress error message
-    
-            dbConn.sqlQuery(`SELECT * FROM inventory WHERE stock_amount < minimum_amount;`).then((stocks) => {
-                console.log(stocks)
-                response.send(stocks)
-            }, createSQLErrorHandler(response))
-        })
-    
+    app.use('/stocks/getLowStocks', (request, response) => {
+        request; // surpress error message
+
+        dbConn.sqlQuery(`SELECT * FROM inventory WHERE stock_amount < minimum_amount;`).then((stocks) => {
+            console.log(stocks)
+            response.send(stocks)
+        }, createSQLErrorHandler(response))
+    })
+
 
 
     /*
@@ -349,12 +406,12 @@ function startHosting(dbConn: dbConnection) {
 
     Returns excess stocks JSON
     */
-    app.use('/stocks/getExcessStocksSince', (request, response)=>{
-            request; // surpress error message
+    app.use('/stocks/getExcessStocksSince', (request, response) => {
+        request; // surpress error message
         const params = parseQuery(request.query as any, {
             date: parseString, // Required param                
         });
-        
+
         dbConn.sqlQuery(`SELECT inventory.stock_id, stock_display_name, stock_amount, minimum_amount, stock_units FROM  
                         inventory  
                         RIGHT JOIN  
@@ -366,14 +423,14 @@ function startHosting(dbConn: dbConnection) {
                            inventory_costs  
                            INNER JOIN  
                            (SELECT itemtype_id FROM items WHERE order_id IN (SELECT order_id FROM orders WHERE creation_time >
-                         '${params.date.replace('\'','\'\'')}')) AS order_items 
+                         '${params.date.replace('\'', '\'\'')}')) AS order_items 
                         
                            ON order_items.itemtype_id = inventory_costs.itemtype_id  
                         ) GROUP BY inventory_costs.stock_id)) AS combined_costs GROUP BY stock_id) AS original_stock ON inventory.stock_id = original_stock.stock_id 
                         
-                        WHERE stock_amount > original_stock_amount*0.9; `, []).then((stocks)=>{
-                            response.send(stocks)
-                        }, createSQLErrorHandler(response))
+                        WHERE stock_amount > original_stock_amount*0.9; `, []).then((stocks) => {
+            response.send(stocks)
+        }, createSQLErrorHandler(response))
     })
 
     // Start hosting the server on PORT
