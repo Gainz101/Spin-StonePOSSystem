@@ -57,6 +57,10 @@ function Inventory(props) {
   // New Seasonal Item Popup Window Functions
   const [open, setOpen] = useState(false);
 
+  // For seasonal item
+  const [itemName, setItemName] = useState(undefined);
+  const [itemPrice, setItemPrice] = useState(undefined);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -68,8 +72,17 @@ function Inventory(props) {
 
   const handleOkClose = () => {
     //saves text field
+    console.log(itemName, itemPrice)
     setOpen(false);
   };
+
+  function onItemNameChange(event) {
+    setItemName(event.target.value)
+  }
+
+  function onItemPriceChange(event) {
+    setItemPrice(event.target.value)
+  }
 
   //For Excess Stock 
   const [excessStock, setExcessStock] = useState("");
@@ -120,7 +133,7 @@ function Inventory(props) {
           < Grid item xs={6}>
             <div  class = "divLeft">
             <button class =  "yellowbtn" onClick={handleClickOpen}>
-              New Season Item
+              New Seasonal Item
             </button>
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle style={{background:'#9e9e9e', opacity:"60%", color:"black", marginBottom:"5%"}}>New Seasonal Item</DialogTitle>
@@ -134,6 +147,7 @@ function Inventory(props) {
                 variant="standard"
                 focused
                 style={{marginRight: "20px", width:"50%"}}
+                onChange={onItemNameChange}  
                 />
                 <TextField
                 autoFocus
@@ -144,6 +158,7 @@ function Inventory(props) {
                 variant='standard'
                 focused 
                 style={{marginRight: "20px", width:"30%"}}
+                onChange={onItemPriceChange}
                 />
               </DialogContent>
               <DialogActions>
