@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const MapContainer = () => {
   
-  const mapStyles = {        
+  const mapStyles = {  //Adds CSS to map      
     height: "50vh",
     width: "50%"
   };
@@ -13,6 +13,7 @@ const MapContainer = () => {
   }
 
   const locations = [
+    //Adds pin on Spin n Stone location
     {
       name: "Spin N Stone",
       location: {
@@ -22,6 +23,7 @@ const MapContainer = () => {
   ];
   
   return (
+    //Loads map and plugs in API key to load map with marker
     <LoadScript
       googleMapsApiKey='AIzaSyCqQra3-WE5R3GSzUs4gll1SgbmZKu3q2w'>
       <GoogleMap

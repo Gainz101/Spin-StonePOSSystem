@@ -4,12 +4,14 @@ import './Login.css'; // Tell webpack that Login.js uses these styles
 
 
 function oauth() {
+    //Logs success or failure of oauth
     const responseMessage = (response) => {
         console.log(response);
     };
     const errorMessage = (error) => {
         console.log(error);
     };
+    // Runs oauth from google api and returns success or failure message
     return (
         <div class="googleAuthButton">
             <div >
