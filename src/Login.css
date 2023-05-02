@@ -18,7 +18,7 @@
 
 h1{
     font-family: 'Nunito', sans-serif;
-    background-image: linear-gradient(90deg, #4d78ef, #709df7, #7ea3ef);
+    background-image: linear-gradient(90deg, #2d61f1, #4e86f6, #6c99f1);
     background-clip: text;
 
     -webkit-background-clip: text;
@@ -26,7 +26,7 @@ h1{
     font-weight: 200;
     font-size: 50px;
     text-align: center;
-    color: blue;
+    color: transparent;
 }
 
 
@@ -59,7 +59,7 @@ h1{
 
 /*premade colors*/
 :root{
-    --blueMain:#004DB3;
+    --blueMain:#1155af;
     --grey:#808080;
     --greyAccessabile:#525151;
     --white:#fff;
