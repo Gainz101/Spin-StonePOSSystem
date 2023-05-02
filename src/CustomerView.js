@@ -21,19 +21,12 @@ export default function CustomerView(props) {
   const [currentOrder, setCurrentOrder] = useState(null);
   const [itemTypes, setItemTypes] = useState(null);
 
-  const [baseItems, setItems] = useState([]);
+  const [baseItems, setBaseItems] = useState([]);
 
   const [itemType, setItemType] = useState(null);
 
   const [currentForm, setCurrentForm] = useState("topping_tabs")
   
-  
-
-  //   const baseItems = [{item: 'Cheese Pizza', id: 1},
-  //   {item:'1 Topping Pizza', id: 2},
-  //   {item:'2-4 Topping Pizza', id: 3},
-  //   {item:'Drink', id: 4}];
-  // const listItems = baseItems.map(baseItems => <div class="card__container"><div class = "card"><button class="cardContent" key={baseItems.id} onClick={() => props.onFormSwitch("toppings_tabs")}> {baseItems.item}</button></div></div>);
 
   //from https://legacy.reactjs.org/docs/faq-ajax.html
   useEffect(() => {
@@ -42,7 +35,7 @@ export default function CustomerView(props) {
       .then((jsonItems) => {
         console.log(jsonItems)
         setIsOrderLoaded(true);
-        setItems(jsonItems);
+        setBaseItems(jsonItems);
       },
         (error) => {
           setIsOrderLoaded(false);

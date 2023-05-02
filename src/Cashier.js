@@ -10,19 +10,18 @@ const PIZZA_STATE_TWOFOUR_TOPPING = 2;
 // Drink should not be part of pizza state
 const PIZZA_STATE_DRINK = 3;
 
-// Sort of array with all the current listed Items
-const baseItems = [{ "item_display_name": "Original Cheeze Pizza", "itemtype_id": 0 }, { "item_display_name": "1 Topping Pizza", "itemtype_id": 1 }, { "item_display_name": "2-4 Topping Pizza", "itemtype_id": 2 }]
 /* Note: Normal crust isn't a real item */
 const crustItems = [{ item_display_name: 'Normal Crust', itemtype_id: -1 }, { "itemtype_id": 33, "item_display_name": "Cauliflower Crust", "item_price": 2.99, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": true }];
-const sauceItems = [{ "itemtype_id": 30, "item_display_name": "Alfredo", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": true, "is_crust": false }, { "itemtype_id": 31, "item_display_name": "Traditional Red", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": true, "is_crust": false }, { "itemtype_id": 32, "item_display_name": "Zesty Red", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": true, "is_crust": false }]
-const drizzleItems = [{ "itemtype_id": 19, "item_display_name": "BBQ Sauce", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": true, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 20, "item_display_name": "Olive Oil", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": true, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 21, "item_display_name": "Oregano", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": true, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 22, "item_display_name": "Ranch", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": true, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 23, "item_display_name": "Siracha", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": true, "is_drink": false, "is_sauce": false, "is_crust": false }]
-const topItems = [{ "itemtype_id": 3, "item_display_name": "Diced Ham", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 4, "item_display_name": "Italian Sausage", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 5, "item_display_name": "Meatball", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 6, "item_display_name": "Pepperoni", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 7, "item_display_name": "Salami", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 8, "item_display_name": "Smoked Chicken", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 9, "item_display_name": "Banana Peppers", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 10, "item_display_name": "Black Olives", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 11, "item_display_name": "Green Peppers", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 12, "item_display_name": "Jalapenos", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 13, "item_display_name": "Mushrooms", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 14, "item_display_name": "Onions", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 15, "item_display_name": "Pineapple", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 16, "item_display_name": "Roasted Garlic", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 17, "item_display_name": "Spinach", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }, { "itemtype_id": 18, "item_display_name": "Tomatoes", "item_price": 0, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": true, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": false }]
 
-const itemTypes = [
-  ...baseItems, ...crustItems, ...sauceItems, ...drizzleItems, ...topItems
-]
 
 export default function CashierView(props) {
+  const [itemtypes, setItemtypes] = useState([])
+
+  const sauceItems = itemtypes.filter((item) => item.is_sauce)
+  const drizzleItems = itemtypes.filter((item) => item.is_drizzle)
+  const topItems = itemtypes.filter((item) => item.is_topping)
+  const baseItems = itemtypes.filter((item) => item.is_pizza).sort((a,b)=>a.itemtype_id < b.itemtype_id)
+
   const [toppingCount, changeCountTop] = useState(0);
   const [crustCount, changeCountCrust] = useState(0);
   const [drizzleCount, changeCountDrizz] = useState(0);
@@ -37,6 +36,8 @@ export default function CashierView(props) {
 
 
 
+  const drinkItems = itemtypes.filter((item) => item.is_drink)
+
   /* Use effect makes it so that this code is only run once when the CashierView is shown */
   useEffect(() => {
     // This code is only run once
@@ -45,6 +46,18 @@ export default function CashierView(props) {
       // Update the current order state
       setCurrentOrder(order)
     }, alert)
+
+    fetch(BACKEND_IP + "/itemTypes")
+    .then((res) => res.json())
+    .then((jsonItems) => {
+      console.log(jsonItems)
+
+      setItemtypes(jsonItems)
+    },
+      (error) => {
+        console.log("error:", error)
+        alert(error);
+      })
 
   }, []) // You need the brackets at the end so it doesn't do it multiple times
 
@@ -237,8 +250,8 @@ export default function CashierView(props) {
 
   return (
     //Parent Element
-    currentOrder == null ?
-      // Show "loading" if current order is null
+    (currentOrder == null || itemtypes.length == 0) ?
+      // Show "loading" if current order or itemtypes is null
       <h1> Loading... </h1>
       :
       <div>
