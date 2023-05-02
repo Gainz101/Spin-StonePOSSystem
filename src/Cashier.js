@@ -246,7 +246,7 @@ export default function CashierView(props) {
       order_id
     } = currentOrder;
     if (PizzaModifiers.length === 0) {
-      alert("Add more toppings");
+      alert("Add more toppings!");
       return;
     } else {
       // First do a query to add the Pizza to the order
