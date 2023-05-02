@@ -3,11 +3,12 @@
 # pull the latest repo
 git pull
 
-# build the project
+
+# build the frontend
 npm run build
-pushd backend2
-npm run build
-popd
+
+# build the backend
+{ cd backend2; npx tsc; }
 
 # restart the server
 sudo systemctl restart project3_zeta
