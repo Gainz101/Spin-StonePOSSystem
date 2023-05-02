@@ -8,7 +8,7 @@ import './ManagerView.css';
  *  Returns the Sales Report that
  *  contains 2 textbox for start and end 
  *  dates
- * @param {*} props 
+ * @param {*} props for form switch
  * @returns Sale Report Window
  */
 function SalesReport(props) {

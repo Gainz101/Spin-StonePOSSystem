@@ -6,6 +6,8 @@ import './ManagerView.css'; // Tell webpack that App.js uses these style
 /**
  * Order History View for last ten orders 
  * in Text format 
+ * @param {*} props for form switch
+ * @returns View of Order History (last 10)
  */
 function OrderHistory(props) {
 

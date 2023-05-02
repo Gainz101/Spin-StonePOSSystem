@@ -6,7 +6,7 @@ import './ManagerView.css';
 /**
  * The X Table contains all the past orders of the day
  * The Z Table contains 
- * @param {*} props 
+ * @param {*} props for form switch
  * @returns Returns the XZ Report Table 
  */
 const XZReport = (props) => {
