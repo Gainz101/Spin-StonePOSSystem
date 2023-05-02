@@ -144,7 +144,7 @@ export default function Login(props){
                         user: man, pass:man000; */}
                         Google maps icons created by Freepik - Flaticon
                     </p> 
-                    <button class="google-maps" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps} alt="Google Maps Logo"></img>Google Maps</button>                </form>
+                    <button class="google-maps" onClick={() => props.onFormSwitch("map_view")}><img class="mapsPic" src={maps} alt="Google Maps Logo"></img>Go to Google Maps</button>                </form>
             </div>
             {/* <footer class="footer">
                 <a href="https://www.flaticon.com/free-icons/google-maps" title="google maps icons">Google maps icons created by Freepik - Flaticon</a>
