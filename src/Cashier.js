@@ -329,7 +329,7 @@ export default function CashierView(props) {
             <div class="gridMover">
               <div class="grid-container">
                 {listItems}
-                <div>
+                
                 {/*DRINKS */}
                 <button onClick={handleDrinkClick} class = "button-nameBase">Drink</button>
                 {showDrinkMenu && (
@@ -341,7 +341,7 @@ export default function CashierView(props) {
                     ))}
                   </ul>
                 )}
-                </div>
+                
  
                 {/* Seasonal Item */}
                 <div>

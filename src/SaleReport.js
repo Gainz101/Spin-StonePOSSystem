@@ -48,7 +48,7 @@ function SalesReport(props) {
       console.log(sales);
       const jsonEdit = JSON.stringify(sales);
       return <p>
-        {sales.item_display_name}'s total amount is {sales.amount_sold_dollars.toFixed(2)}   
+         {sales.item_display_name} total sold: ${sales.amount_sold_dollars.toFixed(2)}   
         </p>
   }
 

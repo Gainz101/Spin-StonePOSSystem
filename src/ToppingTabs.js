@@ -219,7 +219,7 @@ export default function ToppingTabs(props) {
                 <TabPanel>
                     {exit}
                     <h2>Choose your Crust</h2>
-                    <div class="card__container">
+                    <div class="card__container2">
                         {listItemsCrust}
                     </div>
                     <div class="next_tab">
