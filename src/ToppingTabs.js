@@ -150,7 +150,7 @@ export default function ToppingTabs(props) {
     const listItemsDrizzle = drizzleItems.map(item => createButton(item, whenClickedDrizz, "cardContent", selectedStateDrizz, item.itemtype_id));
     const listDrinks = drinkItems.map(item => createButton(item, whenClickedDrinks, "cardContent", selectedStateDrinks, item.itemtype_id));
 
-    const exit = <div class="exitApp"><button onClick={() => props.onFormSwitch("login")} type="submit" class="exit_textApp">Exit</button></div>
+    const exit = <div class="exitApp"><button onClick={() => props.onAppFormSwitch("login")} type="submit" class="exit_textApp">Exit</button></div>
 
     /**
      * 

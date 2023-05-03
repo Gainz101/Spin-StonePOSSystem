@@ -116,7 +116,7 @@ export default function CustomerView(props) {
               </div>
             </div> :
               ( currentForm === "topping_tabs" ? 
-                  <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} onFormSwitch={setCurrentForm} pizzaState={pizzaState}></ToppingTabs> :
+                  <ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} onAppFormSwitch={props.onFormSwitch} onFormSwitch={setCurrentForm} pizzaState={pizzaState}></ToppingTabs> :
               currentForm === "checkout_view" ? <CheckOut onFormSwitch={setCurrentForm} setItemType={setItemType} setCurrentOrder={setCurrentOrder} currentOrder={currentOrder} setNewOrder={setNewOrder}/> : null )
               )
             :
