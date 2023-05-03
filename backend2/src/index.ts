@@ -87,11 +87,11 @@ function parseString(str: string) {
 }
 
 function parseBoolStrictOptional(str: string) {
-    if(str==undefined) return undefined;
+    if (str == undefined) return undefined;
     str = str.toLowerCase();
-    if(str=='y' || str=='1' || str=='true' || str=='t') {
+    if (str == 'y' || str == '1' || str == 'true' || str == 't') {
         return true;
-    } else if (str=='n' || str=='f' || str=='false' || str=='0') {
+    } else if (str == 'n' || str == 'f' || str == 'false' || str == '0') {
         return false;
     } else {
         return undefined;
@@ -175,13 +175,49 @@ function startHosting(dbConn: dbConnection) {
     })
 
 
+    app.use('/updateLastZ', (request, response)=> {
+        request;
+        dbConn.sqlUpdate(`UPDATE lastz SET value = 'NOW';`).then(()=>response.send({'success':true}))
+    })
+    
+    app.use('/ShowRecentZ', (request, response) => {
+        request; // surpress error message
+
+    
+        dbConn.sqlQuery<{value:any}>(`SELECT value FROM lastz WHERE id = 0`).then(lastZ=>{
+            const lastZtime = lastZ[0].value.toISOString();
+
+
+            const query = `SELECT * FROM (SELECT itemtypes.itemtype_id, itemtypes.item_display_name, count(item_price) as quantity_sold, sum(item_price) as amount_sold_dollars FROM itemtypes   
+            RIGHT JOIN 
+            (SELECT itemtype_id FROM items 
+            WHERE order_id IN  
+            (SELECT order_id FROM orders WHERE creation_time BETWEEN '${lastZtime}' AND TIMESTAMP 'NOW'))
+            AS order_items  
+            ON itemtypes.itemtype_id = order_items.itemtype_id 
+            GROUP BY itemtypes.itemtype_id) AS t WHERE t.amount_sold_dollars > 0;`;
+
+            console.log(query)
+            dbConn.sqlQuery(query, [])
+                .then((recentZ) => {
+                    console.log("query success")
+                    const mapped = recentZ.map((itemSale)=>({...itemSale, quantity_sold: (itemSale as any).quantity_sold.toString()}))
+                    console.log(mapped)
+                    response.send(mapped)
+                }, createSQLErrorHandler(response))
+        }, createSQLErrorHandler(response))
+        
+
+    })
+
+
     /*
     zeta.ddns.net/updateItems?itemtype_id=12
-
+    
     Takes in two optional parameters
     item_display_name - (string)
     item_price (number)
-
+    
     Returns new itemTypes JSON
     */
     app.use('/updateItems', (request, response) => {
@@ -203,7 +239,7 @@ function startHosting(dbConn: dbConnection) {
 
         const query = `UPDATE itemtypes SET ${update_list.join(', ')} WHERE itemtype_id = '${update_params.itemtype_id}';`
         dbConn.sqlUpdate(query).then(() => dbGetItemTypes(dbConn)).then((itemtypes) => {
-            response.send(itemtypes.filter(itemtype=>(!(itemtype as any).is_hidden)))
+            response.send(itemtypes.filter(itemtype => (!(itemtype as any).is_hidden)))
         }, createSQLErrorHandler(response))
     })
 
@@ -215,7 +251,7 @@ function startHosting(dbConn: dbConnection) {
         const id = randomId();
 
         dbConn.sqlQuery(`INSERT INTO itemtypes (itemtype_id, item_display_name, item_price, is_seasonal_item) VALUES ($1, $2, $3, true);`, [id, name, price]).then(() => {
-            response.send({new_item_id:id});
+            response.send({ new_item_id: id });
         }, createSQLErrorHandler(response))
         //
     })
@@ -256,9 +292,9 @@ function startHosting(dbConn: dbConnection) {
     /order/addItem?order_id=12345&itemtype_id=5
     /order/addItem?order_id=12345&itemtype_id=3001&root_item_id=3000
     /order/addItem?order_id=12345&itemtype_id=5,6,7&root_item_id=6990
-
+    
     returns new order
-
+    
     EDIT: can take multiple items now!
     */
     app.use('/order/addItem', (request, response) => {
@@ -343,7 +379,7 @@ function startHosting(dbConn: dbConnection) {
 
     /*
         zeta.ddns.net/stocks/getLowStocks
-
+    
         Returns stocks [that are lower than their minimum amount] as JSON
     */
     app.use('/stocks/getLowStocks', (request, response) => {
@@ -361,14 +397,14 @@ function startHosting(dbConn: dbConnection) {
     Updates a stock with the optional paramaters. 
     *HOWEVER*, stock_id is required
     Returns new stock JSON or an error
-
+    
     Parameters:
         stock_id - the id of the dbGetStocks
         stock_display_name - (optional string) a new display name for this stock
         stock_amount - (optional number) the new stock amount for this stock
         stock_units - (optional string) the new stock units for this stock
         minimum_amount - (optional number) the new minimum amount for this stock
-
+    
     Returns new JSON of stocks
     */
     app.use('/stocks/update', (request, response) => {
@@ -396,11 +432,11 @@ function startHosting(dbConn: dbConnection) {
     })
 
     /* http://zeta.ddns.net/stocks/getExcessStocksSince?date=4/29/2023
-
+    
     Performs the 'get excess stocks' operation
-
+    
     Takes in a date
-
+    
     Returns excess stocks JSON
     */
     app.use('/stocks/getExcessStocksSince', (request, response) => {
