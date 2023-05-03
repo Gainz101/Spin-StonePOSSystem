@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CustomerView.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CustomerView.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from "react";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import './App.css'; // Tell webpack that App.js uses these styles
+import { BACKEND_IP } from "./BackendConnection";
+import ToppingTabs from "./ToppingTabs";
+import oneTop from "./assets/1top.jpg"
+import cheese from "./assets/cheese.jpg"
+import CheckOut from './CheckOut'
+
+
+
+
+
+
+/**
+ * @param props
+ * @returns the Customer view
+ */
+export default function CustomerView(props) {
+  const [pizzaState, setPizzaState] = useState(0);
+  // const [countNum, changeCount] = useState(0);
+  const [isBaseItemsLoaded, setIsOrderLoaded] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState(null);
+  const [itemTypes, setItemTypes] = useState(null);
+
+  const [baseItems, setBaseItems] = useState([]);
+
+  const [itemType, setItemType] = useState(null);
+
+  const [currentForm, setCurrentForm] = useState("topping_tabs")
+  
+
+  //from https://legacy.reactjs.org/docs/faq-ajax.html
+  useEffect(() => {
+    fetch(BACKEND_IP + "/baseItems")
+      .then((res) => res.json())
+      .then((jsonItems) => {
+        console.log(jsonItems)
+        setIsOrderLoaded(true);
+        setBaseItems(jsonItems);
+      },
+        (error) => {
+          setIsOrderLoaded(false);
+          console.log("error:", error)
+          alert(error);
+        })
+  }, [])
+
+    /**
+ * @returns the Backend ip for a new order
+ */
+  function setNewOrder() {
+    return fetch(BACKEND_IP + "/order/new")
+    .then((res) => res.json())
+    .then((jsonItems) => {
+      console.log(jsonItems)
+
+      setCurrentOrder(jsonItems)
+    },
+      (error) => {
+        console.log("error:", error)
+        alert(error);
+      })
+
+  }
+  useEffect(() => {
+    setNewOrder()
+  }, [])
+
+  useEffect(() => {
+    fetch(BACKEND_IP + "/itemTypes")
+      .then((res) => res.json())
+      .then((jsonItems) => {
+        console.log(jsonItems)
+
+        setItemTypes(jsonItems)
+      },
+        (error) => {
+          console.log("error:", error)
+          alert(error);
+        })
+  }, [])
+
+  /**
+  * @param newState which is item.id
+ * @returns nothing but it sets the pizza state and sets the current form since once your done with choosing your base item you need to move to topping tabs
+ */
+  function returnID(newState) {
+    setPizzaState(newState);
+    setCurrentForm("topping_tabs")
+  }
+
+
+
+
+
+  return (
+    //Parent Element
+    &lt;div>
+      &lt;div>
+        {/* &lt;div class="buttonSelection"> */}
+        {((isBaseItemsLoaded) &amp;&amp; (currentOrder !== null) &amp;&amp; (itemTypes !== null)) ?
+          (itemType == null ?
+            &lt;div class="background">               
+              &lt;h2>Choose your Main&lt;/h2>
+              &lt;div class="card__container">
+                {baseItems.map(item => 
+                    &lt;div class = "card"> 
+                      &lt;button class="cardContent" key={item.itemtype_id} onClick={()=>{setItemType(item.itemtype_id);returnID(item.itemtype_id)}}> 
+                        {item.item_display_name}
+                        {/* &lt;img class="itemPic" src={cheese}/> */}
+                      &lt;/button>
+                    &lt;/div>
+                  )} 
+              &lt;/div>
+            &lt;/div> :
+              ( currentForm === "topping_tabs" ? 
+                  &lt;ToppingTabs itemtype_id={itemType} itemtypes={itemTypes} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} onAppFormSwitch={props.onFormSwitch} onFormSwitch={setCurrentForm} pizzaState={pizzaState}>&lt;/ToppingTabs> :
+              currentForm === "checkout_view" ? &lt;CheckOut onFormSwitch={setCurrentForm} setItemType={setItemType} setCurrentOrder={setCurrentOrder} currentOrder={currentOrder} setNewOrder={setNewOrder}/> : null )
+              )
+            :
+            (&lt;h1>
+              Loading...
+            &lt;/h1>)}
+          &lt;/div>
+          {/* &lt;div class="orderLog2">
+            &lt;div class="box3">&lt;/div>
+          &lt;/div> */}
+      {/* &lt;/div> */}
+      &lt;footer class="footer">
+        &lt;p>Copyright &amp;copy; 2023 Yezen Hijazin&lt;/p>
+      &lt;/footer>
+    &lt;/div>
+  );
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Inventory">Inventory</a></li><li><a href="global.html#OrderHistory">OrderHistory</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#XZReport">XZReport</a></li><li><a href="global.html#getURLParams">getURLParams</a></li><li><a href="global.html#oauth">oauth</a></li><li><a href="global.html#stock_column_name_map">stock_column_name_map</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 02 2023 20:57:49 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

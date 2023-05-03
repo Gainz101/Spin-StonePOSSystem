@@ -14,6 +14,8 @@ import { randomId } from './db/random';
 
 // Constants
 const REACT_APP_DIRECTORY = '../build'
+const JSDOC_DIRECTORY = '../jsdoc'
+
 const PORT = 5001
 
 /** Creates an error handler for a HTTP <--> Postgres database request */
@@ -140,6 +142,7 @@ function startHosting(dbConn: dbConnection) {
 
     // Serve the static react app (html, js, css)
     app.use('/', express.static(REACT_APP_DIRECTORY))
+    app.use('/docs', express.static(JSDOC_DIRECTORY))
 
     // Add Middleware to allow CORS
     app.use(function (request, response, next) {
