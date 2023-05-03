@@ -71,8 +71,7 @@ function OrderHistory(props) {
         </Paper>
       </div>
       <div class = "orderBTN">
-      <button class = "yellowbtn">Back</button>
-      <button class = "yellowbtn">Next</button>
+
       </div>
 
     </div>
