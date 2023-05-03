@@ -14,13 +14,27 @@ import { BACKEND_IP } from './BackendConnection';
  */
 function SalesReport(props) {
   
-  //ordersJSON holds all of the JSON with the orders 
+  // useStates in order 
+  const [salesReport, setSalesReport] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const [startDateOk, setStartDateOk] = useState("4/22/2023");
+  const [endDateOk, setEndDateOk] = useState("5/2/2023");
+
+  function handleOkButton() {
+    // Do something when the "OK" button is pressed
+    setStartDateOk(startDate);
+    setEndDateOk(endDate);
+  }
+
   
+  //ordersJSON holds all of the JSON with the orders 
   // Implementation of Backend Sale Report
   const [salesState, updateSalesState] = useState(null);
 
   function loadSale(){
-    fetch(`http://zeta.ddns.net/salesReport?startDate=4/22/2023&endDate=5/2/2023`).then((res) => res.json()).then((salesState) => {
+    fetch(`http://zeta.ddns.net/salesReport?startDate=${startDateOk}&endDate=${endDateOk}`).then((res) => res.json()).then((salesState) => {
       updateSalesState(salesState)
     }, alert)
   }
@@ -29,19 +43,6 @@ function SalesReport(props) {
     loadSale()
   }, [])
 
-  // useStates in order 
-  const [salesReport, setSalesReport] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  function handleOkButton() {
-    // Do something when the "OK" button is pressed
-    
-  }
-
-  // not working exit button
-  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
- 
   function convertSaleText(sales) {
       const {items} = sales;
       console.log(sales);
@@ -56,6 +57,9 @@ function SalesReport(props) {
     }
   </p>
 
+  //exit button
+  const exit = <div class = "exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
+ 
 
   return (
     
