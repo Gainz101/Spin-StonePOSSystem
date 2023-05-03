@@ -42,15 +42,10 @@ const XZReport = (props) => {
     // handle current X report button press
   };
 
-  const OnOKButtonPressed = () => {
-    getRecentZ().then((recentZ)=>setXstate(recentZ)).then(()=>{
+  const OnCurrentZReportButtonPressed = () => {
+    getRecentZ().then((recentZ)=>setZstate(recentZ)).then(()=>{
       fetch(`http://zeta.ddns.net/updateLastZ`).then((res)=>res.json(), alert)
     })
-    // handle OK button press
-  };
-
-  const OnCurrentZReportButtonPressed = () => {
-    // handle current Z report button press
   };
   
   // exit button
