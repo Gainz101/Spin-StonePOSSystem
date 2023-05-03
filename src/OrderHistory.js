@@ -29,7 +29,6 @@ function OrderHistory(props) {
     setOpen(false);
   };
   const [orderState, setOrderState] = useState(null);
-
   /**
    * @returns returns the orders to our order history text box
    */
@@ -52,18 +51,25 @@ function OrderHistory(props) {
     console.log(order); 
     const jsonedit = JSON.stringify(order);
     //const jsonreturn = JSON.parse(order);
-    const noitem= "No Items"
+    const noitem= "No Items";
+    const blank = " + ";
     
     
-    return <p>Order #{order.order_id}: {JSON.stringify(order.creation_time).substring(13,20)} CST {JSON.stringify(order.creation_time).substring(1,11)}: {order.items.map(item=>item.item_display_name).join(' + ') == "" ? noitem : 
-    order.items.map(item=>item.item_display_name).join(' + ')}  </p> 
-  }
+    return <p>Order #{order.order_id}: ${parseFloat(order.total).toFixed(2)} @ {JSON.stringify(order.creation_time).substring(13,20)} CST {JSON.stringify(order.creation_time).substring(1,11)}: {order.items.map(item=>item.item_display_name).join(' + ') == "" ? noitem : 
+    (order.items.map(item=>item.item_display_name).join(' + '))} </p> 
+  }// +  blank + JSON.stringify(order.items.map(item=>item.modifiers.item_display_name))
   /**
    * Implemented Text for the last 10 Orders
    */
   const textBox = <p> {
       orderState == null ? <h1> Loading... </h1> : orderState.map(convertOrderToText)   }
     </p>
+
+  // function pullModifierItemName(items){
+  //   const { mods } = items;
+  //   console.log(items);
+  //   items.modifiers.map(modifiers=>modifiers.item_display_name).join(' + ')
+  // }
 
   return (
     
@@ -80,7 +86,7 @@ function OrderHistory(props) {
         </Paper>
       </div>
       <div class = "orderBTN">
-
+ 
       </div>
 
     </div>
