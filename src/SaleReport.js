@@ -58,7 +58,7 @@ function SalesReport(props) {
       const {items} = sales;
       console.log(sales);
       const jsonEdit = JSON.stringify(sales);
-      return <p>
+      return <p style = {{fontSize: "130%", fontFamily: "monospace", padding: "5px"}}>
          {sales.item_display_name} total sold: ${sales.amount_sold_dollars.toFixed(2)}   
         </p>
   }
@@ -80,7 +80,7 @@ function SalesReport(props) {
     <Typography variant="h2" align='center' style={{marginBottom:"3%", color:"#f7ca28"}}>Sale Report</Typography>
     
       <div class = "salePaperFormat">
-        <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
+        <Paper elevation={1} style={{width: 1200, height: 500, overflow: "auto" }} >
           {textBox}
         </Paper>
       </div>
