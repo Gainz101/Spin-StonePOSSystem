@@ -2,7 +2,10 @@ import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import './Login.css'; // Tell webpack that Login.js uses these styles
 
-
+/**
+ * 
+ * @returns It outputs the response from OAuth API and will sign you in
+ */
 function oauth() {
     //Logs success or failure of oauth
     const responseMessage = (response) => {

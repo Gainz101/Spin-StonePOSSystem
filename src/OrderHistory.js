@@ -30,6 +30,9 @@ function OrderHistory(props) {
   };
   const [orderState, setOrderState] = useState(null);
 
+  /**
+   * @returns returns the orders to our order history text box
+   */
   function loadOrders() {
     fetch(`${BACKEND_IP}/order/getRecentOrders`).then((res) => res.json()).then((orderState) => {
       setOrderState(orderState)
@@ -38,6 +41,12 @@ function OrderHistory(props) {
   useEffect(() => {
     loadOrders()
   }, [])
+
+  /**
+   * 
+   * @param {*} order 
+   * @returns Changes our order into text that we can display
+   */
   function convertOrderToText(order) {
     const { items } = order;
     console.log(order); 

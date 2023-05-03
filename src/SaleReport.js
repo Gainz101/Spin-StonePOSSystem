@@ -22,6 +22,9 @@ function SalesReport(props) {
   const [startDateOk, setStartDateOk] = useState("YESTERDAY");
   const [endDateOk, setEndDateOk] = useState("TODAY");
 
+  /**
+   * @returns when ok is pressed it will load the sales report
+   */
   function handleOkButton() {
     // Do something when the "OK" button is pressed
 
@@ -33,6 +36,9 @@ function SalesReport(props) {
   // Implementation of Backend Sale Report
   const [salesState, updateSalesState] = useState(null);
 
+  /**
+   * @returns This will grab all the requested data between the two dates
+   */
   function loadSale(){
     fetch(`http://zeta.ddns.net/salesReport?startDate=${startDateOk}&endDate=${endDateOk}`).then((res) => res.json()).then((salesState) => {
       updateSalesState(salesState)
@@ -43,6 +49,11 @@ function SalesReport(props) {
     loadSale()
   }, [])
 
+  /**
+   * 
+   * @param {*} sales 
+   * @returns This will return how much something costs in a text so it can be dispalyed
+   */
   function convertSaleText(sales) {
       const {items} = sales;
       console.log(sales);
