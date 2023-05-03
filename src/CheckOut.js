@@ -5,6 +5,15 @@ import 'react-tabs/style/react-tabs.css';
 import './App.css'; // Tell webpack that App.js uses these styles
 import { BACKEND_IP } from './BackendConnection';
 
+/**
+ * 
+ * @param currentOrder
+ * @param setCurrentOrder
+ * @param onFormSwitch
+ * @param setNewOrder
+ * @param setItemName
+ * @returns returns a layout for the checkout that alows you to see the items, prices, and modifiers as well as checkout
+ */
 export default function CheckOut({
     currentOrder,
     setCurrentOrder,
