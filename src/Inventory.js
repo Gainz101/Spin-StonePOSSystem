@@ -73,6 +73,11 @@ function Inventory(props) {
   const handleOkClose = () => {
     //saves text field
     console.log(itemName, itemPrice)
+    
+    fetch(`${BACKEND_IP}/newSeasonalItem?name=${itemName}&price=${itemPrice}`).then((res) => res.json()).then(({new_item_id}) => {
+      alert('New seasonal item id = ' + new_item_id)
+      loadItems()
+    }, alert)
     setOpen(false);
   };
 
@@ -117,8 +122,6 @@ function Inventory(props) {
   //Exit Button
   const exit = <div class="exit"><button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="exit_text">Exit</button></div>
 
-  console.log(stockState)
-
   return <div class='background'>
     {/* &nbsp; is a character entity that denotes a non-breaking or fixed space */}
     {exit}
@@ -135,37 +138,7 @@ function Inventory(props) {
             <button class =  "yellowbtn" onClick={handleClickOpen}>
               New Seasonal Item
             </button>
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle style={{background:'#9e9e9e', opacity:"60%", color:"black", marginBottom:"5%"}}>New Seasonal Item</DialogTitle>
-              <DialogContent>
-                <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Name"
-                placeholder='Item Name'
-                variant="standard"
-                focused
-                style={{marginRight: "20px", width:"50%"}}
-                onChange={onItemNameChange}  
-                />
-                <TextField
-                autoFocus
-                margin="dense"
-                placeholder='$0.00'
-                id="Price"
-                label="Price"
-                variant='standard'
-                focused 
-                style={{marginRight: "20px", width:"30%"}}
-                onChange={onItemPriceChange}
-                />
-              </DialogContent>
-              <DialogActions>
-                <button onClick={handleOkClose}>OK</button>
-                <button onClick={handleClose}>Close</button>
-              </DialogActions>
-            </Dialog>
+          
             </div>
             <TableContainer component={Paper} style={{ margin: '10px', width: 550, marginLeft: '10%' }}>
               <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
@@ -185,7 +158,6 @@ function Inventory(props) {
                       {
                         itemtype_column_names_sql.map((sql_name) => {
                           const valueString = '' + (row[sql_name])
-                          console.log(sql_name, valueString)
                           return (<TableCell>
                             <TextField defaultValue={valueString}
                             onKeyPress={(event)=>{
@@ -233,8 +205,8 @@ function Inventory(props) {
                 label="Name"
                 placeholder='Item Name'
                 variant="standard"
-                focused
                 style={{marginRight: "20px", width:"50%"}}
+                onChange={onItemNameChange}  
                 />
                 <TextField
                 autoFocus
@@ -243,8 +215,8 @@ function Inventory(props) {
                 id="Price"
                 label="Price"
                 variant='standard'
-                focused 
                 style={{marginRight: "20px", width:"30%"}}
+                onChange={onItemPriceChange}
                 />
               </DialogContent>
               <DialogActions>
@@ -331,7 +303,6 @@ function Inventory(props) {
                       {
                         stock_column_names_sql.map((sql_name) => {
                           const valueString = '' + (row[sql_name])
-                          console.log(sql_name, valueString)
                           return (<TableCell>
                             <TextField defaultValue={valueString}
                             onKeyPress={(event)=>{

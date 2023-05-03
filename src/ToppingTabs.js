@@ -219,11 +219,11 @@ export default function ToppingTabs(props) {
                 <TabPanel>
                     {exit}
                     <h2>Choose your Crust</h2>
-                    <div class="card__container">
+                    <div class="card__container2">
                         {listItemsCrust}
                     </div>
-                    <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => { setTabIndex(1) }}>
+                    <div class="next_tab">
+                        <button class="next_tabText" onClick={() => { setTabIndex(1) }}>
                             Next
                         </button>
                     </div>
@@ -234,8 +234,8 @@ export default function ToppingTabs(props) {
                     <div class="card__container">
                         {listItemsSauce}
                     </div>
-                    <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => { setTabIndex(2) }}>
+                    <div class="next_tab">
+                        <button class="next_tabText" onClick={() => { setTabIndex(2) }}>
                             Next
                         </button>
                     </div>
@@ -247,8 +247,8 @@ export default function ToppingTabs(props) {
                         {/* {[listItemsMeats,...listItemsVeggies]} */}
                         {listItemsTop}
                     </div>
-                    <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => { setTabIndex(3) }}>
+                    <div class="next_tab">
+                        <button class="next_tabText" onClick={() => { setTabIndex(3) }}>
                             Next
                         </button>
                     </div>
@@ -260,8 +260,8 @@ export default function ToppingTabs(props) {
                     <div class="card__container">
                         {listItemsDrizzle}
                     </div>
-                    <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => { setTabIndex(max_toppings > 0 ? 4 : 3) }}>
+                    <div class="next_tab">
+                        <button class="next_tabText" onClick={() => { setTabIndex(max_toppings > 0 ? 4 : 3) }}>
                             Next
                         </button>
                     </div>
@@ -272,8 +272,8 @@ export default function ToppingTabs(props) {
                     <div class="card__container">
                         {listDrinks}
                     </div>
-                    <div class="finish_order">
-                        <button class="finish_orderText" onClick={() => {
+                    <div class="next_tab">
+                        <button class="next_tabText" onClick={() => {
                             setBlockCheckout(true)
                             if(!blockCheckout)
                             AddPizzaToOrder(()=>{props.onFormSwitch("checkout_view"); setBlockCheckout(false)})

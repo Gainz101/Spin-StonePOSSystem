@@ -14,12 +14,6 @@ const PIZZA_STATE_DRINK = 3;
 /* Note: Normal crust isn't a real item */
 const crustItems = [{ item_display_name: 'Normal Crust', itemtype_id: -1 }, { "itemtype_id": 33, "item_display_name": "Cauliflower Crust", "item_price": 2.99, "is_modifier": true, "is_pizza": false, "min_toppings": 0, "max_toppings": 0, "is_topping": false, "is_drizzle": false, "is_drink": false, "is_sauce": false, "is_crust": true }];
 
-// Drinks defined
-const drinks = ['Pepsi', 'Starry', 'Mountain Dew'];
-
-// Seasonal Item Defined
-const seasonalItem = ['Christma Pizza', 'New Item', 'New Item #2'];
-
 /**
  * @param props
  * @returns the Cashier view
@@ -27,29 +21,16 @@ const seasonalItem = ['Christma Pizza', 'New Item', 'New Item #2'];
 export default function CashierView(props) {
   ///Drink Button with Drop Down
   const [showDrinkMenu, setShowDrinkMenu] = useState(false);
-  const [selectedDrink, setSelectedDrink] = useState('');
 
   const handleDrinkClick = () => {
     setShowDrinkMenu(!showDrinkMenu);
   };
 
-  const handleDrinkSelect = (drink) => {
-    setSelectedDrink(drink);
-    setShowDrinkMenu(false);
-  };
 
   ///Seasonal Item with Drop Down
   const [showMenu, setShowMenu] = useState(false);
-  const [selectedSeasonal, setSelectedSeasonal] = useState('');
 
-  const handleSeasonalClick = () => {
-    setShowMenu(!showMenu);
-  };
 
-  const handleSeasonalSelect = (seasonalItem) => {
-    setSelectedSeasonal(seasonalItem);
-    setShowMenu(false);
-  };
 
    
   // Items Modifiers
@@ -73,8 +54,26 @@ export default function CashierView(props) {
   const [currentOrder, setCurrentOrder] = useState(null);
 
 
-
   const drinkItems = itemtypes.filter((item) => item.is_drink)
+  const handleDrinkSelect = (itemtype_id) => {
+    fetch(`${BACKEND_IP}/order/addItem?order_id=${currentOrder.order_id}&itemtype_ids=${itemtype_id}`).then((res => res.json())).then((new_order_state1) => {
+      setCurrentOrder(new_order_state1.entire_order)
+    })
+    setShowDrinkMenu(false);
+  };
+
+
+  const seasonalItems = itemtypes.filter((item) => item.is_seasonal_item && !item.is_hidden)
+  const handleSeasonalClick = () => {
+    setShowMenu(!showMenu);
+  };
+  const handleSeasonalSelect = (itemtype_id) => {
+    fetch(`${BACKEND_IP}/order/addItem?order_id=${currentOrder.order_id}&itemtype_ids=${itemtype_id}`).then((res => res.json())).then((new_order_state1) => {
+      setCurrentOrder(new_order_state1.entire_order)
+    })
+    setShowMenu(false);
+  };
+
 
   /* Use effect makes it so that this code is only run once when the CashierView is shown */
   useEffect(() => {
@@ -330,28 +329,28 @@ export default function CashierView(props) {
             <div class="gridMover">
               <div class="grid-container">
                 {listItems}
-                <div>
+                
                 {/*DRINKS */}
                 <button onClick={handleDrinkClick} class = "button-nameBase">Drink</button>
                 {showDrinkMenu && (
                   <ul className="menu">
-                    {drinks.map((drink) => (
-                      <li key={drink} onClick={() => handleDrinkSelect(drink)}>
-                        {drink}
+                    {drinkItems.map((drinkItemType) => (
+                      <li key={drinkItemType.itemtype_id} onClick={() => handleDrinkSelect(drinkItemType.itemtype_id)}>
+                        {drinkItemType.item_display_name}
                       </li>
                     ))}
                   </ul>
                 )}
-                </div>
+                
  
                 {/* Seasonal Item */}
                 <div>
                 <button onClick={handleSeasonalClick } class = "button-nameBase">Seasonal Item</button>
                 {showMenu && (
                   <ul className="menu">
-                    {seasonalItem.map((seasonal) => (
-                      <li key={seasonal} onClick={() => handleSeasonalSelect(seasonal)}>
-                        {seasonal}
+                      {seasonalItems.map((seasonalItemType) => (
+                      <li key={seasonalItemType.itemtype_id} onClick={() => handleDrinkSelect(seasonalItemType.itemtype_id)}>
+                        {seasonalItemType.item_display_name}
                       </li>
                     ))}
                   </ul>

@@ -41,13 +41,19 @@ function OrderHistory(props) {
   function convertOrderToText(order) {
     const { items } = order;
     console.log(order); 
-    return <p>{JSON.stringify(order)}</p>
+    const jsonedit = JSON.stringify(order);
+    //const jsonreturn = JSON.parse(order);
+    const noitem= "No Items"
+    
+    
+    return <p>Order #{order.order_id}: {JSON.stringify(order.creation_time).substring(13,20)} CST {JSON.stringify(order.creation_time).substring(1,11)}: {order.items.map(item=>item.item_display_name).join(' + ') == "" ? noitem : 
+    order.items.map(item=>item.item_display_name).join(' + ')}  </p> 
   }
   /**
    * Implemented Text for the last 10 Orders
    */
   const textBox = <p> {
-      orderState == null ? <h1> loading </h1> : orderState.map(convertOrderToText)   }
+      orderState == null ? <h1> Loading... </h1> : orderState.map(convertOrderToText)   }
     </p>
 
   return (
@@ -60,7 +66,7 @@ function OrderHistory(props) {
       
       
       <div class = "orderPaperFormat">
-        <Paper elevation={1} style={{width: 400, height: 400, overflow: "auto" }} >
+        <Paper elevation={1} style={{width: 1200, height: 800, overflow: "auto" }} >
           <p> {textBox} </p>
         </Paper>
       </div>
