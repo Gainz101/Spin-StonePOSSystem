@@ -19,13 +19,13 @@ function SalesReport(props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [startDateOk, setStartDateOk] = useState("4/22/2023");
-  const [endDateOk, setEndDateOk] = useState("5/2/2023");
+  const [startDateOk, setStartDateOk] = useState("YESTERDAY");
+  const [endDateOk, setEndDateOk] = useState("TODAY");
 
   function handleOkButton() {
     // Do something when the "OK" button is pressed
-    setStartDateOk(startDate);
-    setEndDateOk(endDate);
+
+    loadSale()
   }
 
   
@@ -81,17 +81,17 @@ function SalesReport(props) {
           variant="filled"
           size="small"
           placeholder='MM/DD/YYYY'
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          value={startDateOk}
+          onChange={(e) => setStartDateOk(e.target.value)}
         />
         <TextField
           style={{backgroundColor:"white"}}
           label="End Date"
           variant="filled"
           size="small"
-          value={endDate}
+          value={endDateOk}
           placeholder='MM/DD/YYYY'
-          onChange={(e) => setEndDate(e.target.value)}
+          onChange={(e) => setEndDateOk(e.target.value)}
         />
       </div>
 

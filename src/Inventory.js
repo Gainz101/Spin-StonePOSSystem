@@ -81,10 +81,20 @@ function Inventory(props) {
     setOpen(false);
   };
 
+  /**
+   * 
+   * @param {*} event 
+   * @return changes the item name to the desired item name
+   */
   function onItemNameChange(event) {
     setItemName(event.target.value)
   }
 
+  /**
+   * 
+   * @param {*} event 
+   * @returns sets the item price to the desired item price
+   */
   function onItemPriceChange(event) {
     setItemPrice(event.target.value)
   }

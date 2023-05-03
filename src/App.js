@@ -14,7 +14,10 @@ import Inventory from './Inventory';
 import OrderHistory from './OrderHistory';
 import MapTab from './MapTab';
 
-
+/**
+ * 
+ * @returns the correct view the GUI needs to go too
+ */
 export default function MyApp() {
   const [currentForm, setCurrentForm]=useState("login")
   
