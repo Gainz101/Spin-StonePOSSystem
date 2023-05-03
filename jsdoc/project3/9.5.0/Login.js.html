@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+import {useState} from 'react'
+import './Login.css'; // Tell webpack that Login.js uses these styles
+import SvgComponent from './assets/SvgComponent';
+
+import { GoogleLogin } from '@react-oauth/google';
+
+// import './assets/google-logo.svg';
+// import './assets/hide-eye.svg';
+// import './assets/show-eye.svg';
+import './assets/btn_google_light_normal_ios.svg';
+import myImage from './assets/image.png';
+import maps from "./assets/google-maps.png"
+import oauth from './oauth';
+{/* &lt;script src="https://apis.google.com/js/platform.js" async defer>&lt;/script> */}
+ 
+
+
+// import './assets/btn_google_light_normal_ios.eps';
+// import './assets/btn_google_light_normal_ios.jpeg';
+
+
+/* Returns the URL parameters for this page
+
+e.g.
+
+*/
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">&lt;/meta>
+
+/**
+ * @returns urlParams
+ */
+function getURLParams() {
+    // source: https://www.sitepoint.com/get-url-parameters-with-javascript/
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    return urlParams
+}
+
+/**
+ * @param props
+ * @returns the Login view
+ */
+export default function Login(props){
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [loginState, setState] = useState(true);
+
+
+    // Hack: skip login screen
+    // For example, http://localhost:3000/?form=customer_view
+    const urlParams = getURLParams()
+    if(urlParams.get("form") !== null) {
+        props.onFormSwitch(urlParams.get("form"))
+    }
+    
+
+
+    /**
+     * @param e for event
+     * @returns nothing
+     */
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        console.log(username);
+    }
+
+   
+   
+    /**
+     * 
+     * @returns the text when you login fails below the sign up button
+     */
+    function LoginFail(){
+        return(
+            &lt;p class="loginFailedText">
+                This username and password combo is invalid. Please try again.
+            &lt;/p>
+        );
+    }
+      
+    //   function navigateTo(url) {
+    //     window.location.href = url;
+        
+    //   }
+
+
+
+    return(
+        &lt;div id="background">
+            &lt;div class="box">
+
+                {/* **** Login bypass *****/}
+                &lt;img src={myImage} alt="Spin and Stone Logo" />                
+
+
+                {/***** End login bypass **** */}
+
+                &lt;form onSubmit={handleSubmit}>
+                    &lt;h1>Log In&lt;/h1>
+                    &lt;div class="smallGreyText">Welcome to Spin and Stone. Please Sign in.&lt;/div>
+
+                    &lt;div class="input-field">
+                        &lt;input type="text" id="username" placeholder=" " onChange={e => setUsername(e.target.value)}>&lt;/input>
+                        &lt;label htmlFor="username">Username&lt;/label>
+                    &lt;/div>
+                    &lt;div class="input-field">
+                        &lt;input type = "text" id= "password" placeholder=" " onChange={e => setPassword(e.target.value)}>&lt;/input>
+                        &lt;label htmlFor="password">Password&lt;/label>
+                    &lt;/div>
+
+
+                    {(username === "yeezy"  &amp; password === "yeezy77") ? (
+                        &lt;button onClick={() => props.onFormSwitch("customer_view")} type="submit" class="signin">Sign in&lt;/button>
+                    ) :(username === "cash"  &amp; password === "cash123") ? (
+                        &lt;button onClick={() => props.onFormSwitch("cashier_view")} type="submit" class="signin">Sign in&lt;/button>
+                    ) : (username === "man" &amp; password === "man000") ? (
+                        &lt;button onClick={() => props.onFormSwitch("manager_view")} type="submit" class="signin">Sign in&lt;/button>
+                    ) :
+                    (
+                        &lt;div>
+                            &lt;button onClick={e => setState(false)} type="submit" class="signinFalse">Sign in&lt;/button>
+                            {(loginState===true) ? null : &lt;LoginFail/>}
+                        &lt;/div>
+                    )}                
+                    {/* &lt;div class="smallGreyText">If you forgot your password press "Forgot Password"&lt;/div> */}
+
+                            
+
+                    &lt;span>or&lt;/span>
+                    {/* &lt;button class="google-signin">
+                        &lt;div>&lt;SvgComponent />&lt;/div>
+                        
+                        &lt;div class="centerr">Log in with Google&lt;/div>
+                    &lt;/button>            */}
+                    &lt;div class="googleContainer">
+                        {oauth()}                   
+                    &lt;/div>
+                    &lt;p class="smallGreyText">
+                        Don't have an account?
+                        &lt;a onClick={() => props.onFormSwitch("signup")} title="Sign Up Website"> Sign up here&lt;/a>
+                        &lt;br>&lt;/br>Consumer Info: (yeezy, yeezy77),(cash, cash123),(man, man000)&lt;br>&lt;/br>
+                        {/* user: yeezy, pass: yezzy77; 
+                        user: cash, pass:cash123; 
+                        user: man, pass:man000; */}
+                        Google maps icons created by Freepik - Flaticon
+                    &lt;/p> 
+                    &lt;button class="google-maps" onClick={() => props.onFormSwitch("map_view")}>&lt;img class="mapsPic" src={maps} alt="Google Maps Logo">&lt;/img>Go to Google Maps&lt;/button>                &lt;/form>
+            &lt;/div>
+            {/* &lt;footer class="footer">
+                &lt;a href="https://www.flaticon.com/free-icons/google-maps" title="google maps icons">Google maps icons created by Freepik - Flaticon&lt;/a>
+            &lt;/footer> */}
+        &lt;/div>
+    );
+}
+            </code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Inventory">Inventory</a></li><li><a href="global.html#OrderHistory">OrderHistory</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#XZReport">XZReport</a></li><li><a href="global.html#getURLParams">getURLParams</a></li><li><a href="global.html#oauth">oauth</a></li><li><a href="global.html#stock_column_name_map">stock_column_name_map</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 02 2023 20:57:49 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

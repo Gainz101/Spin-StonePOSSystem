@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CheckOut.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CheckOut.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from 'react';
+import React from "react";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import './App.css'; // Tell webpack that App.js uses these styles
+import { BACKEND_IP } from './BackendConnection';
+
+/**
+ * 
+ * @param currentOrder
+ * @param setCurrentOrder
+ * @param onFormSwitch
+ * @param setNewOrder
+ * @param setItemName
+ * @returns returns a layout for the checkout that alows you to see the items, prices, and modifiers as well as checkout
+ */
+export default function CheckOut({
+    currentOrder,
+    setCurrentOrder,
+    onFormSwitch,
+    setNewOrder,
+    setItemType,
+}) {
+    return (
+        &lt;div class="background">
+            &lt;div class="payBackground">
+                &lt;div class="itemBoxContainer">
+                    {
+                        currentOrder.items.map(({ item_display_name, item_price, modifiers, item_id }) => {
+                            return &lt;div class="itemBox">
+                                &lt;div class="contentName">
+                                    &lt;strong>{item_display_name}&lt;/strong>
+                                    &lt;div class="contentPrice">${item_price}&lt;/div>
+                                &lt;/div>
+                                &lt;div class="itemBoxContentEditRemove">
+                                    {/* &lt;a onClick={() => props.onFormSwitch("customer_view")}>Edit &lt;/a> */}
+                                    &lt;a onClick={() => {
+                                        fetch(`${BACKEND_IP}/order/removeItem?order_id=${currentOrder.order_id}&amp;item_id=${item_id}`)
+                                            .then((res) => res.json())
+                                            .then((responseJSON) => {
+                                                // Refresh the component with the new order items by setting the order state
+                                                setCurrentOrder(responseJSON)
+                                            })
+                                    }}>Remove&lt;/a>
+
+                                    {/* Don't show quantities */}
+                                    {/* &lt;div class="itemBoxContentQTY">&lt;strong>Qty 1&lt;/strong>&lt;/div> */}
+                                &lt;/div>
+                            &lt;/div>
+                        })
+                    }
+                &lt;/div>
+                &lt;div class="subtotalContainer">
+                    &lt;div class="subtotalBox">
+                        &lt;div class="contentName">
+                            &lt;strong>Subtotal&lt;/strong>
+                            &lt;div class="contentPrice">${currentOrder.subtotal.toFixed(2)}&lt;/div>
+                        &lt;/div>
+                        &lt;div class="contentName">
+                            &lt;strong>Taxes&lt;/strong>
+                            &lt;div class="contentPrice">${currentOrder.taxes.toFixed(2)}&lt;/div>
+                        &lt;/div>
+                        &lt;div class="contentName">
+                            &lt;strong>Total&lt;/strong>
+                            &lt;div class="contentPrice">${currentOrder.total.toFixed(2)}&lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="finish_order">
+                    &lt;button class="finish_orderText" onClick={() => {
+                        // Completing order
+                        fetch(BACKEND_IP + "/order/complete?order_id=" + currentOrder.order_id).then(order => {
+                        }, alert).then(() => {
+                            setNewOrder()
+                            setItemType(null)
+                            onFormSwitch("topping_tabs")
+                        })
+                    }}>
+                        Check Out
+                    &lt;/button>
+                &lt;/div>
+
+
+                &lt;div class="order_more"> {/*Todo: change CSS class? */}
+                    &lt;button class="order_moreText" onClick={() => {
+                        /* Todo: actually complete order */
+                        setItemType(null)
+                        onFormSwitch("topping_tabs")
+                    }}>
+                        {/* Rename this? */}
+                        Order More
+                    &lt;/button>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    );
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Inventory">Inventory</a></li><li><a href="global.html#OrderHistory">OrderHistory</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#XZReport">XZReport</a></li><li><a href="global.html#getURLParams">getURLParams</a></li><li><a href="global.html#oauth">oauth</a></li><li><a href="global.html#stock_column_name_map">stock_column_name_map</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 02 2023 20:57:49 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
